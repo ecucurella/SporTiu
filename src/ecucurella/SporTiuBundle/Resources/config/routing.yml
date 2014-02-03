@@ -1,0 +1,12 @@
+ecucurella_SporTiu_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: ecucurellaSporTiuBundle:Default:index }
+    
+ecucurella_SporTiu_clubs:
+    pattern:  /clubs
+    defaults: { _controller: ecucurellaSporTiuBundle:Clubs:index }
+    
+ecucurella_SporTiu_clubs_id:
+    pattern:  /clubs/club/{id}
+    defaults: { _controller: ecucurellaSporTiuBundle:Clubs:club }
+    

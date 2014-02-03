@@ -1,0 +1,8 @@
+ecucurella_assets:
+    resource: "@ecucurellaAssetsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ecucurella_SporTiu:
+    resource: "@ecucurellaSporTiuBundle/Resources/config/routing.yml"
+    prefix:   /
+

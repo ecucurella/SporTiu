@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+{% block title %}{{ club.name }}{% endblock %}
+{% block body %}
+<div class="container">
+    <h1>{{ club.name }}</h1>
+    <ul>
+        <li>{{ club.abbreviation }}</li>
+        <li>{{ club.creationyear }}</li>
+        <li>{{ club.logo }}</li>
+        <li>{{ club.colors }}</li>
+        <li>{{ club.alternativecolors }}</li>
+        <li>{{ club.email }}</li>
+        <li>{{ club.website }}</li>        
+    </ul>
+</div>
+{% endblock  %}
