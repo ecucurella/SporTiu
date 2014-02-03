@@ -1,6 +1,6 @@
 ecucurella_SporTiu_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ecucurellaSporTiuBundle:Default:index }
+    pattern:  /
+    defaults: { _controller: ecucurellaSporTiuBundle:Clubs:index }
     
 ecucurella_SporTiu_clubs:
     pattern:  /clubs
