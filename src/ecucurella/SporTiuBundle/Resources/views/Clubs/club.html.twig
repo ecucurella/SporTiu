@@ -2,15 +2,32 @@
 {% block title %}{{ club.name }}{% endblock %}
 {% block body %}
 <div class="container">
-    <h1>{{ club.name }}</h1>
-    <ul>
-        <li>{{ club.abbreviation }}</li>
-        <li>{{ club.creationyear }}</li>
-        <li>{{ club.logo }}</li>
-        <li>{{ club.colors }}</li>
-        <li>{{ club.alternativecolors }}</li>
-        <li>{{ club.email }}</li>
-        <li>{{ club.website }}</li>        
-    </ul>
+    <div class="page-header">
+        <h1>{{ club.name }}</h1>
+    </div>
+    <div class="row">
+        {% if club.logo != '' %}
+            <div class="col-md-2">
+               <a href="{{ club.website }}" target="_blank"><img alt="{{ club.abbreviation }}" src="{{ club.logo }}" height="150"></a>
+            </div>
+        {% endif %}
+        <div class="col-md-6">
+            {% if club.creationyear != '' %}
+                <p><strong>Fundat l'any: </strong>{{ club.creationyear }}</p>
+            {% endif %}
+            {% if club.colors != '' %}
+                <p><strong>Primera equipació: </strong>{{ club.colors }}</p>
+            {% endif %}
+            {% if club.alternativecolors != '' %}
+                <p><strong>Segona equipació: </strong>{{ club.alternativecolors }}</p>
+            {% endif %}
+            {% if club.website != '' %}
+                <p><strong>Web: </strong><a href="{{ club.website }}" target="_blank">{{ club.website }}</a></p>
+            {% endif %}
+            {% if club.email != '' %}
+                <p><strong>Contacte: </strong><a href="mailto:{{ club.email }}">{{ club.email }}</p> 
+            {% endif %}
+        </div>
+    </div>       
 </div>
 {% endblock  %}
