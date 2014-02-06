@@ -2,7 +2,9 @@
 {% block title %}Clubs{% endblock %}
 {% block body %}
 <div class="container">
-	<h1>Clubs</h1>
+    <div class="page-header">
+        <h1>Clubs</h1>
+    </div>
     {% for club in clubs %}
         {% if loop.index == 1 %}
             <div class="row">
