@@ -4,7 +4,7 @@ imports:
 framework:
     test: ~
     session:
-        storage_id: session.storage.mock_file
+        storage_id: session.storage.filesystem
     profiler:
         collect: false
 
@@ -14,3 +14,16 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+# Doctrine TEST Configuration
+doctrine:
+    dbal:
+        driver:   "pdo_mysql"
+        host:     "127.0.0.1"
+        port:     "8889"
+        dbname:   "SporTiu_test"
+        user:     "ecucurella"
+        password: "eVmjudqm"
+        charset:  UTF8
+
+liip_functional_test: ~
