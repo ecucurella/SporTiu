@@ -21,7 +21,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $manager->flush();
     }
 
-    public function createClubs(ObjectManager $manager)
+    private function createClubs(ObjectManager $manager)
     {
         $clubs = array(
             array('UE Castellnou','CASTELLNOU','2010',
@@ -50,6 +50,20 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             $club->setWebsite($club_fixture[7]);
             $manager->persist($club);
         }
+    }
+
+    /**
+     * Unload data fixtures with the passed EntityManager
+     *
+     * @param ObjectManager $manager
+     */
+    function unload(ObjectManager $manager)
+    {
+        $clubs = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findAll();
+        foreach ($clubs as $club) {
+          $manager->remove($club);
+        }
+        $manager->flush();
     }
 
 }
