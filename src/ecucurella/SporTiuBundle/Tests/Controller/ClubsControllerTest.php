@@ -5,6 +5,12 @@ namespace ecucurella\SporTiuBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesData;
 
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Common\Persistence\ObjectManager;
+
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
 class ClubsControllerTest extends WebTestCase
 {
 
@@ -23,6 +29,7 @@ class ClubsControllerTest extends WebTestCase
         static::$kernel = static::createKernel();
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
+        $this->generateSchema($this->em);
         $this->fixture = new LoadFixturesData();
         $this->fixture->load($this->em);
     }
@@ -42,6 +49,26 @@ class ClubsControllerTest extends WebTestCase
     {
         parent::tearDown();
         $this->fixture->unload($this->em);
+        $this->dropSchema($this->em);
         $this->em->close();
     }
+
+    protected function generateSchema(ObjectManager $manager)
+    {
+        $metadatas = $manager->getMetadataFactory()->getAllMetadata();
+        if (!empty($metadatas)) {
+            $tool = new SchemaTool($manager);
+            $tool->createSchema($metadatas);
+        }
+    }
+ 
+    protected function dropSchema(ObjectManager $manager)
+    {
+        $metadatas = $manager->getMetadataFactory()->getAllMetadata();
+        if (!empty($metadatas)) {
+            $tool = new SchemaTool($manager);
+            $tool->dropSchema($metadatas);
+        }
+    }
+
 }
