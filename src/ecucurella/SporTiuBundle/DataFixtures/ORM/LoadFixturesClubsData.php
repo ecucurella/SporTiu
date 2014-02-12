@@ -2,20 +2,15 @@
 
 namespace ecucurella\SporTiuBundle\DataFixtures\ORM;
 
-
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use ecucurella\SporTiuBundle\Entity\Club;
 
-class LoadFixturesData extends AbstractFixture implements FixtureInterface
+class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
 {
-    /**
-     * Load data fixtures with the passed EntityManager
-     *
-     * @param ObjectManager $manager
-     */
-    function load(ObjectManager $manager)
+
+    public function load(ObjectManager $manager)
     {
         $this->createClubs($manager);
         $manager->flush();
@@ -52,12 +47,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         }
     }
 
-    /**
-     * Unload data fixtures with the passed EntityManager
-     *
-     * @param ObjectManager $manager
-     */
-    function unload(ObjectManager $manager)
+    public function unload(ObjectManager $manager)
     {
         $clubs = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findAll();
         foreach ($clubs as $club) {

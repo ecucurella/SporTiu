@@ -7,6 +7,6 @@ php:
 
 before_script: 
   - composer install -n
-  - mysql -e 'create database SporTiu'
+  - mysql -e 'create database SporTiu_test'
 
 script: phpunit -c app

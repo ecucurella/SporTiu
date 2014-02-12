@@ -2,41 +2,26 @@
 
 namespace ecucurella\SporTiuBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesData;
+use ecucurella\SporTiuBundle\Tests\Controller\SporTiuWebTestCase;
+use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData;
 
-use Doctrine\ORM\Tools\SchemaTool;
-use Doctrine\Common\Persistence\ObjectManager;
-
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
-
-class ClubsControllerTest extends WebTestCase
+class ClubsControllerTest extends SporTiuWebTestCase
 {
 
 	/**
-    * @var \Doctrine\ORM\EntityManager
+    * @var \ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData
     */
-    private $em;
-
-	/**
-    * @var \ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesData
-    */
-    private $fixture;
+    protected $fixture;
 
     public function setUp()
     {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-        $this->generateSchema($this->em);
-        $this->fixture = new LoadFixturesData();
+        parent::setUp();
+        $this->fixture = new LoadFixturesClubsData();
         $this->fixture->load($this->em);
     }
 
     public function testIndex()
     {
-    	//$this->loadFixtures(array('ecucurella\SporTiuBundle\Tests\Fixtures\LoadClubsData'));
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs');
         $this->assertTrue($crawler->filter('html:contains("Clubs")')->count() > 0);
@@ -47,28 +32,8 @@ class ClubsControllerTest extends WebTestCase
 
     protected function tearDown()
     {
-        parent::tearDown();
         $this->fixture->unload($this->em);
-        $this->dropSchema($this->em);
-        $this->em->close();
-    }
-
-    protected function generateSchema(ObjectManager $manager)
-    {
-        $metadatas = $manager->getMetadataFactory()->getAllMetadata();
-        if (!empty($metadatas)) {
-            $tool = new SchemaTool($manager);
-            $tool->createSchema($metadatas);
-        }
-    }
- 
-    protected function dropSchema(ObjectManager $manager)
-    {
-        $metadatas = $manager->getMetadataFactory()->getAllMetadata();
-        if (!empty($metadatas)) {
-            $tool = new SchemaTool($manager);
-            $tool->dropSchema($metadatas);
-        }
+        parent::tearDown();
     }
 
 }

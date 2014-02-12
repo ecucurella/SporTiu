@@ -1,3 +1,0 @@
-ecucurella_assets_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ecucurellaAssetsBundle:Default:index }

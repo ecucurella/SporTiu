@@ -25,5 +25,3 @@ doctrine:
         user:     "ecucurella"
         password: "eVmjudqm"
         charset:  UTF8
-
-liip_functional_test: ~

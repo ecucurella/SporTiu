@@ -9,3 +9,4 @@ bin/doctrine
 bin/doctrine.php
 bin/phpunit
 composer.phar
+composer.lock
