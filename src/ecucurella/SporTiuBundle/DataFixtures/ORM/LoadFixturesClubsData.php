@@ -19,18 +19,19 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
     private function createClubs(ObjectManager $manager)
     {
         $clubs = array(
-            array('UE Castellnou','CASTELLNOU','2010',
-              'http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',
+            array('UE Castellnou1','CASTELLNOU1',null, null,null,null,null,null),
+            array('UE Castellnou2','CASTELLNOU2','2010', null,null,null,null,null),
+            array('UE Castellnou3','CASTELLNOU3','2010','castellnou.png',null,null,null,null),
+            array('UE Castellnou4','CASTELLNOU4','2010','castellnou.png',
+              'Samarreta verda, pantalons negres',null,null,null),
+            array('UE Castellnou5','CASTELLNOU5','2010','castellnou.png',
+              'Samarreta verda, pantalons negres','Samarreta groga, pantalons blaus',null, null),
+            array('UE Castellnou6','CASTELLNOU6','2010','castellnou.png',
+              'Samarreta verda, pantalons negres','Samarreta groga, pantalons blaus',
+              'veteranscastellnou@gmail.com', null),
+            array('UE Castellnou7','CASTELLNOU7','2010','castellnou.png',
               'Samarreta verda, pantalons negres','Samarreta groga, pantalons blaus',
               'veteranscastellnou@gmail.com', 'http://veteranscastellnou.wordpress.com'),
-            array('CVF Monistrol','MONISTROL','1996',
-              'http://veteranscastellnou.files.wordpress.com/2013/09/monistrol.png',
-              'Samarreta i pantalons vermells','','Byoff@msn.com',
-              'http://cvfmonistrol.hol.es/index.php'),
-            array('CF Callús','CALLÚS','1921',
-              'http://veteranscastellnou.files.wordpress.com/2013/09/callus.jpeg',
-              'Samarreta barres vermelles i grogues, pantalons vermells','','clubfutbolcallus@gmail.com',
-              'http://www.cfcallus.com')
         );
 
         foreach ($clubs as $club_fixture) {
