@@ -20,8 +20,8 @@ doctrine:
     dbal:
         driver:   "pdo_mysql"
         host:     "localhost"
-        port:     "~"
+        port:     ""
         dbname:   "SporTiu_test"
         user:     "root"
-        password: "~"
+        password: ""
         charset:  UTF8
