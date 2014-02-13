@@ -19,9 +19,9 @@ swiftmailer:
 doctrine:
     dbal:
         driver:   "pdo_mysql"
-        host:     "127.0.0.1"
-        port:     "8889"
+        host:     "localhost"
+        port:     "~"
         dbname:   "SporTiu_test"
-        user:     "ecucurella"
-        password: "eVmjudqm"
+        user:     "root"
+        password: "~"
         charset:  UTF8
