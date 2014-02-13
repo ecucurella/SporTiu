@@ -8,16 +8,11 @@ use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData;
 class ClubsControllerTest extends SporTiuWebTestCase
 {
 
-	/**
-    * @var \ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData
-    */
-    protected $fixture;
-
     public function setUp()
     {
         parent::setUp();
-        $this->fixture = new LoadFixturesClubsData();
-        $this->fixture->load($this->em);
+        $fixture = new LoadFixturesClubsData();
+        $fixture->load($this->em);
     }
 
     public function testClubs()
@@ -120,7 +115,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
 
     protected function tearDown()
     {
-        $this->fixture->unload($this->em);
+        $fixture = new LoadFixturesClubsData();
+        $fixture->unload($this->em);
         parent::tearDown();
     }
 
