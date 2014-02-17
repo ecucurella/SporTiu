@@ -8,5 +8,6 @@ php:
 before_script: 
   - composer install -n
   - mysql -e 'create database SporTiu_test'
+  - mv parameters.yml.dist parameters.yml
 
 script: phpunit -c app

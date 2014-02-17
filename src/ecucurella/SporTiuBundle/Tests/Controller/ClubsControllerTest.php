@@ -30,6 +30,27 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertEquals(1,$crawler->filter('h3:contains("UE Castellnou7")')->count());
     }
 
+    public function testClubsLink()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/clubs');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Clubs")')->count());
+        $this->assertEquals(7,$crawler->filter('h3')->count());
+        $this->assertEquals(1,$crawler->filter('h3:contains("UE Castellnou7")')->count());
+        $link = $crawler->selectLink('UE Castellnou7')->link();
+        $crawler = $client->click($link);
+        $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou7")')->count());
+        $this->assertEquals(1,$crawler->filter('img')->count());
+        $this->assertEquals('CASTELLNOU7',$crawler->filter('img')->attr('alt'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->attr('src'));
+        $this->assertEquals(5,$crawler->filter('p')->count());
+        $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
+        $this->assertRegExp('/Samarreta verda, pantalons negres/',$crawler->filter('p')->eq(1)->text());
+        $this->assertRegExp('/Samarreta groga, pantalons blaus/',$crawler->filter('p')->eq(2)->text());
+        $this->assertRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$crawler->filter('p')->eq(3)->text());
+        $this->assertRegExp('/veteranscastellnou@gmail.com/',$crawler->filter('p')->eq(4)->text());
+    }
+
     public function testClubAll()
     {
         $client = static::createClient();
@@ -37,7 +58,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou7")')->count());
         $this->assertEquals(1,$crawler->filter('img')->count());
         $this->assertEquals('CASTELLNOU7',$crawler->filter('img')->attr('alt'));
-        $this->assertEquals('castellnou.png',$crawler->filter('img')->attr('src'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->attr('src'));
         $this->assertEquals(5,$crawler->filter('p')->count());
         $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
         $this->assertRegExp('/Samarreta verda, pantalons negres/',$crawler->filter('p')->eq(1)->text());
@@ -53,7 +74,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou6")')->count());
         $this->assertEquals(1,$crawler->filter('img')->count());
         $this->assertEquals('CASTELLNOU6',$crawler->filter('img')->attr('alt'));
-        $this->assertEquals('castellnou.png',$crawler->filter('img')->attr('src'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->attr('src'));
         $this->assertEquals(4,$crawler->filter('p')->count());
         $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
         $this->assertRegExp('/Samarreta verda, pantalons negres/',$crawler->filter('p')->eq(1)->text());
@@ -69,7 +90,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou5")')->count());
         $this->assertEquals(1,$crawler->filter('img')->count());
         $this->assertEquals('CASTELLNOU5',$crawler->filter('img')->attr('alt'));
-        $this->assertEquals('castellnou.png',$crawler->filter('img')->attr('src'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->attr('src'));
         $this->assertEquals(3,$crawler->filter('p')->count());
         $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
         $this->assertRegExp('/Samarreta verda, pantalons negres/',$crawler->filter('p')->eq(1)->text());
@@ -77,16 +98,17 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $text = $crawler->filter('html')->text();
         $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$text);
         $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
+        //var_dump($text);
     }
 
-    /*public function testClubWithoutAlternativeColors()
+    public function testClubWithoutAlternativeColors()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/4');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou4")')->count());
         $this->assertEquals(1,$crawler->filter('img')->count());
         $this->assertEquals('CASTELLNOU4',$crawler->filter('img')->attr('alt'));
-        $this->assertEquals('castellnou.png',$crawler->filter('img')->attr('src'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->attr('src'));
         $this->assertEquals(2,$crawler->filter('p')->count());
         $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
         $this->assertRegExp('/Samarreta verda, pantalons negres/',$crawler->filter('p')->eq(1)->text());
@@ -94,16 +116,17 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$text);
         $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
         $this->assertNotRegExp('/Samarreta groga, pantalons blaus/',$text);
-    }*/
+        //var_dump($text);
+    }
 
-    /*public function testClubWithoutColors()
+    public function testClubWithoutColors()
     {
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/3');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou3")')->count());
         $this->assertEquals(1,$crawler->filter('img')->count());
         $this->assertEquals('CASTELLNOU3',$crawler->filter('img')->attr('alt'));
-        $this->assertEquals('castellnou.png',$crawler->filter('img')->attr('src'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->attr('src'));
         $this->assertEquals(1,$crawler->filter('p')->count());
         $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
         $text = $crawler->filter('html')->text();
@@ -111,6 +134,47 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
         $this->assertNotRegExp('/Samarreta groga, pantalons blaus/',$text);
         $this->assertNotRegExp('/Samarreta verda, pantalons negres/',$text);
+        //var_dump($text);
+    }
+
+    public function testClubWithoutLogo()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/clubs/club/2');
+        $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou2")')->count());
+        $this->assertEquals(0,$crawler->filter('img')->count());
+        $this->assertEquals(1,$crawler->filter('p')->count());
+        $this->assertRegExp('/2010/',$crawler->filter('p')->eq(0)->text());
+        $text = $crawler->filter('html')->text();
+        $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$text);
+        $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
+        $this->assertNotRegExp('/Samarreta groga, pantalons blaus/',$text);
+        $this->assertNotRegExp('/Samarreta verda, pantalons negres/',$text);
+        //var_dump($text);
+    }
+
+    public function testClubWithoutCreationYear()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/clubs/club/1');
+        $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou1")')->count());
+        $this->assertEquals(0,$crawler->filter('img')->count());
+        $this->assertEquals(0,$crawler->filter('p')->count());
+        $text = $crawler->filter('html')->text();
+        $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$text);
+        $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
+        $this->assertNotRegExp('/Samarreta groga, pantalons blaus/',$text);
+        $this->assertNotRegExp('/Samarreta verda, pantalons negres/',$text);
+        $this->assertNotRegExp('/2010/',$text);
+        //var_dump($text);
+    }
+
+    /*public function testClubNothing()
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/clubs/club/8');
+        $this->assertRegExp('This Club not exist !!',$crawler->filter('html')->text());
+        //var_dump($text);
     }*/
 
     protected function tearDown()
