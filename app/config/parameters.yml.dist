@@ -11,7 +11,7 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: es
-    secret: 
+    secret: eVmjudqm
     database_driver_test: pdo_mysql
     database_host_test: 127.0.0.1
     database_port_test: 
