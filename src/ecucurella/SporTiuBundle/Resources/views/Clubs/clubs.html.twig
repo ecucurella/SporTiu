@@ -5,22 +5,28 @@
     <div class="page-header">
         <h1>Clubs</h1>
     </div>
-    {% for club in clubs %}
-        {% if loop.index == 1 %}
-            <div class="row">
-        {% endif %}
-        <div class="col-md-4">
-            <h3>
-                <a href="{{ path("ecucurella_SporTiu_clubs_id", {id: club.id}) }}">{{ club.name }}
-                {% if club.logo != '' %}
-                    <img alt="{{ club.abbreviation }}" src="{{ club.logo }}" height="50">
-                {% endif %}
-                </a>
-            </h3>
+    {% if clubs %}
+        {% for club in clubs %}
+            {% if loop.index == 1 %}
+                <div class="row">
+            {% endif %}
+            <div class="col-md-4">
+                <h3>
+                    <a href="{{ path("ecucurella_SporTiu_clubs_id", {id: club.id}) }}">{{ club.name }}
+                    {% if club.logo != '' %}
+                        <img alt="{{ club.abbreviation }}" src="{{ club.logo }}" height="50">
+                    {% endif %}
+                    </a>
+                </h3>
+            </div>
+            {% if (loop.index % 3) == 0 %}
+                </div> <div class="row">
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            There is no Clubs in database yet !!
         </div>
-        {% if (loop.index % 3) == 0 %}
-            </div> <div class="row">
-        {% endif %}
-    {% endfor %}
+    {% endif %}
 </div>
 {% endblock  %}

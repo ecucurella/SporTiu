@@ -10,3 +10,6 @@ ecucurella_SporTiu_clubs_id:
     pattern:  /clubs/club/{id}
     defaults: { _controller: ecucurellaSporTiuBundle:Clubs:club }
     
+ecucurella_SporTiu_install:
+    pattern:  /install
+    defaults: { _controller: ecucurellaSporTiuBundle:Install:index }

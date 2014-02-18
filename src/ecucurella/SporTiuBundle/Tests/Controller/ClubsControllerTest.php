@@ -8,15 +8,13 @@ use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData;
 class ClubsControllerTest extends SporTiuWebTestCase
 {
 
-    public function setUp()
-    {
-        parent::setUp();
+    protected function loadData() {
         $fixture = new LoadFixturesClubsData();
-        $fixture->load($this->em);
+        $fixture->load($this->em);   
     }
 
-    public function testClubs()
-    {
+    public function testClubs() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs');
         $this->assertEquals(1,$crawler->filter('h1:contains("Clubs")')->count());
@@ -30,8 +28,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertEquals(1,$crawler->filter('h3:contains("UE Castellnou7")')->count());
     }
 
-    public function testClubsLink()
-    {
+    public function testClubsLink() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs');
         $this->assertEquals(1,$crawler->filter('h1:contains("Clubs")')->count());
@@ -51,8 +49,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertRegExp('/veteranscastellnou@gmail.com/',$crawler->filter('p')->eq(4)->text());
     }
 
-    public function testClubAll()
-    {
+    public function testClubAll() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/7');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou7")')->count());
@@ -67,8 +65,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertRegExp('/veteranscastellnou@gmail.com/',$crawler->filter('p')->eq(4)->text());
     }
 
-    public function testClubWithoutWebSite()
-    {
+    public function testClubWithoutWebSite() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/6');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou6")')->count());
@@ -83,8 +81,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$crawler->filter('html')->text());
     }
 
-    public function testClubWithoutEmail()
-    {
+    public function testClubWithoutEmail() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/5');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou5")')->count());
@@ -101,8 +99,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         //var_dump($text);
     }
 
-    public function testClubWithoutAlternativeColors()
-    {
+    public function testClubWithoutAlternativeColors() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/4');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou4")')->count());
@@ -119,8 +117,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         //var_dump($text);
     }
 
-    public function testClubWithoutColors()
-    {
+    public function testClubWithoutColors() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/3');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou3")')->count());
@@ -137,8 +135,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         //var_dump($text);
     }
 
-    public function testClubWithoutLogo()
-    {
+    public function testClubWithoutLogo() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/2');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou2")')->count());
@@ -153,8 +151,8 @@ class ClubsControllerTest extends SporTiuWebTestCase
         //var_dump($text);
     }
 
-    public function testClubWithoutCreationYear()
-    {
+    public function testClubWithoutCreationYear() {
+        self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/1');
         $this->assertEquals(1,$crawler->filter('h1:contains("UE Castellnou1")')->count());
@@ -169,13 +167,29 @@ class ClubsControllerTest extends SporTiuWebTestCase
         //var_dump($text);
     }
 
-    /*public function testClubNothing()
-    {
+    public function testNoClubs() {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/clubs/club/8');
-        $this->assertRegExp('This Club not exist !!',$crawler->filter('html')->text());
-        //var_dump($text);
-    }*/
+        $crawler = $client->request('GET', '/clubs');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Clubs")')->count());
+        $this->assertEquals(0,$crawler->filter('h3')->count());
+        $this->assertRegExp('/There is no Clubs in database yet !!/',$crawler->filter('div.alert')->text());
+    }
+
+    public function testClubNotExist() {
+        self::loadData();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/clubs/club/XXX');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Club")')->count());
+        $this->assertEquals(0,$crawler->filter('img')->count());
+        $this->assertEquals(0,$crawler->filter('p')->count());
+        $text = $crawler->filter('html')->text();
+        $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$text);
+        $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
+        $this->assertNotRegExp('/Samarreta groga, pantalons blaus/',$text);
+        $this->assertNotRegExp('/Samarreta verda, pantalons negres/',$text);
+        $this->assertNotRegExp('/2010/',$text);
+        $this->assertRegExp('/There is no Club with id XXX !!/',$crawler->filter('div.alert')->text());
+    }
 
     protected function tearDown()
     {
