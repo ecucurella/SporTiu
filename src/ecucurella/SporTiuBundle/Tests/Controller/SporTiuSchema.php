@@ -1,6 +1,6 @@
 <?php
 
-namespace ecucurella\SporTiuBundle\DataFixtures\ORM;
+namespace ecucurella\SporTiuBundle\Tests\Controller;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class SporTiuSchema
 {
 
-    public static function generateSchema(ObjectManager $manager)
+    public static function createSchema(ObjectManager $manager)
     {
         $metadatas = $manager->getMetadataFactory()->getAllMetadata();
         if (!empty($metadatas)) {

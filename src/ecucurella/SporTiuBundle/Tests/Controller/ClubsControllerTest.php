@@ -2,11 +2,17 @@
 
 namespace ecucurella\SporTiuBundle\Tests\Controller;
 
-use ecucurella\SporTiuBundle\Tests\Controller\SporTiuWebTestCase;
 use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use ecucurella\SporTiuBundle\Tests\Controller\SporTiuSchema;
+use Doctrine\ORM\EntityManager;
 
-class ClubsControllerTest extends SporTiuWebTestCase
+class ClubsControllerTest extends WebTestCase
 {
+    /**
+    * @var \Doctrine\ORM\EntityManager
+    */
+    protected $em;
 
     protected function loadData() {
         $fixture = new LoadFixturesClubsData();
@@ -14,6 +20,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubs() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs');
@@ -29,6 +36,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubsLink() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs');
@@ -50,6 +58,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubAll() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/7');
@@ -66,6 +75,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubWithoutWebSite() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/6');
@@ -82,6 +92,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubWithoutEmail() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/5');
@@ -100,6 +111,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubWithoutAlternativeColors() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/4');
@@ -118,6 +130,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubWithoutColors() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/3');
@@ -136,6 +149,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubWithoutLogo() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/2');
@@ -152,6 +166,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubWithoutCreationYear() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/1');
@@ -168,6 +183,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testNoClubs() {
+        self::createSchema();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs');
         $this->assertEquals(1,$crawler->filter('h1:contains("Clubs")')->count());
@@ -176,6 +192,7 @@ class ClubsControllerTest extends SporTiuWebTestCase
     }
 
     public function testClubNotExist() {
+        self::createSchema();
         self::loadData();
         $client = static::createClient();
         $crawler = $client->request('GET', '/clubs/club/XXX');
@@ -191,10 +208,55 @@ class ClubsControllerTest extends SporTiuWebTestCase
         $this->assertRegExp('/There is no Club with id XXX !!/',$crawler->filter('div.alert')->text());
     }
 
+    public function testClubsRedirectInstallWithoutSchema() {
+        $client = static::createClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/clubs');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
+        $this->assertEquals(0,$crawler->filter('h3')->count());
+        $this->assertRegExp('/Installation required !!/',$crawler->filter('div.alert')->text());
+    }
+    
+    public function testClubRedirectInstallWithoutSchema() {
+        $client = static::createClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/clubs/club/1');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
+        $this->assertEquals(0,$crawler->filter('img')->count());
+        $this->assertEquals(0,$crawler->filter('p')->count());
+        $text = $crawler->filter('html')->text();
+        $this->assertNotRegExp('/http:\/\/veteranscastellnou.wordpress.com/',$text);
+        $this->assertNotRegExp('/veteranscastellnou@gmail.com/',$text);
+        $this->assertNotRegExp('/Samarreta groga, pantalons blaus/',$text);
+        $this->assertNotRegExp('/Samarreta verda, pantalons negres/',$text);
+        $this->assertNotRegExp('/2010/',$text);
+        $this->assertRegExp('/Installation required !!/',$crawler->filter('div.alert')->text());
+    }
+    
+    protected function createSchema()
+    {
+        parent::setUp();
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
+        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
+        SporTiuSchema::dropSchema($this->em);
+        SporTiuSchema::createSchema($this->em);
+    }
+
+    protected function dropSchema()
+    {
+        SporTiuSchema::dropSchema($this->em);
+        $this->em->close();
+        parent::tearDown();
+    }
+
     protected function tearDown()
     {
-        $fixture = new LoadFixturesClubsData();
-        $fixture->unload($this->em);
+        if (!is_null($this->em)) {
+            $fixture = new LoadFixturesClubsData();
+            $fixture->unload($this->em);
+            self::dropSchema();
+        }
         parent::tearDown();
     }
 
