@@ -235,7 +235,6 @@ class ClubsControllerTest extends WebTestCase
     
     protected function createSchema()
     {
-        parent::setUp();
         static::$kernel = static::createKernel();
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
@@ -247,7 +246,6 @@ class ClubsControllerTest extends WebTestCase
     {
         SporTiuSchema::dropSchema($this->em);
         $this->em->close();
-        parent::tearDown();
     }
 
     protected function tearDown()
