@@ -13,3 +13,8 @@ ecucurella_SporTiu_clubs_id:
 ecucurella_SporTiu_install:
     pattern:  /install
     defaults: { _controller: ecucurellaSporTiuBundle:Install:index }
+
+ecucurella_SporTiu_install_schema:
+    pattern:  /install/schema
+    defaults: { _controller: ecucurellaSporTiuBundle:Install:createSchema }
+    

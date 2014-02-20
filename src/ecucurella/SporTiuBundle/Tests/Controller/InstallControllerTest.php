@@ -12,6 +12,15 @@ class InstallControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/install');
         $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
         $this->assertRegExp('/Installation required !!/',$crawler->filter('div.alert')->text());
+    	$this->assertRegExp('/Install/',$crawler->filter('button.btn')->text());
     }
+
+    /*public function testInstall() {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/install');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
+        $this->assertRegExp('/Installation required !!/',$crawler->filter('div.alert')->text());
+    	$this->assertRegExp('/Install/',$crawler->filter('button.btn')->text());
+    }*/
 
 }

@@ -2,9 +2,9 @@
 
 namespace ecucurella\SporTiuBundle\Tests\Controller;
 
-use ecucurella\SporTiuBundle\DataFixtures\ORM\LoadFixturesClubsData;
+use ecucurella\SporTiuBundle\Tests\DataFixtures\ORM\LoadFixturesClubsData;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use ecucurella\SporTiuBundle\Tests\Controller\SporTiuSchema;
+use ecucurella\SporTiuBundle\DataFixtures\SporTiuSchema;
 use Doctrine\ORM\EntityManager;
 
 class ClubsControllerTest extends WebTestCase

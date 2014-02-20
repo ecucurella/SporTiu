@@ -1,6 +1,6 @@
 <?php
 
-namespace ecucurella\SporTiuBundle\DataFixtures\ORM;
+namespace ecucurella\SporTiuBundle\Tests\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;

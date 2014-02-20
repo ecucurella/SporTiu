@@ -1,6 +1,6 @@
 <?php
 
-namespace ecucurella\SporTiuBundle\Tests\Controller;
+namespace ecucurella\SporTiuBundle\DataFixtures;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Common\Persistence\ObjectManager;
