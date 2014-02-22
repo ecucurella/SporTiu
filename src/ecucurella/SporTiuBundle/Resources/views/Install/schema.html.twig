@@ -5,9 +5,15 @@
     <div class="page-header">
         <h1>Install</h1>
     </div>    
-    <div class="alert alert-success">
-        Installation successfull !!
-    </div>
+    {% if error == false %}
+        <div class="alert alert-success">
+        	Installation successfull !!
+    	</div>
+    {% else %}
+    	<div class="alert alert-danger">
+        	<p>{{ error }}</p>
+    	</div>
+    {% endif %}
     <a href="{{ path("ecucurella_SporTiu_homepage") }}"><button type="button" class="btn btn-lg btn-success">Go to Homepage</button></a>
 </div>
 {% endblock  %}

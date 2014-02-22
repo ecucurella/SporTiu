@@ -23,3 +23,14 @@ monolog:
             level: debug
         console:
             type:  console
+
+# Doctrine PROD Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver_prod%"
+        host:     "%database_host_prod%"
+        port:     "%database_port_prod%"
+        dbname:   "%database_name_prod%"
+        user:     "%database_user_prod%"
+        password: "%database_password_prod%"
+        charset:  UTF8
