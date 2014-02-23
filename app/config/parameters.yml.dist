@@ -17,4 +17,10 @@ parameters:
     database_port_test: 
     database_name_test: SporTiu_test
     database_user_test: root
-    database_password_test: 
+    database_password_test:
+    database_driver_prod: pdo_mysql
+    database_host_prod: 127.0.0.1
+    database_port_prod: 
+    database_name_prod: SporTiu
+    database_user_prod: root
+    database_password_prod: 
