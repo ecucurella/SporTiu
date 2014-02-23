@@ -8,8 +8,8 @@ Readme
 
 SporTiu is anything nowadays but perhaps will be one day a Sport Content Management for amateur clubs, leagues and competitions. It's based on Symfony 2.4, a PHP framework for web projects.
 
-1) Getting started with SporTiu
--------------------------------
+1) Getting started
+------------------
 
 Firts of all, refer to [Symfony's documentation](http://symfony.com/doc/current/index.html)
 
