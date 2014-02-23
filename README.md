@@ -22,7 +22,8 @@ I you have any questions, send an email to Eduard Cucurella - eduard[dot]cucu[do
 ----------
 
 All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
+released under the MIT or BSD license. 
+[See Symfony's license](https://github.com/ecucurella/SporTiu/blob/master/LICENSE)
 
 3) Slogan
 ---------
