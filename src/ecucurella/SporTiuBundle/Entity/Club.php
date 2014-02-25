@@ -77,6 +77,15 @@ class Club
      */
     private $website;
 
+    /**
+     * @OneToMany(targetEntity="Game", mappedBy="localclubId")
+     **/
+    private $localgames;
+
+    /**
+     * @OneToMany(targetEntity="Game", mappedBy="visitorclubId")
+     **/
+    private $visitorgames;
 
     /**
      * Get id
