@@ -24,14 +24,14 @@ class Game
     /**
      * @var integer
      *
-     * @ORM\Column(name="localpoints", type="integer")
+     * @ORM\Column(name="localpoints", type="integer", nullable=TRUE)
      */
     private $localpoints;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="visitorpoints", type="integer")
+     * @ORM\Column(name="visitorpoints", type="integer", nullable=TRUE)
      */
     private $visitorpoints;
 
@@ -43,16 +43,23 @@ class Game
     private $gamedate;
 
     /**
-     * @ManyToOne(targetEntity="Club", inversedBy="localgames")
-     * @JoinColumn(name="localclub_id", referencedColumnName="id")
-     **/
-    private $localclubId;
+     * @var string
+     *
+     * @ORM\Column(name="gamestate", type="string", length=20)
+     */
+    private $gamestate;
 
     /**
-     * @ManyToOne(targetEntity="Club", inversedBy="visitorgames")
-     * @JoinColumn(name="visitorclub_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Club", inversedBy="localgames")
+     * @ORM\JoinColumn(name="localclub_id", referencedColumnName="id")
      **/
-    private $visitorclubId;
+    private $localclub;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Club", inversedBy="visitorgames")
+     * @ORM\JoinColumn(name="visitorclub_id", referencedColumnName="id")
+     **/
+    private $visitorclub;
 
 
     /**
@@ -132,5 +139,76 @@ class Game
     public function getGamedate()
     {
         return $this->gamedate;
+    }
+
+    /**
+     * Set localclub
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Club $localclub
+     * @return Game
+     */
+    public function setLocalclub(\ecucurella\SporTiuBundle\Entity\Club $localclub = null)
+    {
+        $this->localclub = $localclub;
+
+        return $this;
+    }
+
+    /**
+     * Get localclub
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Club 
+     */
+    public function getLocalclub()
+    {
+        return $this->localclub;
+    }
+
+    /**
+     * Set visitorclub
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Club $visitorclub
+     * @return Game
+     */
+    public function setVisitorclub(\ecucurella\SporTiuBundle\Entity\Club $visitorclub = null)
+    {
+        $this->visitorclub = $visitorclub;
+
+        return $this;
+    }
+
+    /**
+     * Get visitorclub
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Club 
+     */
+    public function getVisitorclub()
+    {
+        return $this->visitorclub;
+    }
+
+
+
+    /**
+     * Set gamestate
+     *
+     * @param string $gamestate
+     * @return Game
+     */
+    public function setGamestate($gamestate)
+    {
+        $this->gamestate = $gamestate;
+
+        return $this;
+    }
+
+    /**
+     * Get gamestate
+     *
+     * @return string 
+     */
+    public function getGamestate()
+    {
+        return $this->gamestate;
     }
 }
