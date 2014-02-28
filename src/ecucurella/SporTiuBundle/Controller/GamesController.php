@@ -12,7 +12,10 @@ class GamesController extends Controller
     public function indexAction()
     {
         try {
-            return $this->render('ecucurellaSporTiuBundle:Games:games.html.twig');
+            $nextgames = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findNextGames();
+            $lastgames = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findLastGames();
+            return $this->render('ecucurellaSporTiuBundle:Games:games.html.twig', 
+                array('nextgames' => $nextgames, 'lastgames' => $lastgames));
         } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
         } catch (PDOException $pdo_e) {
@@ -34,8 +37,8 @@ class GamesController extends Controller
     public function nextAction()
     {
         try {
-            $games = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findNextGames();
-            return $this->render('ecucurellaSporTiuBundle:Games:next.html.twig', array('games' => $games));
+            $nextgames = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findNextGames();
+            return $this->render('ecucurellaSporTiuBundle:Games:next.html.twig', array('nextgames' => $nextgames));
         } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
         } catch (PDOException $pdo_e) {
@@ -46,8 +49,8 @@ class GamesController extends Controller
     public function lastAction()
     {
         try {
-            $games = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findLastGames();
-            return $this->render('ecucurellaSporTiuBundle:Games:last.html.twig', array('games' => $games));
+            $lastgames = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findLastGames();
+            return $this->render('ecucurellaSporTiuBundle:Games:last.html.twig', array('lastgames' => $lastgames));
         } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
         } catch (PDOException $pdo_e) {
