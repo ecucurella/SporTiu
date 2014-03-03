@@ -26,7 +26,14 @@ class GamesController extends Controller
     public function gameAction($id)
     {
         try {
-            return $this->render('ecucurellaSporTiuBundle:Games:game.html.twig',array('id' => $id ));
+            $game = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->find($id);
+            if (!$game) {
+                return $this->render('ecucurellaSporTiuBundle:Games:game.html.twig', 
+                    array('game' => $game, 'empty' => true, 'id' => $id ));
+            } else {
+                return $this->render('ecucurellaSporTiuBundle:Games:game.html.twig', 
+                    array('game' => $game, 'empty' => false, 'id' => $id));
+            }
         } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
         } catch (PDOException $pdo_e) {

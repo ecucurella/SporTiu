@@ -1,9 +1,7 @@
 {% extends '::base.html.twig' %}
-{% block title %}Game {{ id }}{% endblock %}
+{% block title %}{{ game.localclub.abbreviation }} - {{ game.visitorclub.abbreviation }}{% endblock %}
 {% block body %}
 <div class="container">
-    <div class="page-header">
-        <h1>Game {{ id }}</h1>
-    </div>
+{{ include('ecucurellaSporTiuBundle:Games:basegame.html.twig') }}    
 </div>
 {% endblock  %}
