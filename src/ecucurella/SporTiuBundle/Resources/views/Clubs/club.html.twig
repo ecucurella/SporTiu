@@ -16,7 +16,7 @@
         <div class="row">
             {% if club.logo != '' %}
                 <div class="col-md-2">
-                   <a href="{{ club.website }}" target="_blank"><img alt="{{ club.abbreviation }}" src="{{ club.logo }}" height="150"></a>
+                   <a href="{{ club.website }}" target="_blank"><img alt="{{ club.abbreviation }}" src="{{ asset(club.logo) }}" height="150"></a>
                 </div>
             {% endif %}
             <div class="col-md-6">

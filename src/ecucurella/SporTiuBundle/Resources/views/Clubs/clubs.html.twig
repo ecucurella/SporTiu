@@ -14,7 +14,7 @@
                 <h3>
                     <a href="{{ path("ecucurella_SporTiu_clubs_id", {id: club.id}) }}">{{ club.name }}
                     {% if club.logo != '' %}
-                        <img alt="{{ club.abbreviation }}" src="{{ club.logo }}" height="50">
+                        <img alt="{{ club.abbreviation }}" src="{{ asset(club.logo) }}" height="50">
                     {% endif %}
                     </a>
                 </h3>

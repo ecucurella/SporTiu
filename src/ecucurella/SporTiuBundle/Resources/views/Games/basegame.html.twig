@@ -12,7 +12,7 @@
 		<div class="row">
       {% if game.localclub.logo != '' %}
   		  <div class="col-md-1 text-center">
-          <img alt="{{ game.localclub.abbreviation }}" src="{{ game.localclub.logo }}" height="75">
+          <img alt="{{ game.localclub.abbreviation }}" src="{{ asset(game.localclub.logo) }}" height="75">
         </div>
       {% endif %}
       <div class="col-md-3">
@@ -38,7 +38,7 @@
       </div>
       {% if game.visitorclub.logo != '' %}
         <div class="col-md-1 text-center">
-          <img alt="{{ game.visitorclub.abbreviation }}" src="{{ game.visitorclub.logo }}" height="75">
+          <img alt="{{ game.visitorclub.abbreviation }}" src="{{ asset(game.visitorclub.logo) }}" height="75">
         </div>
       {% endif %}
     </div>
