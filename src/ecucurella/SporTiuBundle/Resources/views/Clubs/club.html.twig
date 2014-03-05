@@ -2,41 +2,26 @@
 {% block title %}{% if empty %}club{% else %}{{ club.name }}{% endif %}{% endblock %}
 {% block body %}
 <div class="container">
-    {% if empty %}
-        <div class="page-header">
-            <h1>Club</h1>
-        </div>
-        <div class="alert alert-warning">
-            There is no Club with id {{ id }} !!
-        </div>
-    {% else %}
-        <div class="page-header">
-            <h1>{{ club.name }}</h1>
-        </div>
-        <div class="row">
-            {% if club.logo != '' %}
-                <div class="col-md-2">
-                   <a href="{{ club.website }}" target="_blank"><img alt="{{ club.abbreviation }}" src="{{ asset(club.logo) }}" height="150"></a>
-                </div>
-            {% endif %}
-            <div class="col-md-6">
-                {% if club.creationyear != '' %}
-                    <p><strong>Fundat l'any: </strong>{{ club.creationyear }}</p>
-                {% endif %}
-                {% if club.colors != '' %}
-                    <p><strong>Primera equipació: </strong>{{ club.colors }}</p>
-                {% endif %}
-                {% if club.alternativecolors != '' %}
-                    <p><strong>Segona equipació: </strong>{{ club.alternativecolors }}</p>
-                {% endif %}
-                {% if club.website != '' %}
-                    <p><strong>Web: </strong><a href="{{ club.website }}" target="_blank">{{ club.website }}</a></p>
-                {% endif %}
-                {% if club.email != '' %}
-                    <p><strong>Contacte: </strong><a href="mailto:{{ club.email }}">{{ club.email }}</p> 
-                {% endif %}
-            </div>
-        </div> 
-    {% endif %}     
+    {{ include('ecucurellaSporTiuBundle:Clubs:baseclub.html.twig') }}
+    <BR><BR>
+    {% embed 'ecucurellaSporTiuBundle:Games:basenext.html.twig' %}
+    	{% block nextgameheader %}
+    		<div>
+      			<h4>
+      				<span class="label label-default">next games</span> 
+      			</h4>
+    		</div>
+    	{% endblock %}
+	{% endembed %}
+    <BR>
+    {% embed 'ecucurellaSporTiuBundle:Games:baselast.html.twig' %}
+    	{% block lastgameheader %}
+    		<div>
+      			<h4>
+      				<span class="label label-default">last games</span> 
+      			</h4>
+    		</div>
+    	{% endblock %}
+	{% endembed %}     
 </div>
 {% endblock  %}
