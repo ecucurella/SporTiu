@@ -30,8 +30,34 @@ class GamesControllerTest extends WebTestCase
         $this->assertEquals(2,$crawler->filter('div.alert')->count());
         $this->assertRegExp('/There is no scheduled games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
         $this->assertRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(1)->text());
-    }  
-    
+    }
+
+    public function testNoLastGames() {
+        self::createSchema();
+        self::loadData();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/last');
+        $this->assertEquals(0,$crawler->filter('h1:contains("Next games")')->count());
+        $this->assertEquals(1,$crawler->filter('h1:contains("Last games")')->count());
+        $this->assertEquals(0,$crawler->filter('table')->count());
+        $this->assertEquals(1,$crawler->filter('div.alert')->count());
+        $this->assertNoRegExp('/There is no scheduled games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
+        $this->assertRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
+    }
+
+    public function testNoNextGames() {
+        self::createSchema();
+        self::loadData();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/next');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Next games")')->count());
+        $this->assertEquals(0,$crawler->filter('h1:contains("Last games")')->count());
+        $this->assertEquals(0,$crawler->filter('table')->count());
+        $this->assertEquals(1,$crawler->filter('div.alert')->count());
+        $this->assertRegExp('/There is no scheduled games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
+        $this->assertNoRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
+    }
+  
     protected function createSchema()
     {
         static::$kernel = static::createKernel();
