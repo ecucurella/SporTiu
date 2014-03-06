@@ -41,7 +41,7 @@ class GamesControllerTest extends WebTestCase
         $this->assertEquals(1,$crawler->filter('h1:contains("Last games")')->count());
         $this->assertEquals(0,$crawler->filter('table')->count());
         $this->assertEquals(1,$crawler->filter('div.alert')->count());
-        $this->assertNoRegExp('/There is no scheduled games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
+        $this->assertNotRegExp('/There is no scheduled games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
         $this->assertRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
     }
 
@@ -55,7 +55,7 @@ class GamesControllerTest extends WebTestCase
         $this->assertEquals(0,$crawler->filter('table')->count());
         $this->assertEquals(1,$crawler->filter('div.alert')->count());
         $this->assertRegExp('/There is no scheduled games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
-        $this->assertNoRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
+        $this->assertNotRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
     }
   
     protected function createSchema()
