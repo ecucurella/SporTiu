@@ -19,6 +19,12 @@ class GamesControllerTest extends WebTestCase
         $fixture->load($this->em);   
     }
 
+    protected function loadDataWithGames() {
+        $fixture = new LoadFixturesClubsData();
+        $fixture->load($this->em); 
+        $fixture->loadGames($this->em);  
+    }
+
     public function testNoGames() {
         self::createSchema();
         self::loadData();
@@ -58,6 +64,24 @@ class GamesControllerTest extends WebTestCase
         $this->assertNotRegExp('/There is no played games in database yet !!/',$crawler->filter('div.alert')->eq(0)->text());
     }
   
+    public function testNotExistGame() {
+        self::createSchema();
+        self::loadData();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/game/1');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Game")')->count());
+        $this->assertRegExp('/There is no game with id 1 !!/',$crawler->filter('div.alert')->text());
+    }
+
+    public function testGamesNext() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/next');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Next games")')->count());
+        $this->assertEquals(3,$crawler->filter('td')->count());
+    }
+
     protected function createSchema()
     {
         static::$kernel = static::createKernel();
