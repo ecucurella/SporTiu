@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use ecucurella\SporTiuBundle\Entity\Club;
+use ecucurella\SporTiuBundle\Entity\Game;
 
 class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
 {
@@ -90,7 +91,7 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               5,
               0,
-              '09-11-2014 17:14:00',
+              '09-11-2014 17:14:03',
               $castellnou1,
               $castellnou2,
               'PLAYED'
@@ -98,7 +99,7 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               0,
               4,
-              '09-11-2014 17:14:00',
+              '09-11-2014 17:14:02',
               $castellnou3,
               $castellnou4,
               'PLAYED'
@@ -106,7 +107,7 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               3,
               3,
-              '09-11-2014 17:14:00',
+              '09-11-2014 17:14:01',
               $castellnou5,
               $castellnou6,
               'PLAYED'

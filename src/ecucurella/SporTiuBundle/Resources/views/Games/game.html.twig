@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-{% block title %}{{ game.localclub.abbreviation }} - {{ game.visitorclub.abbreviation }}{% endblock %}
+{% block title %}{% if empty %}Game{% else %}{{ game.localclub.abbreviation }} - {{ game.visitorclub.abbreviation }}{% endif %}{% endblock %}
 {% block body %}
 <div class="container">
 {{ include('ecucurellaSporTiuBundle:Games:basegame.html.twig') }}    
