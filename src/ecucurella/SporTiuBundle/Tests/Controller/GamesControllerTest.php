@@ -136,7 +136,43 @@ class GamesControllerTest extends WebTestCase
         $this->assertRegExp('/UE Castellnou5/',$crawler->filter('td')->eq(15)->text());
         $this->assertRegExp('/UE Castellnou6/',$crawler->filter('td')->eq(16)->text());
         $this->assertRegExp('/3 - 3/',$crawler->filter('td')->eq(17)->text());         
+    }
 
+    public function testGameNoLogos() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/game/1');
+        $this->assertEquals(2,$crawler->filter('span.label')->count());
+        $this->assertEquals('09-11-2014',$crawler->filter('span.label')->eq(0)->text());
+        $this->assertEquals('17:14',$crawler->filter('span.label')->eq(1)->text());
+        $this->assertEquals(1,$crawler->filter('div.col-md-1')->count());
+        $this->assertEquals(2,$crawler->filter('div.col-md-3')->count());
+        $this->assertEquals(3,$crawler->filter('h3.text-center')->count());
+        $this->assertEquals('UE Castellnou1',$crawler->filter('h3.text-center')->eq(0)->text());
+        $this->assertEquals('5 - 0',$crawler->filter('h3.text-center')->eq(1)->text());
+        $this->assertEquals('UE Castellnou2',$crawler->filter('h3.text-center')->eq(2)->text());
+    }
+
+    public function testGameWithLogos() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/game/3');
+        $this->assertEquals(2,$crawler->filter('span.label')->count());
+        $this->assertEquals('09-11-2014',$crawler->filter('span.label')->eq(0)->text());
+        $this->assertEquals('17:14',$crawler->filter('span.label')->eq(1)->text());
+        $this->assertEquals(3,$crawler->filter('div.col-md-1')->count());
+        $this->assertEquals(2,$crawler->filter('img')->count());
+        $this->assertEquals('CASTELLNOU5',$crawler->filter('img')->eq(0)->attr('alt'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->eq(0)->attr('src'));
+        $this->assertEquals('CASTELLNOU6',$crawler->filter('img')->eq(1)->attr('alt'));
+        $this->assertEquals('http://veteranscastellnou.files.wordpress.com/2013/09/castellnou.png',$crawler->filter('img')->eq(1)->attr('src'));
+        $this->assertEquals(2,$crawler->filter('div.col-md-3')->count());
+        $this->assertEquals(3,$crawler->filter('h3.text-center')->count());
+        $this->assertEquals('UE Castellnou5',$crawler->filter('h3.text-center')->eq(0)->text());
+        $this->assertEquals('3 - 3',$crawler->filter('h3.text-center')->eq(1)->text());
+        $this->assertEquals('UE Castellnou6',$crawler->filter('h3.text-center')->eq(2)->text());   
     }
 
     protected function createSchema()
