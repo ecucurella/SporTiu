@@ -91,7 +91,7 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               5,
               0,
-              '09-11-2014 17:14:03',
+              '09-11-2014 17:15:00',
               $castellnou1,
               $castellnou2,
               'PLAYED'
@@ -99,7 +99,7 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               0,
               4,
-              '09-11-2014 17:14:02',
+              '09-11-2014 17:14:00',
               $castellnou3,
               $castellnou4,
               'PLAYED'
@@ -107,7 +107,7 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               3,
               3,
-              '09-11-2014 17:14:01',
+              '09-11-2014 17:13:00',
               $castellnou5,
               $castellnou6,
               'PLAYED'
@@ -115,9 +115,25 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
             array(
               0,
               0,
-              '11-09-2014 00:00:00',
+              '11-09-2014 17:14:00',
               $castellnou7,
               $castellnou1,
+              'SUSPENDED'
+              ),
+            array(
+              0,
+              0,
+              '11-09-2014 17:14:00',
+              $castellnou2,
+              $castellnou3,
+              'SCHEDULED'
+              ),
+            array(
+              0,
+              0,
+              '11-09-2014 17:15:00',
+              $castellnou4,
+              $castellnou5,
               'CALENDAR'
               )
         );

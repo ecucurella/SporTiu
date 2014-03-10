@@ -29,10 +29,22 @@ class GamesController extends Controller
             $game = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->find($id);
             if (!$game) {
                 return $this->render('ecucurellaSporTiuBundle:Games:game.html.twig', 
-                    array('game' => $game, 'empty' => true, 'id' => $id ));
+                    array(
+                        'game' => $game, 
+                        'empty' => true, 
+                        'id' => $id 
+                        ));
             } else {
                 return $this->render('ecucurellaSporTiuBundle:Games:game.html.twig', 
-                    array('game' => $game, 'empty' => false, 'id' => $id));
+                    array(
+                        'game' => $game, 
+                        'empty' => false, 
+                        'id' => $id,
+                        'played' => ( $game->getGamestate() == 'PLAYED' ),
+                        'suspended' => ( $game->getGamestate() == 'SUSPENDED' ),
+                        'calendar' => ( $game->getGamestate() == 'CALENDAR' ),
+                        'scheduled' => ( $game->getGamestate() == 'SCHEDULED' )
+                        ));
             }
         } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 

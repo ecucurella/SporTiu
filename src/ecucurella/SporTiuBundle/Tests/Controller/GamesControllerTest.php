@@ -80,10 +80,15 @@ class GamesControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/games/next');
         $this->assertEquals(1,$crawler->filter('h1:contains("Next games")')->count());
-        $this->assertEquals(3,$crawler->filter('td')->count());
-        $this->assertRegExp('/11-09-2014/',$crawler->filter('td')->eq(0)->text());
-        $this->assertRegExp('/UE Castellnou7/',$crawler->filter('td')->eq(1)->text());
-        $this->assertRegExp('/UE Castellnou1/',$crawler->filter('td')->eq(2)->text());
+        $this->assertEquals(10,$crawler->filter('td')->count());
+        $this->assertEquals('11-09-2014',$crawler->filter('td')->eq(1)->text());
+        $this->assertEquals('17:14',$crawler->filter('td')->eq(2)->text());
+        $this->assertEquals('UE Castellnou2',$crawler->filter('td')->eq(3)->text());
+        $this->assertEquals('UE Castellnou3',$crawler->filter('td')->eq(4)->text());
+        $this->assertEquals('11-09-2014',$crawler->filter('td')->eq(6)->text());
+        $this->assertEquals('',$crawler->filter('td')->eq(7)->text());
+        $this->assertEquals('UE Castellnou4',$crawler->filter('td')->eq(8)->text());
+        $this->assertEquals('UE Castellnou5',$crawler->filter('td')->eq(9)->text());
     }
 
     public function testGamesLast() {
@@ -92,22 +97,28 @@ class GamesControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/games/last');
         $this->assertEquals(1,$crawler->filter('h1:contains("Last games")')->count());
-        $this->assertEquals(15,$crawler->filter('td')->count());
-        $this->assertRegExp('/09-11-2014/',$crawler->filter('td')->eq(0)->text());
-        $this->assertRegExp('/17:14/',$crawler->filter('td')->eq(1)->text());
-        $this->assertRegExp('/UE Castellnou1/',$crawler->filter('td')->eq(2)->text());
-        $this->assertRegExp('/UE Castellnou2/',$crawler->filter('td')->eq(3)->text());
-        $this->assertRegExp('/5 - 0/',$crawler->filter('td')->eq(4)->text()); 
-        $this->assertRegExp('/09-11-2014/',$crawler->filter('td')->eq(5)->text());
-        $this->assertRegExp('/17:14/',$crawler->filter('td')->eq(6)->text());
-        $this->assertRegExp('/UE Castellnou3/',$crawler->filter('td')->eq(7)->text());
-        $this->assertRegExp('/UE Castellnou4/',$crawler->filter('td')->eq(8)->text());
-        $this->assertRegExp('/0 - 4/',$crawler->filter('td')->eq(9)->text());
-        $this->assertRegExp('/09-11-2014/',$crawler->filter('td')->eq(10)->text());
-        $this->assertRegExp('/17:14/',$crawler->filter('td')->eq(11)->text());
-        $this->assertRegExp('/UE Castellnou5/',$crawler->filter('td')->eq(12)->text());
-        $this->assertRegExp('/UE Castellnou6/',$crawler->filter('td')->eq(13)->text());
-        $this->assertRegExp('/3 - 3/',$crawler->filter('td')->eq(14)->text());                  
+        $this->assertEquals(24,$crawler->filter('td')->count());
+        $this->assertEquals('09-11-2014',$crawler->filter('td')->eq(1)->text());
+        $this->assertEquals('17:15',$crawler->filter('td')->eq(2)->text());
+        $this->assertEquals('UE Castellnou1',$crawler->filter('td')->eq(3)->text());
+        $this->assertEquals('UE Castellnou2',$crawler->filter('td')->eq(4)->text());
+        $this->assertEquals('5 - 0',$crawler->filter('td')->eq(5)->text()); 
+        $this->assertEquals('09-11-2014',$crawler->filter('td')->eq(7)->text());
+        $this->assertEquals('17:14',$crawler->filter('td')->eq(8)->text());
+        $this->assertEquals('UE Castellnou3',$crawler->filter('td')->eq(9)->text());
+        $this->assertEquals('UE Castellnou4',$crawler->filter('td')->eq(10)->text());
+        $this->assertEquals('0 - 4',$crawler->filter('td')->eq(11)->text());
+        $this->assertEquals('09-11-2014',$crawler->filter('td')->eq(13)->text());
+        $this->assertEquals('17:13',$crawler->filter('td')->eq(14)->text());
+        $this->assertEquals('UE Castellnou5',$crawler->filter('td')->eq(15)->text());
+        $this->assertEquals('UE Castellnou6',$crawler->filter('td')->eq(16)->text());
+        $this->assertEquals('3 - 3',$crawler->filter('td')->eq(17)->text());
+        $this->assertEquals('11-09-2014',$crawler->filter('td')->eq(19)->text());
+        $this->assertEquals('17:14',$crawler->filter('td')->eq(20)->text());
+        $this->assertEquals('UE Castellnou7',$crawler->filter('td')->eq(21)->text());
+        $this->assertEquals('UE Castellnou1',$crawler->filter('td')->eq(22)->text());
+        $this->assertEquals('suspended',$crawler->filter('td')->eq(23)->text());
+
     }
 
     public function testGamesAll() {
@@ -117,35 +128,45 @@ class GamesControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/games');
         $this->assertEquals(1,$crawler->filter('h1:contains("Next games")')->count());
         $this->assertEquals(1,$crawler->filter('h1:contains("Last games")')->count());        
-        $this->assertEquals(18,$crawler->filter('td')->count());
-        $this->assertRegExp('/11-09-2014/',$crawler->filter('td')->eq(0)->text());
-        $this->assertRegExp('/UE Castellnou7/',$crawler->filter('td')->eq(1)->text());
-        $this->assertRegExp('/UE Castellnou1/',$crawler->filter('td')->eq(2)->text());
-        $this->assertRegExp('/09-11-2014/',$crawler->filter('td')->eq(3)->text());
-        $this->assertRegExp('/17:14/',$crawler->filter('td')->eq(4)->text());
-        $this->assertRegExp('/UE Castellnou1/',$crawler->filter('td')->eq(5)->text());
-        $this->assertRegExp('/UE Castellnou2/',$crawler->filter('td')->eq(6)->text());
-        $this->assertRegExp('/5 - 0/',$crawler->filter('td')->eq(7)->text()); 
-        $this->assertRegExp('/09-11-2014/',$crawler->filter('td')->eq(8)->text());
-        $this->assertRegExp('/17:14/',$crawler->filter('td')->eq(9)->text());
-        $this->assertRegExp('/UE Castellnou3/',$crawler->filter('td')->eq(10)->text());
-        $this->assertRegExp('/UE Castellnou4/',$crawler->filter('td')->eq(11)->text());
-        $this->assertRegExp('/0 - 4/',$crawler->filter('td')->eq(12)->text());
-        $this->assertRegExp('/09-11-2014/',$crawler->filter('td')->eq(13)->text());
-        $this->assertRegExp('/17:14/',$crawler->filter('td')->eq(14)->text());
-        $this->assertRegExp('/UE Castellnou5/',$crawler->filter('td')->eq(15)->text());
-        $this->assertRegExp('/UE Castellnou6/',$crawler->filter('td')->eq(16)->text());
-        $this->assertRegExp('/3 - 3/',$crawler->filter('td')->eq(17)->text());         
+        $this->assertEquals(34,$crawler->filter('td')->count());
+        $this->assertEquals('11-09-2014',$crawler->filter('td')->eq(1)->text());
+        $this->assertEquals('17:14',$crawler->filter('td')->eq(2)->text());
+        $this->assertEquals('UE Castellnou2',$crawler->filter('td')->eq(3)->text());
+        $this->assertEquals('UE Castellnou3',$crawler->filter('td')->eq(4)->text());
+        $this->assertEquals('11-09-2014',$crawler->filter('td')->eq(6)->text());
+        $this->assertEquals('',$crawler->filter('td')->eq(7)->text());
+        $this->assertEquals('UE Castellnou4',$crawler->filter('td')->eq(8)->text());
+        $this->assertEquals('UE Castellnou5',$crawler->filter('td')->eq(9)->text());
+        $this->assertEquals('09-11-2014',$crawler->filter('td')->eq(11)->text());
+        $this->assertEquals('17:15',$crawler->filter('td')->eq(12)->text());
+        $this->assertEquals('UE Castellnou1',$crawler->filter('td')->eq(13)->text());
+        $this->assertEquals('UE Castellnou2',$crawler->filter('td')->eq(14)->text());
+        $this->assertEquals('5 - 0',$crawler->filter('td')->eq(15)->text()); 
+        $this->assertEquals('09-11-2014',$crawler->filter('td')->eq(17)->text());
+        $this->assertEquals('17:14',$crawler->filter('td')->eq(18)->text());
+        $this->assertEquals('UE Castellnou3',$crawler->filter('td')->eq(19)->text());
+        $this->assertEquals('UE Castellnou4',$crawler->filter('td')->eq(20)->text());
+        $this->assertEquals('0 - 4',$crawler->filter('td')->eq(21)->text());
+        $this->assertEquals('09-11-2014',$crawler->filter('td')->eq(23)->text());
+        $this->assertEquals('17:13',$crawler->filter('td')->eq(24)->text());
+        $this->assertEquals('UE Castellnou5',$crawler->filter('td')->eq(25)->text());
+        $this->assertEquals('UE Castellnou6',$crawler->filter('td')->eq(26)->text());
+        $this->assertEquals('3 - 3',$crawler->filter('td')->eq(27)->text());
+        $this->assertEquals('11-09-2014',$crawler->filter('td')->eq(29)->text());
+        $this->assertEquals('17:14',$crawler->filter('td')->eq(30)->text());
+        $this->assertEquals('UE Castellnou7',$crawler->filter('td')->eq(31)->text());
+        $this->assertEquals('UE Castellnou1',$crawler->filter('td')->eq(32)->text());
+        $this->assertEquals('suspended',$crawler->filter('td')->eq(33)->text());
     }
 
-    public function testGameNoLogos() {
+    public function testGamePlayedNoLogos() {
         self::createSchema();
         self::loadDataWithGames();
         $client = static::createClient();
         $crawler = $client->request('GET', '/games/game/1');
         $this->assertEquals(2,$crawler->filter('span.label')->count());
         $this->assertEquals('09-11-2014',$crawler->filter('span.label')->eq(0)->text());
-        $this->assertEquals('17:14',$crawler->filter('span.label')->eq(1)->text());
+        $this->assertEquals('17:15',$crawler->filter('span.label')->eq(1)->text());
         $this->assertEquals(1,$crawler->filter('div.col-md-1')->count());
         $this->assertEquals(2,$crawler->filter('div.col-md-3')->count());
         $this->assertEquals(3,$crawler->filter('h3.text-center')->count());
@@ -154,14 +175,14 @@ class GamesControllerTest extends WebTestCase
         $this->assertEquals('UE Castellnou2',$crawler->filter('h3.text-center')->eq(2)->text());
     }
 
-    public function testGameWithLogos() {
+    public function testGamePlayedWithLogos() {
         self::createSchema();
         self::loadDataWithGames();
         $client = static::createClient();
         $crawler = $client->request('GET', '/games/game/3');
         $this->assertEquals(2,$crawler->filter('span.label')->count());
         $this->assertEquals('09-11-2014',$crawler->filter('span.label')->eq(0)->text());
-        $this->assertEquals('17:14',$crawler->filter('span.label')->eq(1)->text());
+        $this->assertEquals('17:13',$crawler->filter('span.label')->eq(1)->text());
         $this->assertEquals(3,$crawler->filter('div.col-md-1')->count());
         $this->assertEquals(2,$crawler->filter('img')->count());
         $this->assertEquals('CASTELLNOU5',$crawler->filter('img')->eq(0)->attr('alt'));
@@ -174,6 +195,8 @@ class GamesControllerTest extends WebTestCase
         $this->assertEquals('3 - 3',$crawler->filter('h3.text-center')->eq(1)->text());
         $this->assertEquals('UE Castellnou6',$crawler->filter('h3.text-center')->eq(2)->text());   
     }
+
+    //TODO: Test Games Suspended, Scheduled i Calendar 
 
     protected function createSchema()
     {
