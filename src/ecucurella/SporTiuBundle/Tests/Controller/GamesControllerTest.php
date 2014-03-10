@@ -164,7 +164,7 @@ class GamesControllerTest extends WebTestCase
         self::loadDataWithGames();
         $client = static::createClient();
         $crawler = $client->request('GET', '/games/game/1');
-        $this->assertEquals(2,$crawler->filter('span.label')->count());
+        $this->assertEquals(2,$crawler->filter('span.label.label-success')->count());
         $this->assertEquals('09-11-2014',$crawler->filter('span.label')->eq(0)->text());
         $this->assertEquals('17:15',$crawler->filter('span.label')->eq(1)->text());
         $this->assertEquals(1,$crawler->filter('div.col-md-1')->count());
@@ -180,7 +180,7 @@ class GamesControllerTest extends WebTestCase
         self::loadDataWithGames();
         $client = static::createClient();
         $crawler = $client->request('GET', '/games/game/3');
-        $this->assertEquals(2,$crawler->filter('span.label')->count());
+        $this->assertEquals(2,$crawler->filter('span.label.label-success')->count());
         $this->assertEquals('09-11-2014',$crawler->filter('span.label')->eq(0)->text());
         $this->assertEquals('17:13',$crawler->filter('span.label')->eq(1)->text());
         $this->assertEquals(3,$crawler->filter('div.col-md-1')->count());
@@ -196,8 +196,47 @@ class GamesControllerTest extends WebTestCase
         $this->assertEquals('UE Castellnou6',$crawler->filter('h3.text-center')->eq(2)->text());   
     }
 
-    //TODO: Test Games Suspended, Scheduled i Calendar 
+    //TODO: Test Games, Scheduled i Calendar 
 
+    public function testGameSuspended() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/game/4');
+        $this->assertEquals(3,$crawler->filter('span.label')->count());
+        $this->assertEquals('suspended',$crawler->filter('span.label.label-danger')->eq(2)->text());
+        $this->assertEquals(3,$crawler->filter('h3.text-center')->count());
+        $this->assertEquals('UE Castellnou7',$crawler->filter('h3.text-center')->eq(0)->text());
+        $this->assertEquals('vs',$crawler->filter('h3.text-center')->eq(1)->text());
+        $this->assertEquals('UE Castellnou1',$crawler->filter('h3.text-center')->eq(2)->text());   
+    }
+
+    public function testGameScheduled() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/game/5');
+        $this->assertEquals(2,$crawler->filter('span.label.label-warning')->count());
+        $this->assertEquals('11-09-2014',$crawler->filter('span.label')->eq(0)->text());
+        $this->assertEquals('17:14',$crawler->filter('span.label')->eq(1)->text());
+        $this->assertEquals(3,$crawler->filter('h3.text-center')->count());
+        $this->assertEquals('UE Castellnou2',$crawler->filter('h3.text-center')->eq(0)->text());
+        $this->assertEquals('vs',$crawler->filter('h3.text-center')->eq(1)->text());
+        $this->assertEquals('UE Castellnou3',$crawler->filter('h3.text-center')->eq(2)->text());   
+    }
+
+    public function testGameCalendar() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/games/game/6');
+        $this->assertEquals(1,$crawler->filter('span.label.label-primary')->count());
+        $this->assertEquals('11-09-2014',$crawler->filter('span.label')->eq(0)->text());
+        $this->assertEquals(3,$crawler->filter('h3.text-center')->count());
+        $this->assertEquals('UE Castellnou4',$crawler->filter('h3.text-center')->eq(0)->text());
+        $this->assertEquals('vs',$crawler->filter('h3.text-center')->eq(1)->text());
+        $this->assertEquals('UE Castellnou5',$crawler->filter('h3.text-center')->eq(2)->text());   
+    }
     protected function createSchema()
     {
         static::$kernel = static::createKernel();
