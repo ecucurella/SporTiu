@@ -77,6 +77,15 @@ class Club
      */
     private $website;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Game", mappedBy="localclub")
+     **/
+    private $localgames;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Game", mappedBy="visitorclub")
+     **/
+    private $visitorgames;
 
     /**
      * Get id
@@ -270,5 +279,79 @@ class Club
     public function getWebsite()
     {
         return $this->website;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->localgames = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->visitorgames = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add localgames
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Game $localgames
+     * @return Club
+     */
+    public function addLocalgame(\ecucurella\SporTiuBundle\Entity\Game $localgames)
+    {
+        $this->localgames[] = $localgames;
+
+        return $this;
+    }
+
+    /**
+     * Remove localgames
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Game $localgames
+     */
+    public function removeLocalgame(\ecucurella\SporTiuBundle\Entity\Game $localgames)
+    {
+        $this->localgames->removeElement($localgames);
+    }
+
+    /**
+     * Get localgames
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLocalgames()
+    {
+        return $this->localgames;
+    }
+
+    /**
+     * Add visitorgames
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Game $visitorgames
+     * @return Club
+     */
+    public function addVisitorgame(\ecucurella\SporTiuBundle\Entity\Game $visitorgames)
+    {
+        $this->visitorgames[] = $visitorgames;
+
+        return $this;
+    }
+
+    /**
+     * Remove visitorgames
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Game $visitorgames
+     */
+    public function removeVisitorgame(\ecucurella\SporTiuBundle\Entity\Game $visitorgames)
+    {
+        $this->visitorgames->removeElement($visitorgames);
+    }
+
+    /**
+     * Get visitorgames
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getVisitorgames()
+    {
+        return $this->visitorgames;
     }
 }

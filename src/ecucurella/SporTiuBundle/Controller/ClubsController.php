@@ -31,10 +31,14 @@ class ClubsController extends Controller
             $club = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Club')->find($id);
             if (!$club) {
                 return $this->render('ecucurellaSporTiuBundle:Clubs:club.html.twig', 
-                    array('club' => $club, 'empty' => true, 'id' => $id ));
+                    array('club' => $club, 'empty' => true, 'id' => $id, 
+                        'nextgames' => false, 'lastgames' => false ));
             } else {
+                $nextgames = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findNextGamesbyClub($club);
+                $lastgames = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Game')->findLastGamesbyClub($club);
                 return $this->render('ecucurellaSporTiuBundle:Clubs:club.html.twig', 
-                    array('club' => $club, 'empty' => false, 'id' => $id));
+                    array('club' => $club, 'empty' => false, 'id' => $id,
+                        'nextgames' => $nextgames, 'lastgames' => $lastgames));
             }
         } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
