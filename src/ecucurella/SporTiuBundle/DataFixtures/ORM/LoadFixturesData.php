@@ -274,7 +274,77 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
               $pala,
               $santpedor,
               'CALENDAR'
-              )
+              ),
+            //Round 1
+            array(5,1,'14-09-2013 18:00:00',$navas,$pala,'PLAYED'),
+            array(4,2,'15-09-2013 11:00:00',$monistrol,$santpedor,'PLAYED'),
+            array(2,1,'14-09-2013 16:30:00',$navarcles,$marroc,'PLAYED'),
+            array(1,2,'14-09-2013 18:15:00',$joanenc,$castellbell,'PLAYED'),
+            array(0,3,'15-09-2013 11:00:00',$callus,$artes,'PLAYED'),
+            array(0,2,'14-09-2013 18:00:00',$castellnou,$vilomara,'PLAYED'),
+            //Round2
+            array(3,1,'21-09-2013 18:00:00',$vilomara,$navas,'PLAYED'),
+            array(2,0,'22-09-2013 11:00:00',$artes,$castellnou,'PLAYED'),
+            array(3,1,'21-09-2013 18:30:00',$castellbell,$callus,'PLAYED'),
+            array(0,0,'21-09-2013 16:30:00',$marroc,$joanenc,'PLAYED'),
+            array(1,0,'21-09-2013 18:30:00',$santpedor,$navarcles,'PLAYED'),
+            array(1,0,'21-09-2013 17:00:00',$pala,$monistrol,'PLAYED'),
+            //Round3
+            array(2,2,'28-09-2013 16:00:00',$navas,$monistrol,'PLAYED'),
+            array(8,0,'28-09-2013 18:30:00',$navarcles,$pala,'PLAYED'),
+            array(3,4,'28-09-2013 20:00:00',$joanenc,$santpedor,'PLAYED'),
+            array(1,0,'29-09-2013 11:00:00',$callus,$marroc,'PLAYED'),
+            array(1,4,'28-09-2013 18:30:00',$castellnou,$castellbell,'PLAYED'),
+            array(3,1,'28-09-2013 16:15:00',$vilomara,$artes,'PLAYED'),
+            //Round4
+            array(0,5,'06-10-2013 11:00:00',$artes,$navas,'PLAYED'),
+            array(3,4,'05-10-2013 16:00:00',$castellbell,$vilomara,'PLAYED'),
+            array(0,3,'05-10-2013 16:00:00',$marroc,$castellnou,'PLAYED'),
+            array(6,3,'05-10-2013 20:00:00',$santpedor,$callus,'PLAYED'),
+            array(2,1,'06-10-2013 11:00:00',$pala,$joanenc,'PLAYED'),
+            array(2,1,'06-10-2013 11:00:00',$monistrol,$navarcles,'PLAYED'),
+            //Round5
+            /*array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            //Round6
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            //Round7
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            //Round8
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            //Round9
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            //Round10
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),
+            array(,,'',$,$,'PLAYED'),*/
         );
 
         foreach ($games as $game_fixture) {
@@ -288,5 +358,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             $manager->persist($game);
         }
     }
+
+
 
 }
