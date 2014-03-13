@@ -61,6 +61,12 @@ class Game
      **/
     private $visitorclub;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Round", inversedBy="games")
+     * @ORM\JoinColumn(name="round_id", referencedColumnName="id")
+     **/
+    private $round;
+
 
     /**
      * Get id
@@ -210,5 +216,28 @@ class Game
     public function getGamestate()
     {
         return $this->gamestate;
+    }
+
+    /**
+     * Set round
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Round $round
+     * @return Game
+     */
+    public function setRound(\ecucurella\SporTiuBundle\Entity\Round $round = null)
+    {
+        $this->round = $round;
+
+        return $this;
+    }
+
+    /**
+     * Get round
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Round 
+     */
+    public function getRound()
+    {
+        return $this->round;
     }
 }
