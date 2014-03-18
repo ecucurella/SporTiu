@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+{% block title %}{% if empty %}League{% else %}{{ league.name }}{% endif %}{% endblock %}
+{% block body %}
+<div class="container">
+    {{ include('ecucurellaSporTiuBundle:Leagues:baseleague.html.twig') }}
+</div>
+{% endblock  %}

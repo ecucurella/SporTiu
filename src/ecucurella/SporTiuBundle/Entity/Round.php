@@ -47,6 +47,13 @@ class Round
     private $games;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="roundplayed", type="boolean")
+     */
+    private $roundplayed;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -163,5 +170,28 @@ class Round
     public function getGames()
     {
         return $this->games;
+    }
+
+    /**
+     * Set roundplayed
+     *
+     * @param boolean $roundplayed
+     * @return Round
+     */
+    public function setRoundplayed($roundplayed)
+    {
+        $this->roundplayed = $roundplayed;
+
+        return $this;
+    }
+
+    /**
+     * Get roundplayed
+     *
+     * @return boolean 
+     */
+    public function getRoundplayed()
+    {
+        return $this->roundplayed;
     }
 }

@@ -105,51 +105,55 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $joanenc = $manager->getRepository('ecucurellaSporTiuBundle:Club')
           ->findOneBy(array('name' => 'F.C. Joanenc'));  
 
+        //League
+        $leagueB = $manager->getRepository('ecucurellaSporTiuBundle:League')
+          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans', 'division' => 'GRUP B'));
+
         //Rounds
         $round1 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada1 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada1', 'league' => $leagueB));
         $round2 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada2 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada2', 'league' => $leagueB));
         $round3 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada3 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada3', 'league' => $leagueB));
         $round4 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada4 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada4', 'league' => $leagueB));
         $round5 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada5 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada5', 'league' => $leagueB));
         $round6 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada6 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada6', 'league' => $leagueB));
         $round7 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada7 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada7', 'league' => $leagueB));
         $round8 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada8 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada8', 'league' => $leagueB));
         $round9 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada9 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada9', 'league' => $leagueB));
         $round10 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada10 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada10', 'league' => $leagueB));
         $round11 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada11 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada11', 'league' => $leagueB));
         $round12 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada12 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada12', 'league' => $leagueB));
         $round13 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada13 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada13', 'league' => $leagueB));
         $round14 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada14 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada14', 'league' => $leagueB));
         $round15 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada15 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada15', 'league' => $leagueB));
         $round16 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada16 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada16', 'league' => $leagueB));
         $round17 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada17 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada17', 'league' => $leagueB));
         $round18 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada18 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada18', 'league' => $leagueB));
         $round19 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada19 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada19', 'league' => $leagueB));
         $round20 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada20 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada20', 'league' => $leagueB));
         $round21 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada21 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada21', 'league' => $leagueB));
         $round22 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
-        ->findOneBy(array('name' => 'Jornada22 - GRUP B'));
+        ->findOneBy(array('name' => 'Jornada22', 'league' => $leagueB));
 
         $games = array(
             //Round1
@@ -324,19 +328,25 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
     public function createLeagues(ObjectManager $manager)
     {
         $league = new League();
-        $league->setName('Lliga intercomarcal de veterans - GRUP A');
+        $league->setName('Lliga intercomarcal de veterans');
+        $league->setDivision('GRUP A');
+        $league->setSeason('Temporada 2013/2014');
         $league->setDateBegin(date_create_from_format('d-m-Y','01-09-2013'));
         $league->setDateEnd(date_create_from_format('d-m-Y','30-06-2014'));
         $manager->persist($league);
 
         $league = new League();
-        $league->setName('Lliga intercomarcal de veterans - GRUP B');
+        $league->setName('Lliga intercomarcal de veterans');
+        $league->setDivision('GRUP B');
+        $league->setSeason('Temporada 2013/2014');
         $league->setDateBegin(date_create_from_format('d-m-Y','01-09-2013'));
         $league->setDateEnd(date_create_from_format('d-m-Y','30-06-2014'));
         $manager->persist($league);
 
         $league = new League();
-        $league->setName('Lliga intercomarcal de veterans - GRUP C');
+        $league->setName('Lliga intercomarcal de veterans');
+        $league->setDivision('GRUP C');
+        $league->setSeason('Temporada 2013/2014');
         $league->setDateBegin(date_create_from_format('d-m-Y','01-09-2013'));
         $league->setDateEnd(date_create_from_format('d-m-Y','30-06-2014'));
         $manager->persist($league);
@@ -346,86 +356,87 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
     {
 
         $leagueA = $manager->getRepository('ecucurellaSporTiuBundle:League')
-          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans - GRUP A'));
+          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans', 'division' => 'GRUP A'));
         $leagueB = $manager->getRepository('ecucurellaSporTiuBundle:League')
-          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans - GRUP B'));
+          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans', 'division' => 'GRUP B'));
         $leagueC = $manager->getRepository('ecucurellaSporTiuBundle:League')
-          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans - GRUP C'));
+          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans', 'division' => 'GRUP C'));
 
         $rounds = array(
-            array('Jornada1 - GRUP A','1',$leagueA),
-            array('Jornada2 - GRUP A','2',$leagueA),
-            array('Jornada3 - GRUP A','3',$leagueA),
-            array('Jornada4 - GRUP A','4',$leagueA),
-            array('Jornada5 - GRUP A','5',$leagueA),
-            array('Jornada6 - GRUP A','6',$leagueA),
-            array('Jornada7 - GRUP A','7',$leagueA),
-            array('Jornada8 - GRUP A','8',$leagueA),
-            array('Jornada9 - GRUP A','9',$leagueA),
-            array('Jornada10 - GRUP A','10',$leagueA),
-            array('Jornada11 - GRUP A','11',$leagueA),
-            array('Jornada12 - GRUP A','12',$leagueA),
-            array('Jornada13 - GRUP A','13',$leagueA),
-            array('Jornada14 - GRUP A','14',$leagueA),
-            array('Jornada15 - GRUP A','15',$leagueA),
-            array('Jornada16 - GRUP A','16',$leagueA),
-            array('Jornada17 - GRUP A','17',$leagueA),
-            array('Jornada18 - GRUP A','18',$leagueA),
-            array('Jornada19 - GRUP A','19',$leagueA),
-            array('Jornada20 - GRUP A','20',$leagueA),
-            array('Jornada21 - GRUP A','21',$leagueA),
-            array('Jornada22 - GRUP A','22',$leagueA),
-            array('Jornada1 - GRUP B','1',$leagueB),
-            array('Jornada2 - GRUP B','2',$leagueB),
-            array('Jornada3 - GRUP B','3',$leagueB),
-            array('Jornada4 - GRUP B','4',$leagueB),
-            array('Jornada5 - GRUP B','5',$leagueB),
-            array('Jornada6 - GRUP B','6',$leagueB),
-            array('Jornada7 - GRUP B','7',$leagueB),
-            array('Jornada8 - GRUP B','8',$leagueB),
-            array('Jornada9 - GRUP B','9',$leagueB),
-            array('Jornada10 - GRUP B','10',$leagueB),
-            array('Jornada11 - GRUP B','11',$leagueB),
-            array('Jornada12 - GRUP B','12',$leagueB),
-            array('Jornada13 - GRUP B','13',$leagueB),
-            array('Jornada14 - GRUP B','14',$leagueB),
-            array('Jornada15 - GRUP B','15',$leagueB),
-            array('Jornada16 - GRUP B','16',$leagueB),
-            array('Jornada17 - GRUP B','17',$leagueB),
-            array('Jornada18 - GRUP B','18',$leagueB),
-            array('Jornada19 - GRUP B','19',$leagueB),
-            array('Jornada20 - GRUP B','20',$leagueB),
-            array('Jornada21 - GRUP B','21',$leagueB),
-            array('Jornada22 - GRUP B','22',$leagueB),
-            array('Jornada1 - GRUP C','1',$leagueC),
-            array('Jornada2 - GRUP C','2',$leagueC),
-            array('Jornada3 - GRUP C','3',$leagueC),
-            array('Jornada4 - GRUP C','4',$leagueC),
-            array('Jornada5 - GRUP C','5',$leagueC),
-            array('Jornada6 - GRUP C','6',$leagueC),
-            array('Jornada7 - GRUP C','7',$leagueC),
-            array('Jornada8 - GRUP C','8',$leagueC),
-            array('Jornada9 - GRUP C','9',$leagueC),
-            array('Jornada10 - GRUP C','10',$leagueC),
-            array('Jornada11 - GRUP C','11',$leagueC),
-            array('Jornada12 - GRUP C','12',$leagueC),
-            array('Jornada13 - GRUP C','13',$leagueC),
-            array('Jornada14 - GRUP C','14',$leagueC),
-            array('Jornada15 - GRUP C','15',$leagueC),
-            array('Jornada16 - GRUP C','16',$leagueC),
-            array('Jornada17 - GRUP C','17',$leagueC),
-            array('Jornada18 - GRUP C','18',$leagueC),
-            array('Jornada19 - GRUP C','19',$leagueC),
-            array('Jornada20 - GRUP C','20',$leagueC),
-            array('Jornada21 - GRUP C','21',$leagueC),
-            array('Jornada22 - GRUP C','22',$leagueC),
+            array('Jornada1','1',$leagueA, false),
+            array('Jornada2','2',$leagueA, false),
+            array('Jornada3','3',$leagueA, false),
+            array('Jornada4','4',$leagueA, false),
+            array('Jornada5','5',$leagueA, false),
+            array('Jornada6','6',$leagueA, false),
+            array('Jornada7','7',$leagueA, false),
+            array('Jornada8','8',$leagueA, false),
+            array('Jornada9','9',$leagueA, false),
+            array('Jornada10','10',$leagueA, false),
+            array('Jornada11','11',$leagueA, false),
+            array('Jornada12','12',$leagueA, false),
+            array('Jornada13','13',$leagueA, false),
+            array('Jornada14','14',$leagueA, false),
+            array('Jornada15','15',$leagueA, false),
+            array('Jornada16','16',$leagueA, false),
+            array('Jornada17','17',$leagueA, false),
+            array('Jornada18','18',$leagueA, false),
+            array('Jornada19','19',$leagueA, false),
+            array('Jornada20','20',$leagueA, false),
+            array('Jornada21','21',$leagueA, false),
+            array('Jornada22','22',$leagueA, false),
+            array('Jornada1','1',$leagueB, true),
+            array('Jornada2','2',$leagueB, true),
+            array('Jornada3','3',$leagueB, true),
+            array('Jornada4','4',$leagueB, true),
+            array('Jornada5','5',$leagueB, true),
+            array('Jornada6','6',$leagueB, true),
+            array('Jornada7','7',$leagueB, true),
+            array('Jornada8','8',$leagueB, true),
+            array('Jornada9','9',$leagueB, true),
+            array('Jornada10','10',$leagueB, true),
+            array('Jornada11','11',$leagueB, true),
+            array('Jornada12','12',$leagueB, true),
+            array('Jornada13','13',$leagueB, true),
+            array('Jornada14','14',$leagueB, true),
+            array('Jornada15','15',$leagueB, true),
+            array('Jornada16','16',$leagueB, true),
+            array('Jornada17','17',$leagueB, true),
+            array('Jornada18','18',$leagueB, true),
+            array('Jornada19','19',$leagueB, true),
+            array('Jornada20','20',$leagueB, true),
+            array('Jornada21','21',$leagueB, true),
+            array('Jornada22','22',$leagueB, false),
+            array('Jornada1','1',$leagueC, false),
+            array('Jornada2','2',$leagueC, false),
+            array('Jornada3','3',$leagueC, false),
+            array('Jornada4','4',$leagueC, false),
+            array('Jornada5','5',$leagueC, false),
+            array('Jornada6','6',$leagueC, false),
+            array('Jornada7','7',$leagueC, false),
+            array('Jornada8','8',$leagueC, false),
+            array('Jornada9','9',$leagueC, false),
+            array('Jornada10','10',$leagueC, false),
+            array('Jornada11','11',$leagueC, false),
+            array('Jornada12','12',$leagueC, false),
+            array('Jornada13','13',$leagueC, false),
+            array('Jornada14','14',$leagueC, false),
+            array('Jornada15','15',$leagueC, false),
+            array('Jornada16','16',$leagueC, false),
+            array('Jornada17','17',$leagueC, false),
+            array('Jornada18','18',$leagueC, false),
+            array('Jornada19','19',$leagueC, false),
+            array('Jornada20','20',$leagueC, false),
+            array('Jornada21','21',$leagueC, false),
+            array('Jornada22','22',$leagueC, false),
         );
 
         foreach ($rounds as $round_fixture) {
             $round = new Round();
             $round->setName($round_fixture[0]);
             $round->setOrdernum($round_fixture[1]);
-            $round = $round->setLeague($round_fixture[2]);  
+            $round = $round->setLeague($round_fixture[2]); 
+            $round->setRoundplayed($round_fixture[3]); 
             $manager->persist($round);
         }
     }

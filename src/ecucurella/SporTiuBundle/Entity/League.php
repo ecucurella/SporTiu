@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class League
+class League 
 {
     /**
      * @var integer
@@ -27,6 +27,20 @@ class League
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="division", type="string", length=255)
+     */
+    private $division;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="season", type="string", length=255)
+     */
+    private $season;
 
     /**
      * @var \DateTime
@@ -81,6 +95,52 @@ class League
         return $this->name;
     }
 
+    /**
+     * Set division
+     *
+     * @param string $division
+     * @return League
+     */
+    public function setDivision($division)
+    {
+        $this->division = $division;
+
+        return $this;
+    }
+
+    /**
+     * Get division
+     *
+     * @return string 
+     */
+    public function getDivision()
+    {
+        return $this->division;
+    }
+
+    /**
+     * Set season
+     *
+     * @param string $season
+     * @return League
+     */
+    public function setSeason($season)
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return string 
+     */
+    public function getSeason()
+    {
+        return $this->season;
+    }
+    
     /**
      * Set dateBegin
      *
