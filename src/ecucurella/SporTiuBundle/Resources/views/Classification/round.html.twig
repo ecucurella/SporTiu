@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+{% block title %}{% if empty %}Round{% else %}{{ round.name }}{% endif %}{% endblock %}
+{% block body %}
+<div class="container">
+    {{ include('ecucurellaSporTiuBundle:Classification:baseround.html.twig') }}
+</div>
+{% endblock  %}

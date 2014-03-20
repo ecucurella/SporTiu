@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Standing
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ecucurella\SporTiuBundle\Entity\StandingRepository")
  */
 class Standing
 {
@@ -84,6 +84,33 @@ class Standing
      */
     private $points;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Classification", inversedBy="standings")
+     * @ORM\JoinColumn(name="classification_id", referencedColumnName="id")
+     **/
+    private $classification;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Club", inversedBy="standings")
+     * @ORM\JoinColumn(name="club_id", referencedColumnName="id")
+     **/
+    private $club;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->position = 0;
+        $this->gamesplayed = 0;
+        $this->gameswin = 0;
+        $this->gamesdefeat = 0;
+        $this->gamesdraw = 0;
+        $this->goalsfavorables = 0;
+        $this->goalsagainst = 0;
+        $this->goalsdifference = 0;
+        $this->points = 0;
+    }
 
     /**
      * Get id
@@ -300,5 +327,51 @@ class Standing
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * Set classification
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Classification $classification
+     * @return Standing
+     */
+    public function setClassification(\ecucurella\SporTiuBundle\Entity\Classification $classification = null)
+    {
+        $this->classification = $classification;
+
+        return $this;
+    }
+
+    /**
+     * Get classification
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Classification 
+     */
+    public function getClassification()
+    {
+        return $this->classification;
+    }
+
+    /**
+     * Set club
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Club $club
+     * @return Standing
+     */
+    public function setClub(\ecucurella\SporTiuBundle\Entity\Club $club = null)
+    {
+        $this->club = $club;
+
+        return $this;
+    }
+
+    /**
+     * Get club
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Club 
+     */
+    public function getClub()
+    {
+        return $this->club;
     }
 }

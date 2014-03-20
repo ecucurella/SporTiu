@@ -54,3 +54,11 @@ ecucurella_SporTiu_leagues_id:
     pattern:  /leagues/league/{id}
     defaults: { _controller: ecucurellaSporTiuBundle:Leagues:league }
     
+ecucurella_SporTiu_classification_round:
+    pattern:  /classification/{round_id}
+    defaults: { _controller: ecucurellaSporTiuBundle:Classification:round }
+    
+ecucurella_SporTiu_classification:
+    pattern:  /classification
+    defaults: { _controller: ecucurellaSporTiuBundle:Classification:index }
+    

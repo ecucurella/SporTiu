@@ -54,6 +54,11 @@ class Round
     private $roundplayed;
 
     /**
+     * @ORM\OneToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Classification", mappedBy="round")
+     */
+    private $classification;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -193,5 +198,28 @@ class Round
     public function getRoundplayed()
     {
         return $this->roundplayed;
+    }
+
+    /**
+     * Set classification
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Classification $classification
+     * @return Round
+     */
+    public function setClassification(\ecucurella\SporTiuBundle\Entity\Classification $classification = null)
+    {
+        $this->classification = $classification;
+
+        return $this;
+    }
+
+    /**
+     * Get classification
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Classification 
+     */
+    public function getClassification()
+    {
+        return $this->classification;
     }
 }
