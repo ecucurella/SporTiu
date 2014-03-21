@@ -67,6 +67,20 @@ class Game
      **/
     private $round;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="standingcount", type="boolean")
+     */
+    private $standingcount;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->standingcount = false;
+    }
 
     /**
      * Get id
@@ -239,5 +253,28 @@ class Game
     public function getRound()
     {
         return $this->round;
+    }
+
+    /**
+     * Set standingcount
+     *
+     * @param string $standingcount
+     * @return Game
+     */
+    public function setStandingcount($standingcount)
+    {
+        $this->standingcount = $standingcount;
+
+        return $this;
+    }
+
+    /**
+     * Get standingcount
+     *
+     * @return string 
+     */
+    public function getStandingcount()
+    {
+        return $this->standingcount;
     }
 }

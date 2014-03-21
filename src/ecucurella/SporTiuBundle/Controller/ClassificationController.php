@@ -116,6 +116,8 @@ class ClassificationController extends Controller
             $lastStandingVisitor = $manager->getRepository('ecucurellaSporTiuBundle:Standing')
                 ->findStandingByClassificationAndClub($previousRound->getClassification(), $game->getVisitorclub());
 
+            //TODO: Check that these standings exists
+
             //Local
             $standingLocal->setGameswin($lastStandingLocal[0]->getGameswin());
             $standingLocal->setGamesdefeat($lastStandingLocal[0]->getGamesdefeat());
@@ -134,43 +136,50 @@ class ClassificationController extends Controller
             $standingVisitor->setGoalsagainst($lastStandingVisitor[0]->getGoalsagainst());
             $standingVisitor->setGamesplayed($lastStandingVisitor[0]->getGamesplayed());
         }
-        
-        //win defeat draw points
-        if ($game->getLocalpoints() > $game->getVisitorpoints()) {
-            //Local Wins
-            $standingLocal->setGameswin($standingLocal->getGameswin()+1);
-            $standingLocal->setPoints($standingLocal->getPoints()+3);
-            //Visitor Defeat
-            $standingVisitor->setGamesdefeat($standingVisitor->getGamesdefeat()+1);
-        } elseif ($game->getLocalpoints() < $game->getVisitorpoints()) {
-            //Local Defeat
-            $standingLocal->setGamesdefeat($standingLocal->getGamesdefeat()+1);
-            //Visitor Wins
-            $standingVisitor->setGameswin($standingVisitor->getGameswin()+1);
-            $standingVisitor->setPoints($standingVisitor->getPoints()+3);
 
-        } elseif ($game->getLocalpoints() == $game->getVisitorpoints()) {
-            //Local Draws
-            $standingLocal->setGamesdraw($standingLocal->getGamesdraw()+1);
-            $standingLocal->setPoints($standingLocal->getPoints()+1);
-            //Visitor Draws
-            $standingVisitor->setGamesdraw($standingVisitor->getGamesdraw()+1);
-            $standingVisitor->setPoints($standingVisitor->getPoints()+1);
+        if ($game->getGamestate() == 'PLAYED') {
+            //win defeat draw points
+            if ($game->getLocalpoints() > $game->getVisitorpoints()) {
+                //Local Wins
+                $standingLocal->setGameswin($standingLocal->getGameswin()+1);
+                $standingLocal->setPoints($standingLocal->getPoints()+3);
+                //Visitor Defeat
+                $standingVisitor->setGamesdefeat($standingVisitor->getGamesdefeat()+1);
+            } elseif ($game->getLocalpoints() < $game->getVisitorpoints()) {
+                //Local Defeat
+                $standingLocal->setGamesdefeat($standingLocal->getGamesdefeat()+1);
+                //Visitor Wins
+                $standingVisitor->setGameswin($standingVisitor->getGameswin()+1);
+                $standingVisitor->setPoints($standingVisitor->getPoints()+3);
+
+            } elseif ($game->getLocalpoints() == $game->getVisitorpoints()) {
+                //Local Draws
+                $standingLocal->setGamesdraw($standingLocal->getGamesdraw()+1);
+                $standingLocal->setPoints($standingLocal->getPoints()+1);
+                //Visitor Draws
+                $standingVisitor->setGamesdraw($standingVisitor->getGamesdraw()+1);
+                $standingVisitor->setPoints($standingVisitor->getPoints()+1);
+            }
+
+            //played
+            $standingLocal->setGamesplayed($standingLocal->getGamesplayed()+1);
+            $standingVisitor->setGamesplayed($standingVisitor->getGamesplayed()+1);
+
+            //goals favorable against difference Local
+            $standingLocal->setGoalsfavorables($standingLocal->getGoalsfavorables() + $game->getLocalpoints());
+            $standingLocal->setGoalsagainst($standingLocal->getGoalsagainst() + $game->getVisitorpoints());
+            $standingLocal->setGoalsdifference($standingLocal->getGoalsfavorables() - $standingLocal->getGoalsagainst());
+            
+            //goals favorable against difference Visitor
+            $standingVisitor->setGoalsfavorables($standingVisitor->getGoalsfavorables() + $game->getVisitorpoints());
+            $standingVisitor->setGoalsagainst($standingVisitor->getGoalsagainst() + $game->getLocalpoints());
+            $standingVisitor->setGoalsdifference($standingVisitor->getGoalsfavorables() - $standingVisitor->getGoalsagainst());
+        
+            //persist game
+            $game->setStandingcount(true);
+            $manager->persist($game);
         }
-
-        //played
-        $standingLocal->setGamesplayed($standingLocal->getGamesplayed()+1);
-        $standingVisitor->setGamesplayed($standingVisitor->getGamesplayed()+1);
-
-        //goals favorable against difference Local
-        $standingLocal->setGoalsfavorables($standingLocal->getGoalsfavorables() + $game->getLocalpoints());
-        $standingLocal->setGoalsagainst($standingLocal->getGoalsagainst() + $game->getVisitorpoints());
-        $standingLocal->setGoalsdifference($standingLocal->getGoalsfavorables() - $standingLocal->getGoalsagainst());
         
-        //goals favorable against difference Visitor
-        $standingVisitor->setGoalsfavorables($standingVisitor->getGoalsfavorables() + $game->getVisitorpoints());
-        $standingVisitor->setGoalsagainst($standingVisitor->getGoalsagainst() + $game->getLocalpoints());
-        $standingVisitor->setGoalsdifference($standingVisitor->getGoalsfavorables() - $standingVisitor->getGoalsagainst());
         
         //add standings to classification
         $classification = $classification->addStanding($standingLocal);

@@ -304,12 +304,12 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             array(3,2,'23-02-2014 11:00:00',$artes,$navarcles,'PLAYED',$round21),
             array(4,1,'22-02-2014 18:30:00',$vilomara,$joanenc,'PLAYED',$round21),
             //Round22
-            array(0,0,'15-03-2014 18:00:00',$navas,$castellnou,'SCHEDULED',$round22),
-            array(0,0,'16-03-2014 12:15:00',$callus,$vilomara,'SCHEDULED',$round22),
-            array(0,0,'15-03-2014 18:15:00',$joanenc,$artes,'SCHEDULED',$round22),
-            array(0,0,'16-03-2014 10:30:00',$navarcles,$castellbell,'SCHEDULED',$round22),
-            array(0,0,'16-03-2014 11:00:00',$monistrol,$marroc,'SCHEDULED',$round22),
-            array(0,0,'15-03-2014 16:00:00',$pala,$santpedor,'SCHEDULED',$round22)
+            array(5,1,'15-03-2014 18:00:00',$navas,$castellnou,'PLAYED',$round22),
+            array(0,1,'16-03-2014 12:15:00',$callus,$vilomara,'PLAYED',$round22),
+            array(0,4,'15-03-2014 18:15:00',$joanenc,$artes,'PLAYED',$round22),
+            array(3,6,'16-03-2014 10:30:00',$navarcles,$castellbell,'PLAYED',$round22),
+            array(3,3,'16-03-2014 11:00:00',$monistrol,$marroc,'PLAYED',$round22),
+            array(1,6,'15-03-2014 16:00:00',$pala,$santpedor,'PLAYED',$round22)
         );
 
         foreach ($games as $game_fixture) {
@@ -406,7 +406,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             array('Jornada19','19',$leagueB, true),
             array('Jornada20','20',$leagueB, true),
             array('Jornada21','21',$leagueB, true),
-            array('Jornada22','22',$leagueB, false),
+            array('Jornada22','22',$leagueB, true),
             array('Jornada1','1',$leagueC, false),
             array('Jornada2','2',$leagueC, false),
             array('Jornada3','3',$leagueC, false),
