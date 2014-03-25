@@ -1,4 +1,4 @@
-{% if empty %}
+{% if league is null %}
     <div class="page-header">
         <h1>League</h1>
     </div>
@@ -18,9 +18,17 @@
         </div>
     </div>
     <div class="page-header">
+        <h1>Classification</h1>
+    </div>
+    {% embed 'ecucurellaSporTiuBundle:Classification:baseround.html.twig' %}
+        {% block roundheader %}{% endblock %}
+    {% endembed %}
+    {% for round in league.rounds|reverse if round.roundplayed %}
+    {% if loop.first %}
+    <div class="page-header">
         <h1>Rounds</h1>
     </div> 
-    {% for round in league.rounds|reverse if round.roundplayed %}
+    {% endif %}
     <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title"><a href="{{ path("ecucurella_SporTiu_classification_round", {round_id: round.id}) }}">{{ round.name }}</a></h3>
