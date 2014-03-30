@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Round
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ecucurella\SporTiuBundle\Entity\RoundRepository")
  */
 class Round
 {

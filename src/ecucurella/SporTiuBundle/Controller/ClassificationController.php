@@ -21,6 +21,7 @@ class ClassificationController extends Controller
                     array('round' => $round, 'round_id' => $round_id));
             } else {
                 $standings = $clhelper->getStandingsforClassificationRound($this->getDoctrine()->getManager(), $round);
+                $clhelper->setRoundsPlayedToPlayed($this->getDoctrine()->getManager(), $round->getLeague()); 
                 return $this->render('ecucurellaSporTiuBundle:Classification:round.html.twig', 
                     array('round' => $round, 'round_id' => $round_id, 'standings' => $standings));
             }

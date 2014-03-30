@@ -88,7 +88,7 @@ class Club
     private $visitorgames;
 
     /**
-     * @ORM\OneToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Standing", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Standing", mappedBy="club")
      **/
     private $standings;
 

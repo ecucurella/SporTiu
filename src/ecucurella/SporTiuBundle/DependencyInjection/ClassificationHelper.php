@@ -5,11 +5,86 @@ namespace ecucurella\SporTiuBundle\DependencyInjection;
 use ecucurella\SporTiuBundle\Entity\Round;
 use ecucurella\SporTiuBundle\Entity\Classification;
 use ecucurella\SporTiuBundle\Entity\Standing;
+use ecucurella\SporTiuBundle\Entity\League;
+use ecucurella\SporTiuBundle\Entity\Game;
 use Doctrine\Common\Persistence\ObjectManager;
 use DateTime;
 
 class ClassificationHelper
 {
+
+    public function addGameToStandings(ObjectManager $manager, Round $round, Game $game) {
+        
+        $classification = $round->getClassification();
+        $standings = $classification->getStandings();
+        $localstanding = null;
+        $visitorstanding = null;
+       
+        foreach ($standings as $standing) {
+            if ($standing->getClub()->getId() == $game->getLocalclub()->getId()) { $localstanding = $standing; }
+            if ($standing->getClub()->getId() == $game->getVisitorclub()->getId()) { $visitorstanding = $standing; }
+            if ((!is_null($localstanding)) and (!is_null($visitorstanding))) { break; }
+        }
+
+        if ((!is_null($localstanding)) and (!is_null($visitorstanding))) { 
+            
+             //Hem d'afegir les dades
+            $localstanding->setGamesplayed($localstanding->getGamesplayed()+1);
+            $visitorstanding->setGamesplayed($visitorstanding->getGamesplayed()+1);
+            
+            if ($game->getLocalpoints() > $game->getVisitorpoints()) {
+                //Local wins Visitor defeat
+                $localstanding->setGameswin($localstanding->getGameswin()+1);
+                $visitorstanding->setGamesdefeat($visitorstanding->getGamesdefeat()+1);
+                $localstanding->setPoints($localstanding->getPoints()+3);
+            
+            } elseif ($game->getLocalpoints() < $game->getVisitorpoints()) {
+                //Local defeat Visitor wins
+                $localstanding->setGamesdefeat($localstanding->getGamesdefeat()+1);
+                $visitorstanding->setGameswin($visitorstanding->getGameswin()+1);
+                $visitorstanding->setPoints($visitorstanding->getPoints()+3);               
+            
+            } elseif ($game->getLocalpoints() == $game->getVisitorpoints()) {
+                //Local and Visitor draws
+                $localstanding->setGamesdraw($localstanding->getGamesdraw()+1);
+                $visitorstanding->setGamesdraw($visitorstanding->getGamesdraw()+1); 
+                $localstanding->setPoints($localstanding->getPoints()+1);    
+                $visitorstanding->setPoints($visitorstanding->getPoints()+1);  
+            }
+
+            $localstanding->setGoalsfavorables($localstanding->getGoalsfavorables()+$game->getLocalpoints());
+            $localstanding->setGoalsagainst($localstanding->getGoalsagainst()+$game->getVisitorpoints());
+            $localstanding->setGoalsdifference($localstanding->getGoalsfavorables()-$localstanding->getGoalsagainst());
+            $visitorstanding->setGoalsfavorables($visitorstanding->getGoalsfavorables()+$game->getVisitorpoints());
+            $visitorstanding->setGoalsagainst($visitorstanding->getGoalsagainst()+$game->getVisitorpoints());
+            $visitorstanding->setGoalsdifference($visitorstanding->getGoalsfavorables()-$visitorstanding->getGoalsagainst());
+
+            $game->setStandingcount(true);
+
+            $manager->persist($localstanding);
+            $manager->persist($visitorstanding);
+            $manager->persist($game);
+
+            $manager->flush();
+
+        }
+
+    }
+
+    public function setRoundsPlayedToPlayed(ObjectManager $manager, League $league) {
+        $rounds = $league->getRounds();
+        foreach ($rounds as $round) {
+            $games = $round->getGames();
+            foreach ($games as $game) {
+                if ($game->getGamestate() == 'PLAYED') {
+                    $round->setRoundplayed(true);
+                    $manager->persist($round);
+                    break;
+                }
+            }
+        }
+        $manager->flush();
+    }
     
     public function getStandingsforClassificationRound(ObjectManager $manager, Round $round) {
         //Assume that if there is no classification, there are no standings
@@ -19,7 +94,20 @@ class ClassificationHelper
             if ($classification) { 
                 $classification = self::orderClassification($manager, $classification); 
             }
-        } 
+        } else {
+            //Check that all games are counted in standing for this round
+            $games = $round->getGames();
+            foreach ($games as $game) {
+                if (($game->getGamestate() == 'PLAYED') and (!$game->getStandingcount())) {
+                    //this games needs to be counted in this classification and next ones
+                    $roundsToCount = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+                       ->findAllRoundsPlayedAfterOneRoundByLeague($round);
+                    foreach ($roundsToCount as $rounToCount) {
+                        self::addGameToStandings($manager, $rounToCount, $game);   
+                    }
+                }
+            }
+        }
         $standings = $manager->getRepository('ecucurellaSporTiuBundle:Standing')
             ->findStandingsByClassification($classification);
         return $standings;
@@ -153,11 +241,12 @@ class ClassificationHelper
             $standingVisitor->setGoalsfavorables($standingVisitor->getGoalsfavorables() + $game->getVisitorpoints());
             $standingVisitor->setGoalsagainst($standingVisitor->getGoalsagainst() + $game->getLocalpoints());
             $standingVisitor->setGoalsdifference($standingVisitor->getGoalsfavorables() - $standingVisitor->getGoalsagainst());
-        }
 
-        //persist game
-        $game->setStandingcount(true);
-        $manager->persist($game);
+            //persist game
+            $game->setStandingcount(true);
+            $manager->persist($game);
+    
+        }
 
         //add standings to classification
         $classification = $classification->addStanding($standingLocal);

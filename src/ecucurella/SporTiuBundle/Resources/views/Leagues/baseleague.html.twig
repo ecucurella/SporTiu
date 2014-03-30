@@ -17,12 +17,14 @@
             <p><strong>Data fi: </strong>{{ league.dateend|date('d-m-Y') }}</p>
         </div>
     </div>
-    <div class="page-header">
-        <h1>Classification</h1>
-    </div>
-    {% embed 'ecucurellaSporTiuBundle:Classification:baseround.html.twig' %}
-        {% block roundheader %}{% endblock %}
-    {% endembed %}
+    {% if standings is not null %}
+        <div class="page-header">
+            <h1>Classification</h1>
+        </div>
+        {% embed 'ecucurellaSporTiuBundle:Classification:baseround.html.twig' %}
+            {% block roundheader %}{% endblock %}
+        {% endembed %}
+    {% endif %}
     {% for round in league.rounds|reverse if round.roundplayed %}
     {% if loop.first %}
     <div class="page-header">

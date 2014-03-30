@@ -29,7 +29,7 @@ class Classification
     private $generationdate;
 
     /**
-     * @ORM\OneToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Standing", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Standing", mappedBy="classification")
      **/
     private $standings;
 
