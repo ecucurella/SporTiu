@@ -54,7 +54,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
               'Samarreta verd i blanca, pantalons blancs i mitges verdes','','luisgonzalez15@gmail.com',''),
             array('F.C. Artés','ARTÉS','','bundles/ecucurellasportiu/images/artes.jpeg',
               'Samarreta vermella, pantalons negres i mitges vermelles','','','http://www.fcartes.com'),
-            array('A.V. Ceip Joan de Palà - La Coromina','JOAN DE PALÀ','','bundles/ecucurellasportiu/images/pala.jpeg'
+            array('A.V. Ceip Joan de Palà','JOAN DE PALÀ','','bundles/ecucurellasportiu/images/pala.jpeg'
               ,'','','avceipjoandepala@gmail.com',''),
             array('C.F. Navarcles','NAVARCLES','','bundles/ecucurellasportiu/images/navarcles.jpeg',
               'Samarreta, pantalons i mitges blaves','','',''),
@@ -93,23 +93,27 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             array('C.E. Sallent','SALLENT','1913','bundles/ecucurellasportiu/images/sallent.jpeg',
               'Samarreta blaugrana, pantalons blaus i mitges blaugranes','','','http://cesallent.org'),
             array('La Salle Manresa','LA SALLE','','bundles/ecucurellasportiu/images/lasalle.jpeg',
-              'Samarreta blanca i vermella, pantalons vermells i mitges blanques i vermelles','','','')/*,
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','',''),
-            array('','','','bundles/ecucurellasportiu/images/generic.jpg',
-              '','','','')*/
+              'Samarreta blanca i vermella, pantalons vermells i mitges blanques i vermelles','','',''),
+            array('C.F. Olesa','OLESA','','bundles/ecucurellasportiu/images/olesa.jpg',
+              'Samarreta, pantalons i mitges negres','','',''),
+            array('F.C. Pradenc','PRADENC','','bundles/ecucurellasportiu/images/pradenc.jpeg',
+              'Samarreta blaugrana, pantalons i mitges blaves','','',''),
+            array('C.F. Pare Ignasi Puig','EL XUP','1966','bundles/ecucurellasportiu/images/xup.jpg',
+              'Samarreta blanca i blava, pantalons i mitges blaves','','',''),
+            array('Verdiblanca','VERDIBLANCA','','bundles/ecucurellasportiu/images/generic.jpg',
+              'Samarreta verda i blanca, pantalons verds i mitges blanques','','',''),
+            array('Cal Rosal','CAL ROSAL','','bundles/ecucurellasportiu/images/calrosal.jpeg',
+              'Samarreta groga, pantalons negres','','',''),
+            array('C.E. Súria','SÚRIA','1911','bundles/ecucurellasportiu/images/suria.png',
+              'Samarreta negre i blanca, pantalons i mitges negres',
+              'Samarreta vermella, pantalons blancs i mitges vermelles',
+              '','http://www.cdesuria.com'),
+            array('F.C. Fruitosenc','FRUITOSENC','','bundles/ecucurellasportiu/images/fruitosenc.jpeg',
+              'Samarreta negre i vermella, pantalons negres','','','http://www.fruitosenc.cat'),
+            array('C.E. Puigreig','PUIGREIG','1916','bundles/ecucurellasportiu/images/puigreig.jpeg',
+              'Samarreta verda amb franja vermella, pantalons vermells i mitges verdes',
+              'Samarreta, pantalons i mitges negres',
+              '','http://www.cepuig-reig.cat')
         );
 
         foreach ($clubs as $club_fixture) {
@@ -149,7 +153,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $artes = $manager->getRepository('ecucurellaSporTiuBundle:Club')
           ->findOneBy(array('name' => 'F.C. Artés'));
         $pala = $manager->getRepository('ecucurellaSporTiuBundle:Club')
-          ->findOneBy(array('name' => 'A.V. Ceip Joan de Palà - La Coromina'));
+          ->findOneBy(array('name' => 'A.V. Ceip Joan de Palà'));
         $navarcles = $manager->getRepository('ecucurellaSporTiuBundle:Club')
           ->findOneBy(array('name' => 'C.F. Navarcles'));
         $joanenc = $manager->getRepository('ecucurellaSporTiuBundle:Club')
@@ -186,8 +190,22 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
           ->findOneBy(array('name' => 'C.E. Sallent'));  
         $lasalle = $manager->getRepository('ecucurellaSporTiuBundle:Club')
           ->findOneBy(array('name' => 'La Salle Manresa'));  
-        //$ = $manager->getRepository('ecucurellaSporTiuBundle:Club')
-        //  ->findOneBy(array('name' => ''));  
+        $olesa = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'C.F. Olesa'));  
+        $pradenc = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'F.C. Pradenc'));  
+        $xup = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'C.F. Pare Ignasi Puig'));  
+        $verdiblanca = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'Verdiblanca'));  
+        $calrosal = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'Cal Rosal'));  
+        $suria = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'C.E. Súria'));  
+        $fruitosenc = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'F.C. Fruitosenc'));  
+        $puigreig = $manager->getRepository('ecucurellaSporTiuBundle:Club')
+          ->findOneBy(array('name' => 'C.E. Puigreig'));  
 
         //League 2013/2014
         $leagueB1314 = $manager->getRepository('ecucurellaSporTiuBundle:League')
@@ -203,6 +221,11 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $leagueB1415 = $manager->getRepository('ecucurellaSporTiuBundle:League')
           ->findOneBy(array('name' => 'Lliga intercomarcal de veterans',
                             'division' => 'GRUP B',
+                            'season' => 'Temporada 2014/2015'));
+
+        $leagueC1415 = $manager->getRepository('ecucurellaSporTiuBundle:League')
+          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans',
+                            'division' => 'GRUP C',
                             'season' => 'Temporada 2014/2015'));
 
         //Rounds 2013/2014
@@ -341,6 +364,51 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         ->findOneBy(array('name' => 'Jornada21', 'league' => $leagueB1415));
         $roundB141522 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
         ->findOneBy(array('name' => 'Jornada22', 'league' => $leagueB1415));
+
+        $roundC14151 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada1', 'league' => $leagueC1415));
+        $roundC14152 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada2', 'league' => $leagueC1415));
+        $roundC14153 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada3', 'league' => $leagueC1415));
+        $roundC14154 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada4', 'league' => $leagueC1415));
+        $roundC14155 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada5', 'league' => $leagueC1415));
+        $roundC14156 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada6', 'league' => $leagueC1415));
+        $roundC14157 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada7', 'league' => $leagueC1415));
+        $roundC14158 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada8', 'league' => $leagueC1415));
+        $roundC14159 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada9', 'league' => $leagueC1415));
+        $roundC141510 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada10', 'league' => $leagueC1415));
+        $roundC141511 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada11', 'league' => $leagueC1415));
+        $roundC141512 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada12', 'league' => $leagueC1415));
+        $roundC141513 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada13', 'league' => $leagueC1415));
+        $roundC141514 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada14', 'league' => $leagueC1415));
+        $roundC141515 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada15', 'league' => $leagueC1415));
+        $roundC141516 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada16', 'league' => $leagueC1415));
+        $roundC141517 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada17', 'league' => $leagueC1415));
+        $roundC141518 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada18', 'league' => $leagueC1415));
+        $roundC141519 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada19', 'league' => $leagueC1415));
+        $roundC141520 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada20', 'league' => $leagueC1415));
+        $roundC141521 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada21', 'league' => $leagueC1415));
+        $roundC141522 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada22', 'league' => $leagueC1415));
 
         //Games 2013-2014
         $games = array(
@@ -499,19 +567,45 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             array(3,3,'16-03-2014 11:00:00',$monistrol,$marroc,'PLAYED',$round131422),
             array(1,6,'15-03-2014 16:00:00',$pala,$santpedor,'PLAYED',$round131422),
             //Round1 2014-2015
+            array(0,0,'20-09-2014 19:00:00',$castellgali,$balsareny,'SCHEDULED',$roundA14151),
+            array(0,0,'20-09-2014 19:00:00',$santpedor,$castellet,'SCHEDULED',$roundA14151),
+            array(0,0,'21-09-2014 11:00:00',$lacoromina,$berga,'SCHEDULED',$roundA14151),
+            array(0,0,'21-09-2014 11:00:00',$minorisa,$marroc,'SCHEDULED',$roundA14151),
+            array(0,3,'20-09-2014 00:00:00',$castellbell,$sallent,'PLAYED',$roundA14151),
+            array(0,0,'20-09-2014 20:00:00',$joanenc,$lasalle,'SCHEDULED',$roundA14151),
             array(0,0,'21-09-2014 11:00:00',$america,$atcastellbell,'SCHEDULED',$roundB14151),
             array(0,0,'21-09-2014 11:00:00',$guardiolenca,$udbalsareny,'SCHEDULED',$roundB14151),
             array(0,0,'20-09-2014 18:00:00',$navas,$solsona,'SCHEDULED',$roundB14151),
             array(0,0,'20-09-2014 16:30:00',$avinyo,$castellnou,'SCHEDULED',$roundB14151),
             array(0,0,'21-09-2014 11:00:00',$monistrol,$atgironella,'SCHEDULED',$roundB14151),
             array(0,0,'21-09-2014 11:00:00',$navarcles,$pirinaica,'SCHEDULED',$roundB14151),
-            array(0,0,'20-09-2014 19:00:00',$castellgali,$balsareny,'SCHEDULED',$roundA14151),
-            array(0,0,'20-09-2014 19:00:00',$santpedor,$castellet,'SCHEDULED',$roundA14151),
-            array(0,0,'21-09-2014 11:00:00',$lacoromina,$berga,'SCHEDULED',$roundA14151),
-            array(0,0,'21-09-2014 11:00:00',$minorisa,$marroc,'SCHEDULED',$roundA14151),
-            array(0,3,'20-09-2014 00:00:00',$castellbell,$sallent,'PLAYED',$roundA14151),
-            array(0,0,'20-09-2014 20:00:00',$joanenc,$lasalle,'SCHEDULED',$roundA14151)
+            array(0,0,'21-09-2014 10:00:00',$olesa,$pradenc,'SCHEDULED',$roundC14151),
+            array(0,0,'20-09-2014 16:00:00',$pala,$xup,'SCHEDULED',$roundC14151),
+            array(0,0,'20-09-2014 16:00:00',$verdiblanca,$calrosal,'SCHEDULED',$roundC14151),
+            array(0,0,'21-09-2014 11:00:00',$suria,$artes,'SCHEDULED',$roundC14151),
+            array(0,0,'20-09-2014 18:15:00',$vilomara,$fruitosenc,'SCHEDULED',$roundC14151),
+            array(0,0,'21-09-2014 10:00:00',$puigreig,$callus,'SCHEDULED',$roundC14151),
+            array(0,0,'27-09-2014 00:00:00',$lasalle,$castellgali,'CALENDAR',$roundA14151),
+            array(0,0,'27-09-2014 00:00:00',$sallent,$joanenc,'CALENDAR',$roundA14151),
+            array(0,0,'27-09-2014 00:00:00',$marroc,$castellbell,'CALENDAR',$roundA14151),
+            array(0,0,'27-09-2014 00:00:00',$berga,$minorisa,'CALENDAR',$roundA14151),
+            array(0,0,'27-09-2014 00:00:00',$castellet,$lacoromina,'CALENDAR',$roundA14151),
+            array(0,0,'27-09-2014 00:00:00',$balsareny,$santpedor,'CALENDAR',$roundA14151),
+            array(0,0,'27-09-2014 00:00:00',$pirinaica,$america,'CALENDAR',$roundB14151),
+            array(0,0,'27-09-2014 00:00:00',$atgironella,$navarcles,'CALENDAR',$roundB14151),
+            array(0,0,'27-09-2014 00:00:00',$castellnou,$monistrol,'CALENDAR',$roundB14151),
+            array(0,0,'27-09-2014 00:00:00',$solsona,$avinyo,'CALENDAR',$roundB14151),
+            array(0,0,'27-09-2014 00:00:00',$udbalsareny,$navas,'CALENDAR',$roundB14151),
+            array(0,0,'27-09-2014 00:00:00',$atcastellbell,$guardiolenca,'CALENDAR',$roundB14151),
+            array(0,0,'27-09-2014 00:00:00',$callus,$olesa,'CALENDAR',$roundC14151),
+            array(0,0,'27-09-2014 00:00:00',$fruitosenc,$puigreig,'CALENDAR',$roundC14151),
+            array(0,0,'27-09-2014 00:00:00',$artes,$vilomara,'CALENDAR',$roundC14151),
+            array(0,0,'27-09-2014 00:00:00',$calrosal,$suria,'CALENDAR',$roundC14151),
+            array(0,0,'27-09-2014 00:00:00',$xup,$verdiblanca,'CALENDAR',$roundC14151),
+            array(0,0,'27-09-2014 00:00:00',$pradenc,$pala,'CALENDAR',$roundC14151)
+            //array(0,0,'20-09-2014 00:00:00',$,$,'SCHEDULED',$roundC14151),
             );
+
 
         foreach ($games as $game_fixture) {
             $game = new Game();
@@ -552,6 +646,13 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $league->setDateEnd(date_create_from_format('d-m-Y','31-05-2015'));
         $manager->persist($league);
 
+        $league = new League();
+        $league->setName('Lliga intercomarcal de veterans');
+        $league->setDivision('GRUP C');
+        $league->setSeason('Temporada 2014/2015');
+        $league->setDateBegin(date_create_from_format('d-m-Y','20-09-2014'));
+        $league->setDateEnd(date_create_from_format('d-m-Y','31-05-2015'));
+        $manager->persist($league);
     }
 
     public function createRounds(ObjectManager $manager)
@@ -570,6 +671,11 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $leagueB1415 = $manager->getRepository('ecucurellaSporTiuBundle:League')
           ->findOneBy(array('name' => 'Lliga intercomarcal de veterans', 
                             'division' => 'GRUP B',
+                            'season' => 'Temporada 2014/2015'));
+
+        $leagueC1415 = $manager->getRepository('ecucurellaSporTiuBundle:League')
+          ->findOneBy(array('name' => 'Lliga intercomarcal de veterans', 
+                            'division' => 'GRUP C',
                             'season' => 'Temporada 2014/2015'));
 
         $rounds = array(
@@ -638,7 +744,29 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             array('Jornada19','19',$leagueB1415, false),
             array('Jornada20','20',$leagueB1415, false),
             array('Jornada21','21',$leagueB1415, false),
-            array('Jornada22','22',$leagueB1415, false)
+            array('Jornada22','22',$leagueB1415, false),
+            array('Jornada1','1',$leagueC1415, false),
+            array('Jornada2','2',$leagueC1415, false),
+            array('Jornada3','3',$leagueC1415, false),
+            array('Jornada4','4',$leagueC1415, false),
+            array('Jornada5','5',$leagueC1415, false),
+            array('Jornada6','6',$leagueC1415, false),
+            array('Jornada7','7',$leagueC1415, false),
+            array('Jornada8','8',$leagueC1415, false),
+            array('Jornada9','9',$leagueC1415, false),
+            array('Jornada10','10',$leagueC1415, false),
+            array('Jornada11','11',$leagueC1415, false),
+            array('Jornada12','12',$leagueC1415, false),
+            array('Jornada13','13',$leagueC1415, false),
+            array('Jornada14','14',$leagueC1415, false),
+            array('Jornada15','15',$leagueC1415, false),
+            array('Jornada16','16',$leagueC1415, false),
+            array('Jornada17','17',$leagueC1415, false),
+            array('Jornada18','18',$leagueC1415, false),
+            array('Jornada19','19',$leagueC1415, false),
+            array('Jornada20','20',$leagueC1415, false),
+            array('Jornada21','21',$leagueC1415, false),
+            array('Jornada22','22',$leagueC1415, false)
         );
 
         foreach ($rounds as $round_fixture) {
