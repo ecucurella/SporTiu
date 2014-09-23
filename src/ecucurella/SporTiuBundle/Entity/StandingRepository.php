@@ -12,9 +12,10 @@ class StandingRepository extends EntityRepository
 
     public function findStandingsByClassification($classification)
     {
-        $dql = "SELECT s FROM ecucurellaSporTiuBundle:Standing s
-                WHERE s.classification = :classification 
-                ORDER BY s.points DESC, s.goalsdifference DESC";
+        $dql = "SELECT s FROM ecucurellaSporTiuBundle:Standing s, 
+                ecucurellaSporTiuBundle:Club c 
+                WHERE s.classification = :classification AND s.club = c.id
+                ORDER BY s.points DESC, s.goalsdifference DESC, c.abbreviation ASC";
 
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('classification', $classification);
