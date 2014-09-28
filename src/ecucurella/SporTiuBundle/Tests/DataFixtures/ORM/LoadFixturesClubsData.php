@@ -8,6 +8,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use ecucurella\SporTiuBundle\Entity\Club;
 use ecucurella\SporTiuBundle\Entity\Game;
 use ecucurella\SporTiuBundle\Entity\League;
+use ecucurella\SporTiuBundle\Entity\Round;
 
 class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
 {
@@ -27,6 +28,18 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
     public function loadLeagues(ObjectManager $manager)
     {
         $this->createLeagues($manager);
+        $manager->flush();
+    }
+
+    public function loadRounds(ObjectManager $manager)
+    {
+        $this->createRounds($manager);
+        $manager->flush();
+    }
+
+    public function loadGamesWithRounds(ObjectManager $manager)
+    {
+        $this->createGamesWithRounds($manager);
         $manager->flush();
     }
 
@@ -58,6 +71,22 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
 
     public function unload(ObjectManager $manager)
     {
+        $standings = $manager->getRepository('ecucurellaSporTiuBundle:Standing')->findAll();
+        foreach ($standings as $standing) {
+          $manager->remove($standing);
+        }
+        $classifications = $manager->getRepository('ecucurellaSporTiuBundle:Classification')->findAll();
+        foreach ($classifications as $classification) {
+          $manager->remove($classification);
+        }
+        $rounds = $manager->getRepository('ecucurellaSporTiuBundle:Round')->findAll();
+        foreach ($rounds as $round) {
+          $manager->remove($round);
+        }        
+        $leagues = $manager->getRepository('ecucurellaSporTiuBundle:League')->findAll();
+        foreach ($leagues as $league) {
+          $manager->remove($league);
+        }
         $games = $manager->getRepository('ecucurellaSporTiuBundle:Game')->findAll();
         foreach ($games as $game) {
           $manager->remove($game);
@@ -112,5 +141,59 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
         $league->setDateEnd(date_create_from_format('d-m-Y','30-06-2014'));
         $manager->persist($league);
     }
+
+public function createRounds(ObjectManager $manager)
+    {
+
+        $league = $manager->getRepository('ecucurellaSporTiuBundle:League')->findOneBy(array('name' => 'Lliga', 'division' => 'GRUP A','season' => 'Temporada 2013/2014'));
+
+        $rounds = array(
+            array('Jornada1','1',$league, false)
+        );
+
+        foreach ($rounds as $round_fixture) {
+            $round = new Round();
+            $round->setName($round_fixture[0]);
+            $round->setOrdernum($round_fixture[1]);
+            $round = $round->setLeague($round_fixture[2]); 
+            $round->setRoundplayed($round_fixture[3]); 
+            $manager->persist($round);
+        }
+    }
+
+    public function createGamesWithRounds(ObjectManager $manager)
+    {
+        
+        $castellnou1 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou1'));
+        $castellnou2 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou2'));
+        $castellnou3 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou3'));
+        $castellnou4 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou4'));
+        $castellnou5 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou5'));
+        $castellnou6 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou6'));
+        $league = $manager->getRepository('ecucurellaSporTiuBundle:League')->findOneBy(array('name' => 'Lliga', 'division' => 'GRUP A','season' => 'Temporada 2013/2014'));
+        $round1 = $manager->getRepository('ecucurellaSporTiuBundle:Round')->findOneBy(array('name' => 'Jornada1', 'league' => $league));
+
+        $games = array(
+            array(2,0,'09-11-2014 17:15:00',$castellnou1,$castellnou6,'PLAYED',$round1),
+            array(1,0,'09-11-2014 17:14:00',$castellnou2,$castellnou5,'PLAYED',$round1),
+            array(1,1,'09-11-2014 17:13:00',$castellnou3,$castellnou4,'PLAYED',$round1)
+        );
+
+        foreach ($games as $game_fixture) {
+            $game = new Game();
+            $game->setLocalpoints($game_fixture[0]);
+            $game->setVisitorpoints($game_fixture[1]);
+            $game->setGamedate(date_create_from_format('d-m-Y H:i:s',$game_fixture[2]));
+            $game = $game->setLocalclub($game_fixture[3]);
+            $game = $game->setVisitorclub($game_fixture[4]);
+            $game->setGamestate($game_fixture[5]);
+            $game = $game->setRound($game_fixture[6]);
+            $manager->persist($game);
+        }
+
+        
+    }
+
+
 
 }

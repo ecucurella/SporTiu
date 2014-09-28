@@ -14,32 +14,33 @@ use DateTime;*/
 class ClassificationHelperTest extends \PHPUnit_Framework_TestCase
 {
 	
-	public function addGameToStandingsTest() {
+	public function testAddGameToStandings() {
 
 		//preparar les dades del Test
 
 		//executar la funcio addGameToStandings(ObjectManager $manager, Round $round, Game $game)
 
 		//comprovar el que retorna
+
     }
 
-    public function setRoundsPlayedToPlayedTest() {
+    public function testSetRoundsPlayedToPlayed() {
 
     }
     
-    public function getStandingsforClassificationRoundTest() {
+    public function testGetStandingsforClassificationRound() {
      
     }
 
-    public function createClassificationTest() {
+    public function testCreateClassification() {
 
     }
 
-    public function createStandingTest() {
+    public function testCreateStanding() {
 
     }
 
-    public function orderClassificationTest() {
+    public function testOrderClassification() {
 
     }
 }

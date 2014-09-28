@@ -13,7 +13,7 @@ class ClassificationController extends Controller
    
     public function roundAction($round_id)
     {
-        //try {
+        try {
             $clhelper = new ClassificationHelper();
             $round = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Round')->find($round_id);
             if (!$round) {
@@ -25,11 +25,11 @@ class ClassificationController extends Controller
                 return $this->render('ecucurellaSporTiuBundle:Classification:round.html.twig', 
                     array('round' => $round, 'round_id' => $round_id, 'standings' => $standings));
             }
-        /*} catch (DBALException $dbal_e) {
+        } catch (DBALException $dbal_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
         } catch (PDOException $pdo_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
-        }*/
+        }
     }
 
 }

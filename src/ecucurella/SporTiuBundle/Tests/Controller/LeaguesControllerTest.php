@@ -31,6 +31,15 @@ class LeaguesControllerTest extends WebTestCase
         $this->assertEquals(1,$crawler->filter('p:contains("GRUP A")')->count());
         $this->assertEquals(1,$crawler->filter('p:contains("Temporada 2013/2014")')->count());
     }
+    public function testNoLeagues() {
+        self::createSchema();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/leagues');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Leagues")')->count());
+        $this->assertEquals(0,$crawler->filter('h4')->count());
+        $this->assertEquals(1,$crawler->filter('div.alert')->count());
+        $this->assertEquals(1,$crawler->filter('div.alert:contains("There is no Leagues in database yet")')->count());
+    }
 
     public function testLeaguesLink() {
         self::createSchema();
@@ -49,7 +58,31 @@ class LeaguesControllerTest extends WebTestCase
         $this->assertEquals('Data inici: 01-09-2013',$crawler->filter('p')->eq(2)->text());
         $this->assertEquals('Data fi: 30-06-2014',$crawler->filter('p')->eq(3)->text());
     }
-    
+
+    public function testLeagueId() {
+        self::createSchema();
+        self::loadData();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/leagues/league/1');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Lliga")')->count());
+        $this->assertEquals(4,$crawler->filter('p')->count());
+        $this->assertEquals('Temporada: Temporada 2013/2014',$crawler->filter('p')->eq(0)->text());
+        $this->assertEquals('Grup: GRUP A',$crawler->filter('p')->eq(1)->text());
+        $this->assertEquals('Data inici: 01-09-2013',$crawler->filter('p')->eq(2)->text());
+        $this->assertEquals('Data fi: 30-06-2014',$crawler->filter('p')->eq(3)->text());
+    }
+
+    public function testNoLeagueId() {
+        self::createSchema();
+        self::loadData();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/leagues/league/2');
+        $this->assertEquals(1,$crawler->filter('h1:contains("League")')->count());
+        $this->assertEquals(0,$crawler->filter('h1:contains("Lliga")')->count());
+        $this->assertEquals(1,$crawler->filter('div.alert')->count());
+        $this->assertEquals(1,$crawler->filter('div.alert:contains("There is no League with id 2")')->count());
+    }
+
     protected function createSchema()
     {
         static::$kernel = static::createKernel();
