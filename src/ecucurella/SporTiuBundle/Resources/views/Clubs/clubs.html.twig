@@ -12,11 +12,11 @@
             {% endif %}
             <div class="col-md-4">
                 <h3>
-                    <a href="{{ path("ecucurella_SporTiu_clubs_id", {id: club.id}) }}">{{ club.name }}
+                    <a href="{{ path("ecucurella_SporTiu_clubs_id", {id: club.id}) }}">
                     {% if club.logo != '' %}
                         <img alt="{{ club.abbreviation }}" src="{{ asset(club.logo) }}" height="50">
                     {% endif %}
-                    </a>
+                    {{ club.name }}</a>
                 </h3>
             </div>
             {% if (loop.index % 3) == 0 %}

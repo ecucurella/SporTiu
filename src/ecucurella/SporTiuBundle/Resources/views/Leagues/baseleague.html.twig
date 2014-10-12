@@ -1,0 +1,45 @@
+{% if league is null %}
+    <div class="page-header">
+        <h1>League</h1>
+    </div>
+    <div class="alert alert-warning">
+        There is no League with id {{ id }} !!
+    </div>
+{% else %}
+    <div class="page-header">
+        <h1>{{ league.name }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <p><strong>Temporada: </strong>{{ league.season }}</p>
+            <p><strong>Grup: </strong>{{ league.division }}</p>
+            <p><strong>Data inici: </strong>{{ league.datebegin|date('d-m-Y') }}</p>
+            <p><strong>Data fi: </strong>{{ league.dateend|date('d-m-Y') }}</p>
+        </div>
+    </div>
+    {% if standings is not null %}
+        <div class="page-header">
+            <h1>Classification</h1>
+        </div>
+        {% embed 'ecucurellaSporTiuBundle:Classification:baseround.html.twig' %}
+            {% block roundheader %}{% endblock %}
+        {% endembed %}
+    {% endif %}
+    {% for round in league.rounds|reverse if round.roundplayed %}
+    {% if loop.first %}
+    <div class="page-header">
+        <h1>Rounds</h1>
+    </div> 
+    {% endif %}
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title"><a href="{{ path("ecucurella_SporTiu_classification_round", {round_id: round.id}) }}">{{ round.name }}</a></h3>
+        </div>
+        <div class="panel-body" id="{{ round.name }}">
+            {% embed 'ecucurellaSporTiuBundle:Games:baselast.html.twig' with {'lastgames': round.games } %}
+                {% block lastgameheader %}{% endblock %}
+            {% endembed %} 
+        </div>
+    </div>  
+    {% endfor %}
+{% endif %}

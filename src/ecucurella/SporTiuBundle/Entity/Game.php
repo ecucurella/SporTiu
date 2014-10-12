@@ -61,6 +61,26 @@ class Game
      **/
     private $visitorclub;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ecucurella\SporTiuBundle\Entity\Round", inversedBy="games")
+     * @ORM\JoinColumn(name="round_id", referencedColumnName="id")
+     **/
+    private $round;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="standingcount", type="boolean")
+     */
+    private $standingcount;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->standingcount = false;
+    }
 
     /**
      * Get id
@@ -210,5 +230,51 @@ class Game
     public function getGamestate()
     {
         return $this->gamestate;
+    }
+
+    /**
+     * Set round
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Round $round
+     * @return Game
+     */
+    public function setRound(\ecucurella\SporTiuBundle\Entity\Round $round = null)
+    {
+        $this->round = $round;
+
+        return $this;
+    }
+
+    /**
+     * Get round
+     *
+     * @return \ecucurella\SporTiuBundle\Entity\Round 
+     */
+    public function getRound()
+    {
+        return $this->round;
+    }
+
+    /**
+     * Set standingcount
+     *
+     * @param string $standingcount
+     * @return Game
+     */
+    public function setStandingcount($standingcount)
+    {
+        $this->standingcount = $standingcount;
+
+        return $this;
+    }
+
+    /**
+     * Get standingcount
+     *
+     * @return string 
+     */
+    public function getStandingcount()
+    {
+        return $this->standingcount;
     }
 }

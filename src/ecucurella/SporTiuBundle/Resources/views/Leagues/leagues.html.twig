@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+{% block title %}Leagues{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>Leagues</h1>
+    </div>
+    {% if leagues %}
+        {% for league in leagues %}
+        <div class="row">
+            <div class="col-md-5">
+                <div class="bs-callout bs-callout-info">
+                   <h4><a href="{{ path("ecucurella_SporTiu_leagues_id", {id: league.id}) }}">{{ league.name }}</a></h4>
+                   <p><strong>{{ league.division}}</strong> - {{ league.season}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info">
+            There is no Leagues in database yet !!
+        </div>
+    {% endif %}
+
+</div>
+{% endblock  %}

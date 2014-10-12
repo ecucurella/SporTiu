@@ -12,7 +12,7 @@ class ClubsController extends Controller
     public function indexAction()
     {
         try {
-        	$clubs = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Club')->findAll();
+        	$clubs = $this->getDoctrine()->getRepository('ecucurellaSporTiuBundle:Club')->findBy(array(), array('abbreviation' => 'ASC'));
             if (is_null($clubs)) {
                 return $this->redirect($this->generateUrl('ecucurella_SporTiu_install'));
             } else {
