@@ -6,12 +6,12 @@ Readme
 
 [![Build Status](https://secure.travis-ci.org/ecucurella/SporTiu.png?branch=master)](http://travis-ci.org/ecucurella/SporTiu)
 
-SporTiu is anything nowadays but perhaps will be one day a Sport Content Management for amateur clubs, leagues and competitions. It's based on Symfony 2.4, a PHP framework for web projects.
+SporTiu is anything nowadays but perhaps will be one day a Sport Content Management for amateur clubs, leagues and competitions. It's based on Symfony 2.X, a PHP framework for web projects.
 
 2) Getting started
 ------------------
 
-Firts of all, refer to [Symfony's documentation](http://symfony.com/doc/current/index.html)
+First of all, refer to [Symfony's documentation](http://symfony.com/doc/current/index.html)
 
 Then, refer to [SporTiu wiki pages](https://github.com/ecucurella/SporTiu/wiki)
 
