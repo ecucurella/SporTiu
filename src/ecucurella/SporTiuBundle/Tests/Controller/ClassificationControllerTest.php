@@ -77,6 +77,130 @@ class ClassificationControllerTest extends WebTestCase
 
     }
 
+    public function testClassificationRecursive() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/classification/2');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Jornada2")')->count());
+        $this->assertEquals(0,$crawler->filter('div.alert')->count());
+        $this->assertEquals(7,$crawler->filter('tr')->count());
+        
+        $expected  = array(
+            array('POS','CLUB','P','W','L','D','GF','GA','GD','PTS'),
+            array('1','CASTELLNOU1', '2','2','0','0','3','0','3','6'),
+            array('2','CASTELLNOU2', '2','2','0','0','2','0','2','6'),
+            array('3','CASTELLNOU3', '2','1','1','0','2','1','1','4'),
+            array('4','CASTELLNOU4', '2','0','1','1','1','2','-1','1'),
+            array('5','CASTELLNOU5', '2','0','0','2','0','2','-2','0'),
+            array('6','CASTELLNOU6', '2','0','0','2','0','3','-3','0'),
+        );
+        for ($j=1; $j < 7 ; $j++) { 
+            $fila = $crawler->filter('tr')->eq($j);
+            $this->assertEquals(10,$fila->filter('td')->count());
+            for ($i=0; $i < 10 ; $i++) { 
+                $actual = $fila->filter('td')->eq($i)->text();
+                $this->assertEquals($expected[$j][$i],$actual);
+            }            
+        }
+
+    }
+
+    public function testClassificationSuspendedGame() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/classification/3');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Jornada3")')->count());
+        $this->assertEquals(0,$crawler->filter('div.alert')->count());
+        $this->assertEquals(7,$crawler->filter('tr')->count());
+        
+        $expected  = array(
+            array('POS','CLUB','P','W','L','D','GF','GA','GD','PTS'),
+            array('1','CASTELLNOU1', '3','3','0','0','4','0','4','9'),
+            array('2','CASTELLNOU2', '3','2','1','0','3','1','2','7'),
+            array('3','CASTELLNOU3', '3','1','1','1','2','2','0','4'),
+            array('4','CASTELLNOU4', '3','0','2','1','2','3','-1','2'),
+            array('5','CASTELLNOU5', '2','0','0','2','0','2','-2','0'),
+            array('6','CASTELLNOU6', '2','0','0','2','0','3','-3','0')
+        );
+        for ($j=1; $j < 7 ; $j++) { 
+            $fila = $crawler->filter('tr')->eq($j);
+            $this->assertEquals(10,$fila->filter('td')->count());
+            for ($i=0; $i < 10 ; $i++) { 
+                $actual = $fila->filter('td')->eq($i)->text();
+                $this->assertEquals($expected[$j][$i],$actual);
+            }            
+        }
+
+        //PLAY GAME SUSPENDED
+        $fixture = new LoadFixturesClubsData();  
+        $fixture->playGamesSuspended($this->em); 
+        $this->em->flush();
+
+        //CHECK CLASSIFICATION          
+        $crawler = $client->request('GET', '/classification/3');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Jornada3")')->count());
+        $this->assertEquals(0,$crawler->filter('div.alert')->count());
+        $this->assertEquals(7,$crawler->filter('tr')->count());
+        
+        $expected  = array(
+            array('POS','CLUB','P','W','L','D','GF','GA','GD','PTS'),
+            array('1','CASTELLNOU1', '3','3','0','0','4','0','4','9'),
+            array('2','CASTELLNOU2', '3','2','1','0','3','1','2','7'),
+            array('3','CASTELLNOU3', '3','1','1','1','2','2','0','4'),
+            array('4','CASTELLNOU4', '3','0','2','1','2','3','-1','2'),
+            array('5','CASTELLNOU5', '3','0','1','2','1','3','-2','1'),
+            array('6','CASTELLNOU6', '3','0','1','2','1','4','-3','1')
+        );
+        for ($j=1; $j < 7 ; $j++) { 
+            $fila = $crawler->filter('tr')->eq($j);
+            $this->assertEquals(10,$fila->filter('td')->count());
+            for ($i=0; $i < 10 ; $i++) { 
+                $actual = $fila->filter('td')->eq($i)->text();
+                $this->assertEquals($expected[$j][$i],$actual);
+            }            
+        }
+
+    }
+
+    public function testClassificationWithGamesPReviousRound() {
+        self::createSchema();
+        self::loadDataWithGames();
+        $client = static::createClient();
+        
+        //load Classification for Round 2
+        $crawler = $client->request('GET', '/classification/2');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Jornada2")')->count());
+        $this->assertEquals(0,$crawler->filter('div.alert')->count());
+        $this->assertEquals(7,$crawler->filter('tr')->count());
+
+        //check then Classification for Round1 remain equal
+        $crawler = $client->request('GET', '/classification/1');
+        $this->assertEquals(1,$crawler->filter('h1:contains("Jornada1")')->count());
+        $this->assertEquals(0,$crawler->filter('div.alert')->count());
+        $this->assertEquals(7,$crawler->filter('tr')->count());
+        
+        $expected  = array(
+            array('POS','CLUB','P','W','L','D','GF','GA','GD','PTS'),
+            array('1','CASTELLNOU1', '1','1','0','0','2','0','2','3'),
+            array('2','CASTELLNOU2', '1','1','0','0','1','0','1','3'),
+            array('3','CASTELLNOU3', '1','0','1','0','1','1','0','1'),
+            array('4','CASTELLNOU4', '1','0','1','0','1','1','0','1'),
+            array('5','CASTELLNOU5', '1','0','0','1','0','1','-1','0'),
+            array('6','CASTELLNOU6', '1','0','0','1','0','2','-2','0'),
+        );
+        for ($j=1; $j < 7 ; $j++) { 
+            $fila = $crawler->filter('tr')->eq($j);
+            $this->assertEquals(10,$fila->filter('td')->count());
+            for ($i=0; $i < 10 ; $i++) { 
+                $actual = $fila->filter('td')->eq($i)->text();
+                $this->assertEquals($expected[$j][$i],$actual);
+            }            
+        }
+
+    }
+
     protected function createSchema()
     {
         static::$kernel = static::createKernel();

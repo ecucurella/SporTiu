@@ -142,14 +142,16 @@ class LoadFixturesClubsData extends AbstractFixture implements FixtureInterface
         $manager->persist($league);
     }
 
-public function createRounds(ObjectManager $manager)
+    public function createRounds(ObjectManager $manager)
     {
 
         $league = $manager->getRepository('ecucurellaSporTiuBundle:League')->findOneBy(array('name' => 'Lliga', 'division' => 'GRUP A','season' => 'Temporada 2013/2014'));
 
         $rounds = array(
-            array('Jornada1','1',$league, false)
-        );
+           array('Jornada1','1',$league, false),
+           array('Jornada2','2',$league, false),
+           array('Jornada3','3',$league, false)           
+         );
 
         foreach ($rounds as $round_fixture) {
             $round = new Round();
@@ -172,11 +174,19 @@ public function createRounds(ObjectManager $manager)
         $castellnou6 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou6'));
         $league = $manager->getRepository('ecucurellaSporTiuBundle:League')->findOneBy(array('name' => 'Lliga', 'division' => 'GRUP A','season' => 'Temporada 2013/2014'));
         $round1 = $manager->getRepository('ecucurellaSporTiuBundle:Round')->findOneBy(array('name' => 'Jornada1', 'league' => $league));
+        $round2 = $manager->getRepository('ecucurellaSporTiuBundle:Round')->findOneBy(array('name' => 'Jornada2', 'league' => $league));
+        $round3 = $manager->getRepository('ecucurellaSporTiuBundle:Round')->findOneBy(array('name' => 'Jornada3', 'league' => $league));
 
         $games = array(
             array(2,0,'09-11-2014 17:15:00',$castellnou1,$castellnou6,'PLAYED',$round1),
             array(1,0,'09-11-2014 17:14:00',$castellnou2,$castellnou5,'PLAYED',$round1),
-            array(1,1,'09-11-2014 17:13:00',$castellnou3,$castellnou4,'PLAYED',$round1)
+            array(1,1,'09-11-2014 17:13:00',$castellnou3,$castellnou4,'PLAYED',$round1),
+            array(0,1,'16-11-2014 17:15:00',$castellnou4,$castellnou1,'PLAYED',$round2),
+            array(0,1,'16-11-2014 17:14:00',$castellnou6,$castellnou2,'PLAYED',$round2),
+            array(0,1,'16-11-2014 17:13:00',$castellnou5,$castellnou3,'PLAYED',$round2),
+            array(1,0,'23-11-2014 17:15:00',$castellnou1,$castellnou3,'PLAYED',$round3),
+            array(1,1,'23-11-2014 17:14:00',$castellnou2,$castellnou4,'PLAYED',$round3),
+            array(0,0,'23-11-2014 17:13:00',$castellnou5,$castellnou6,'SUSPENDED',$round3)
         );
 
         foreach ($games as $game_fixture) {
@@ -190,10 +200,33 @@ public function createRounds(ObjectManager $manager)
             $game = $game->setRound($game_fixture[6]);
             $manager->persist($game);
         }
-
         
     }
 
+    public function playGamesSuspended(ObjectManager $manager)
+    {
+        
+        $castellnou5 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou5'));
+        $castellnou6 = $manager->getRepository('ecucurellaSporTiuBundle:Club')->findOneBy(array('name' => 'UE Castellnou6'));
+        $league = $manager->getRepository('ecucurellaSporTiuBundle:League')->findOneBy(array('name' => 'Lliga', 'division' => 'GRUP A','season' => 'Temporada 2013/2014'));
+        $round3 = $manager->getRepository('ecucurellaSporTiuBundle:Round')->findOneBy(array('name' => 'Jornada3', 'league' => $league));
 
+        $games = array(
+            array(1,1,'23-11-2014 17:13:00',$castellnou5,$castellnou6,'PLAYED',$round3)
+        );
+
+        foreach ($games as $game_fixture) {
+            $game = new Game();
+            $game->setLocalpoints($game_fixture[0]);
+            $game->setVisitorpoints($game_fixture[1]);
+            $game->setGamedate(date_create_from_format('d-m-Y H:i:s',$game_fixture[2]));
+            $game = $game->setLocalclub($game_fixture[3]);
+            $game = $game->setVisitorclub($game_fixture[4]);
+            $game->setGamestate($game_fixture[5]);
+            $game = $game->setRound($game_fixture[6]);
+            $manager->persist($game);
+        }
+        
+    }
 
 }

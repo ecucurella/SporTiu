@@ -192,6 +192,7 @@ class ClassificationHelper
             $standingLocal->setPoints($lastStandingLocal[0]->getPoints());
             $standingLocal->setGoalsfavorables($lastStandingLocal[0]->getGoalsfavorables());
             $standingLocal->setGoalsagainst($lastStandingLocal[0]->getGoalsagainst());
+            $standingLocal->setGoalsdifference($lastStandingLocal[0]->getGoalsdifference());
             $standingLocal->setGamesplayed($lastStandingLocal[0]->getGamesplayed());
 
             //Visitor
@@ -201,6 +202,7 @@ class ClassificationHelper
             $standingVisitor->setPoints($lastStandingVisitor[0]->getPoints());
             $standingVisitor->setGoalsfavorables($lastStandingVisitor[0]->getGoalsfavorables());
             $standingVisitor->setGoalsagainst($lastStandingVisitor[0]->getGoalsagainst());
+            $standingVisitor->setGoalsdifference($lastStandingVisitor[0]->getGoalsdifference());
             $standingVisitor->setGamesplayed($lastStandingVisitor[0]->getGamesplayed());
         }
 

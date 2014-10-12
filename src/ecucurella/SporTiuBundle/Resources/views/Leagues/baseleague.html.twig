@@ -35,7 +35,7 @@
         <div class="panel-heading">
             <h3 class="panel-title"><a href="{{ path("ecucurella_SporTiu_classification_round", {round_id: round.id}) }}">{{ round.name }}</a></h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" id="{{ round.name }}">
             {% embed 'ecucurellaSporTiuBundle:Games:baselast.html.twig' with {'lastgames': round.games } %}
                 {% block lastgameheader %}{% endblock %}
             {% endembed %} 
