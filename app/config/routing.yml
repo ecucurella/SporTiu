@@ -5,4 +5,3 @@ ecucurella_assets:
 ecucurella_SporTiu:
     resource: "@ecucurellaSporTiuBundle/Resources/config/routing.yml"
     prefix:   /
-

@@ -2,6 +2,7 @@
 
 namespace ecucurella\SporTiuBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ecucurella\SporTiuBundle\Entity\Club;
 use ecucurella\SporTiuBundle\DataFixtures\SporTiuSchema;
@@ -11,10 +12,16 @@ use PDOException;
 
 class InstallController extends Controller
 {
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function indexAction() {
         return $this->render('ecucurellaSporTiuBundle:Install:install.html.twig');
     }
 
+    /**
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function createSchemaAction() {
         //TODO: Create database if no exist
         //TODO: Alert if any problem
