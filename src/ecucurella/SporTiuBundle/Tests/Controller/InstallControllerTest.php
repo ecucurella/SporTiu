@@ -10,7 +10,10 @@ class InstallControllerTest extends WebTestCase
 {
     
     public function testIndex() {
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'sportiu',
+        ));
         $crawler = $client->request('GET', '/install');
         $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
         $this->assertRegExp('/Installation required !!/',$crawler->filter('div.alert')->text());
@@ -18,7 +21,10 @@ class InstallControllerTest extends WebTestCase
     }
 
     public function testInstall() {
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'sportiu',
+        ));
         $crawler = $client->request('GET', '/install');
         $link = $crawler->selectLink('Install')->link();
         $crawler = $client->click($link);
