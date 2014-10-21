@@ -209,7 +209,10 @@ class ClubsControllerTest extends WebTestCase
     }
 
     public function testClubsRedirectInstallWithoutSchema() {
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'sportiu',
+        ));
         $client->followRedirects();
         $crawler = $client->request('GET', '/clubs');
         $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
@@ -218,7 +221,10 @@ class ClubsControllerTest extends WebTestCase
     }
     
     public function testClubRedirectInstallWithoutSchema() {
-        $client = static::createClient();
+        $client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'admin',
+            'PHP_AUTH_PW'   => 'sportiu',
+        ));
         $client->followRedirects();
         $crawler = $client->request('GET', '/clubs/club/1');
         $this->assertEquals(1,$crawler->filter('h1:contains("Install")')->count());
