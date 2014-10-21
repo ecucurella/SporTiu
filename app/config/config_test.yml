@@ -40,6 +40,8 @@ security:
 
     firewalls:
         test:
+            pattern:   ^/
+            anonymous: ~
             http_basic: ~
 
     access_control:
