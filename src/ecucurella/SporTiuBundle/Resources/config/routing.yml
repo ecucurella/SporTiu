@@ -62,3 +62,12 @@ ecucurella_SporTiu_classification:
     pattern:  /classification
     defaults: { _controller: ecucurellaSporTiuBundle:Classification:index }
     
+login:
+    path:     /login
+    defaults: { _controller: ecucurellaSporTiuBundle:Security:login }
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout

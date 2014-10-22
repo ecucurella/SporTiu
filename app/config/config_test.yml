@@ -1,5 +1,5 @@
 imports:
-    - { resource: config_dev.yml }
+    - { resource: config.yml }
 
 framework:
     test: ~
@@ -25,3 +25,24 @@ doctrine:
         user:     "%database_user_test%"
         password: "%database_password_test%"
         charset:  UTF8
+
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    providers:
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: sportiu
+                        roles: 'ROLE_ADMIN'
+
+    firewalls:
+        test:
+            pattern:   ^/
+            anonymous: ~
+            http_basic: ~
+
+    access_control:
+        - { path: ^/install, roles: ROLE_ADMIN }
