@@ -36,4 +36,15 @@ class RoundRepository extends EntityRepository
         return $query->execute();
     }
 
+    public function findRoundsByLeague(League $league)
+    {
+        $dql = "SELECT r FROM ecucurellaSporTiuBundle:Round r
+                WHERE r.league = :league 
+                ORDER BY r.ordernum";
+
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('league', $league);
+        return $query->execute();
+    }
+
 }

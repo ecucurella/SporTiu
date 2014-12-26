@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use ecucurella\SporTiuBundle\Entity\Game;
 use Doctrine\DBAL\DBALException;
 use PDOException;
+use DateTime;
+use Symfony\Component\HttpFoundation\Request;
 
 class GamesController extends Controller
 {
@@ -75,5 +77,65 @@ class GamesController extends Controller
         } catch (PDOException $pdo_e) {
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_install')); 
         }
+    }
+
+    public function addAction($leagueid, Request $request) 
+    {
+
+        //em
+        $em = $this->getDoctrine()->getManager();
+        //League
+        $league = $em->getRepository('ecucurellaSporTiuBundle:League')->find($leagueid);
+        //TODO: Tractar que la Lliga no existeixi
+        $rounds = $em->getRepository('ecucurellaSporTiuBundle:Round')->findRoundsByLeague($league);
+        //TODO: Tractar que rounds estigui buit
+        
+        $game = new Game();
+        $game->setLocalpoints(0);
+        $game->setVisitorpoints(0);
+        $game->setGamedate(new DateTime('tomorrow'));
+        $game->setGamestate('CALENDAR');
+
+        $form = $this->createFormBuilder($game)
+            ->add('localclub', 'entity', array(
+                    'class'     => 'ecucurellaSporTiuBundle:Club',
+                    'property'  => 'name',
+                    'label'     => 'Local Club'))
+            ->add('localpoints', 'text', array(
+                    'label'     => 'Local points'))
+            ->add('visitorclub', 'entity', array(
+                    'class'     => 'ecucurellaSporTiuBundle:Club',
+                    'property'  => 'name',
+                    'label'     => 'Visitor Club'))
+            ->add('visitorpoints','number', array(
+                    'label'     => 'Visitor points'))
+            ->add('gamedate','datetime', array(
+                    'label'     => 'Game date'))
+            ->add('gamestate','choice', array(
+                    'choices'   => array(
+                        'CALENDAR'  => 'Calendar', 
+                        'SCHEDULED' => 'Scheduled',
+                        'SUSPENDED' => 'Suspended',
+                        'PLAYED'    => 'Played'),
+                    'label'     => 'Game state'))
+            ->add('round', 'entity', array(
+                    'class'     => 'ecucurellaSporTiuBundle:Round',
+                    'property'  => 'name',
+                    'choices'   => $rounds,
+                    'label'     => 'Round'))            
+            ->add('save', 'submit', array('label' => 'Create Game'))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->persist($game);
+            $em->flush();        
+            return $this->redirect($this->generateUrl('ecucurella_SporTiu_games'));
+        } else {
+            return $this->render('ecucurellaSporTiuBundle:Games:addgame.html.twig', array(
+                'form' => $form->createView()));
+        }
+
     }
 }

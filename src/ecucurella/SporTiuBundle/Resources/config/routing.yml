@@ -1,67 +1,71 @@
 ecucurella_SporTiu_homepage:
     pattern:  /
     defaults: { _controller: ecucurellaSporTiuBundle:Clubs:index }
-    
+
 ecucurella_SporTiu_clubs:
     pattern:  /clubs
     defaults: { _controller: ecucurellaSporTiuBundle:Clubs:index }
-    
+
 ecucurella_SporTiu_clubs2:
     pattern:  /clubs/
     defaults: { _controller: ecucurellaSporTiuBundle:Clubs:index }
-    
+
 ecucurella_SporTiu_clubs_id:
     pattern:  /clubs/club/{id}
     defaults: { _controller: ecucurellaSporTiuBundle:Clubs:club }
-    
+
 ecucurella_SporTiu_install:
     pattern:  /install
     defaults: { _controller: ecucurellaSporTiuBundle:Install:index }
-    
+
 ecucurella_SporTiu_install_schema:
     pattern:  /install/schema
     defaults: { _controller: ecucurellaSporTiuBundle:Install:createSchema }
-    
+
 ecucurella_SporTiu_games:
     pattern:  /games
     defaults: { _controller: ecucurellaSporTiuBundle:Games:index }
-    
+
 ecucurella_SporTiu_games2:
     pattern:  /games/
     defaults: { _controller: ecucurellaSporTiuBundle:Games:index }
-    
+
 ecucurella_SporTiu_games_next:
     pattern:  /games/next
     defaults: { _controller: ecucurellaSporTiuBundle:Games:next }
-    
+
 ecucurella_SporTiu_games_last:
     pattern:  /games/last
     defaults: { _controller: ecucurellaSporTiuBundle:Games:last }
-    
+
 ecucurella_SporTiu_games_id:
     pattern:  /games/game/{id}
     defaults: { _controller: ecucurellaSporTiuBundle:Games:game }
-    
+
+ecucurella_SporTiu_games_add:
+    pattern:  /games/add/{leagueid}
+    defaults: { _controller: ecucurellaSporTiuBundle:Games:add }
+
 ecucurella_SporTiu_leagues:
     pattern:  /leagues
     defaults: { _controller: ecucurellaSporTiuBundle:Leagues:index }
-    
+
 ecucurella_SporTiu_leagues2:
     pattern:  /leagues/
     defaults: { _controller: ecucurellaSporTiuBundle:Leagues:index }
-    
+
 ecucurella_SporTiu_leagues_id:
     pattern:  /leagues/league/{id}
     defaults: { _controller: ecucurellaSporTiuBundle:Leagues:league }
-    
+
 ecucurella_SporTiu_classification_round:
     pattern:  /classification/{round_id}
     defaults: { _controller: ecucurellaSporTiuBundle:Classification:round }
-    
+
 ecucurella_SporTiu_classification:
     pattern:  /classification
     defaults: { _controller: ecucurellaSporTiuBundle:Classification:index }
-    
+
 login:
     path:     /login
     defaults: { _controller: ecucurellaSporTiuBundle:Security:login }

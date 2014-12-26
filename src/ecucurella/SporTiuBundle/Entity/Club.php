@@ -93,6 +93,11 @@ class Club
     private $standings;
 
     /**
+     * @ORM\ManyToMany(targetEntity="ecucurella\SporTiuBundle\Entity\League", mappedBy="clubs")
+     **/
+    private $leagues;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -391,5 +396,38 @@ class Club
     public function getStandings()
     {
         return $this->standings;
+    }
+
+    /**
+     * Add leagues
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\League $leagues
+     * @return Club
+     */
+    public function addLeague(\ecucurella\SporTiuBundle\Entity\League $leagues)
+    {
+        $this->leagues[] = $leagues;
+
+        return $this;
+    }
+
+    /**
+     * Remove leagues
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\League $leagues
+     */
+    public function removeLeague(\ecucurella\SporTiuBundle\Entity\League $leagues)
+    {
+        $this->leagues->removeElement($leagues);
+    }
+
+    /**
+     * Get leagues
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLeagues()
+    {
+        return $this->leagues;
     }
 }

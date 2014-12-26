@@ -61,6 +61,11 @@ class League
      **/
     private $rounds;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Club", inversedBy="leagues")
+     * @ORM\JoinTable(name="clubs_leagues")
+    **/
+    private $clubs;
 
     /**
      * Get id
@@ -225,5 +230,38 @@ class League
     public function getRounds()
     {
         return $this->rounds;
+    }
+
+    /**
+     * Add clubs
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Club $clubs
+     * @return League
+     */
+    public function addClub(\ecucurella\SporTiuBundle\Entity\Club $clubs)
+    {
+        $this->clubs[] = $clubs;
+
+        return $this;
+    }
+
+    /**
+     * Remove clubs
+     *
+     * @param \ecucurella\SporTiuBundle\Entity\Club $clubs
+     */
+    public function removeClub(\ecucurella\SporTiuBundle\Entity\Club $clubs)
+    {
+        $this->clubs->removeElement($clubs);
+    }
+
+    /**
+     * Get clubs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getClubs()
+    {
+        return $this->clubs;
     }
 }
