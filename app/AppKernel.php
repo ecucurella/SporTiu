@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new ecucurella\SporTiuBundle\ecucurellaSporTiuBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new ecucurella\AssetsBundle\ecucurellaAssetsBundle(),
+            new SC\DatetimepickerBundle\SCDatetimepickerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -87,6 +87,8 @@ class GamesController extends Controller
         //League
         $league = $em->getRepository('ecucurellaSporTiuBundle:League')->find($leagueid);
         //TODO: Tractar que la Lliga no existeixi
+        $clubs = $league->getClubs();
+        //TODO: Tractar que clubs no estigui buit
         $rounds = $em->getRepository('ecucurellaSporTiuBundle:Round')->findRoundsByLeague($league);
         //TODO: Tractar que rounds estigui buit
         
@@ -100,30 +102,47 @@ class GamesController extends Controller
             ->add('localclub', 'entity', array(
                     'class'     => 'ecucurellaSporTiuBundle:Club',
                     'property'  => 'name',
-                    'label'     => 'Local Club'))
-            ->add('localpoints', 'text', array(
-                    'label'     => 'Local points'))
+                    'choices'   => $clubs,
+                    'label'     => 'Local'))
             ->add('visitorclub', 'entity', array(
                     'class'     => 'ecucurellaSporTiuBundle:Club',
                     'property'  => 'name',
-                    'label'     => 'Visitor Club'))
-            ->add('visitorpoints','number', array(
-                    'label'     => 'Visitor points'))
-            ->add('gamedate','datetime', array(
-                    'label'     => 'Game date'))
+                    'choices'   => $clubs,
+                    'label'     => 'Visitor'))            
+            ->add('localpoints', 'number')
+            ->add('visitorpoints','number')
+            ->add('gamedate', 'collot_datetime', array( 'pickerOptions' =>
+                array('format' => 'dd/mm/yyyy HH:ii',
+                    'weekStart' => 1,
+                    'daysOfWeekDisabled' => '1,2,3,4,5', 
+                    'autoclose' => true,
+                    'startView' => 'month',
+                    'minView' => 'hour',
+                    'maxView' => 'decade',
+                    'todayBtn' => true,
+                    'todayHighlight' => true,
+                    'keyboardNavigation' => true,
+                    'language' => 'esp',
+                    'forceParse' => true,
+                    'minuteStep' => 15,
+                    'pickerReferer ' => 'default',
+                    'pickerPosition' => 'bottom-right',
+                    'viewSelect' => 'hour',
+                    'showMeridian' => false,
+                    ))) 
             ->add('gamestate','choice', array(
                     'choices'   => array(
                         'CALENDAR'  => 'Calendar', 
                         'SCHEDULED' => 'Scheduled',
                         'SUSPENDED' => 'Suspended',
                         'PLAYED'    => 'Played'),
-                    'label'     => 'Game state'))
+                    'label'     => 'State'))
             ->add('round', 'entity', array(
                     'class'     => 'ecucurellaSporTiuBundle:Round',
                     'property'  => 'name',
                     'choices'   => $rounds,
                     'label'     => 'Round'))            
-            ->add('save', 'submit', array('label' => 'Create Game'))
+            ->add('save', 'submit', array('label' => 'Create'))
             ->getForm();
 
         $form->handleRequest($request);

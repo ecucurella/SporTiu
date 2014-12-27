@@ -1,12 +1,57 @@
 {% extends '::base.html.twig' %}
 {% block title %}Add Game{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
 {% block body %}
 <div class="container">
 	<div class="page-header">
 	    <h1>Add Game</h1>
 	</div>
+	{{ form_start(form) }}
 	<div class="row">
-	{{ form(form) }}
+		<div class="col-md-3"><h3>{{ form_label(form.localclub) }}</h3></div>
+		<div class="col-md-3"><h3>{{ form_label(form.visitorclub) }}</h3></div>
 	</div>
+	<div class="row">
+		<div class="col-md-2">
+	        {{ form_widget(form.localclub, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-1">
+	        {{ form_widget(form.localpoints, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-2">
+			{{ form_widget(form.visitorclub, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-1">
+	        {{ form_widget(form.visitorpoints, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="row"><div class="col-md-2">&nbsp;</div></div>
+	<div class="row">
+		<div class="col-md-2">
+			{{ form_widget(form.round, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-2">
+			{{ form_widget(form.gamedate, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-2">
+			{{ form_widget(form.gamestate, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="row"><div class="col-md-2">&nbsp;</div></div>
+	<div class="row">
+		<div class="col-md-2">
+			<div class="form-group">
+        	{{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}}) }}
+        	</div>
+        </div>
+    </div>
+	{{ form_end(form) }}			
 </div>
 {% endblock  %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+{% endblock %}

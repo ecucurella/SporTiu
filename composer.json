@@ -20,7 +20,8 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "doctrine/data-fixtures": "dev-master"
+        "doctrine/data-fixtures": "dev-master",
+        "stephanecollot/datetimepicker-bundle": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
