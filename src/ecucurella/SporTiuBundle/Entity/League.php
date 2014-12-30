@@ -64,6 +64,7 @@ class League
     /**
      * @ORM\ManyToMany(targetEntity="ecucurella\SporTiuBundle\Entity\Club", inversedBy="leagues")
      * @ORM\JoinTable(name="clubs_leagues")
+     * @ORM\OrderBy({"abbreviation" = "ASC"})
     **/
     private $clubs;
 

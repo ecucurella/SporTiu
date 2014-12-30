@@ -1,0 +1,14 @@
+ecucurella\SporTiuBundle\Entity\Game:
+    properties:
+        localpoints:
+            - Range:
+                min: 0
+                max: 99
+                minMessage: Points must be greater than {{ limit }}.
+                maxMessage: Points must be smaller than {{ limit }}.
+        visitorpoints:
+            - Range:
+                min: 0
+                max: 99
+                minMessage: Points must be greater than {{ limit }}.
+                maxMessage: Points must be smaller than {{ limit }}.

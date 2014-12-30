@@ -95,22 +95,24 @@ class GamesController extends Controller
         $game = new Game();
         $game->setLocalpoints(0);
         $game->setVisitorpoints(0);
-        $game->setGamedate(new DateTime('tomorrow'));
+        $game->setGamedate(new DateTime('next sunday'));
         $game->setGamestate('CALENDAR');
 
         $form = $this->createFormBuilder($game)
             ->add('localclub', 'entity', array(
                     'class'     => 'ecucurellaSporTiuBundle:Club',
-                    'property'  => 'name',
+                    'property'  => 'abbreviation',
                     'choices'   => $clubs,
-                    'label'     => 'Local'))
+                    'label'     => 'Local',
+                    'placeholder' => 'Choose a Club ...'))
             ->add('visitorclub', 'entity', array(
                     'class'     => 'ecucurellaSporTiuBundle:Club',
-                    'property'  => 'name',
+                    'property'  => 'abbreviation',
                     'choices'   => $clubs,
-                    'label'     => 'Visitor'))            
-            ->add('localpoints', 'number')
-            ->add('visitorpoints','number')
+                    'label'     => 'Visitor',
+                    'placeholder' => 'Choose a Club ...'))            
+            ->add('localpoints', 'number', array('label' => 'Local points'))
+            ->add('visitorpoints','number', array('label' => 'Visitor points'))
             ->add('gamedate', 'collot_datetime', array( 'pickerOptions' =>
                 array('format' => 'dd/mm/yyyy HH:ii',
                     'weekStart' => 1,
@@ -142,15 +144,21 @@ class GamesController extends Controller
                     'property'  => 'name',
                     'choices'   => $rounds,
                     'label'     => 'Round'))            
-            ->add('save', 'submit', array('label' => 'Create'))
+            ->add('save', 'submit', array('label' => 'Save'))
+            ->add('saveAndAdd', 'submit', array('label' => 'Save and add'))
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em->persist($game);
-            $em->flush();        
-            return $this->redirect($this->generateUrl('ecucurella_SporTiu_games'));
+            $em->flush();
+            if ($form->get('saveAndAdd')->isClicked()) {
+                //TODO: Show message that the game has added correctly
+                return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_add',array('leagueid' => $leagueid)));
+            } else {
+                return $this->redirect($this->generateUrl('ecucurella_SporTiu_games'));
+            }        
         } else {
             return $this->render('ecucurellaSporTiuBundle:Games:addgame.html.twig', array(
                 'form' => $form->createView()));

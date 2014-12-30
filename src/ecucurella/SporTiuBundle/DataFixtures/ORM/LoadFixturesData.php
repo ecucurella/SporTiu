@@ -54,6 +54,7 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
     private $leagueA1415;
     private $leagueB1415;
     private $leagueC1415;
+    private $leagueFake;
 
     private $round13141;
     private $round13142;
@@ -143,6 +144,9 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
     private $roundC141520;
     private $roundC141521;
     private $roundC141522;
+    private $round1Fake;
+    private $round2Fake;
+    private $round3Fake;
 
     private function getClubs(ObjectManager $manager) {
         //Clubs
@@ -241,6 +245,11 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
           ->findOneBy(array('name' => 'Lliga intercomarcal de veterans',
                             'division' => 'GRUP C',
                             'season' => 'Temporada 2014/2015'));
+        $this->leagueFake = $manager->getRepository('ecucurellaSporTiuBundle:League')
+          ->findOneBy(array('name' => 'Lliga',
+                            'division' => 'GRUP F',
+                            'season' => 'Temporada 2014/2015'));
+
     }
 
     private function getRounds(ObjectManager $manager) {
@@ -424,6 +433,13 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         ->findOneBy(array('name' => 'Jornada21', 'league' => $this->leagueC1415));
         $this->roundC141522 = $manager->getRepository('ecucurellaSporTiuBundle:Round')
         ->findOneBy(array('name' => 'Jornada22', 'league' => $this->leagueC1415));
+        
+        $this->round1Fake = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada1', 'league' => $this->leagueFake));
+        $this->round2Fake = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada2', 'league' => $this->leagueFake));
+        $this->round3Fake = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+        ->findOneBy(array('name' => 'Jornada3', 'league' => $this->leagueFake));
     }
 
     /**
@@ -952,6 +968,15 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $league->setDateBegin(date_create_from_format('d-m-Y','20-09-2014'));
         $league->setDateEnd(date_create_from_format('d-m-Y','31-05-2015'));
         $manager->persist($league);
+
+        $league = new League();
+        $league->setName('Lliga');
+        $league->setDivision('GRUP F');
+        $league->setSeason('Temporada 2014/2015');
+        $league->setDateBegin(date_create_from_format('d-m-Y','20-09-2014'));
+        $league->setDateEnd(date_create_from_format('d-m-Y','31-05-2015'));
+        $manager->persist($league);
+
     }
 
     public function createRounds(ObjectManager $manager)
@@ -1047,7 +1072,11 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
             array('Jornada19','19',$this->leagueC1415, false),
             array('Jornada20','20',$this->leagueC1415, false),
             array('Jornada21','21',$this->leagueC1415, false),
-            array('Jornada22','22',$this->leagueC1415, false)
+            array('Jornada22','22',$this->leagueC1415, false),
+            array('Jornada1','1',$this->leagueFake, false),
+            array('Jornada2','2',$this->leagueFake, false),
+            array('Jornada3','3',$this->leagueFake, false),
+ 
         );
 
         foreach ($rounds as $round_fixture) {
@@ -1120,6 +1149,20 @@ class LoadFixturesData extends AbstractFixture implements FixtureInterface
         $this->leagueC1415 = $this->leagueC1415->addClub($this->verdiblanca);
         $this->leagueC1415 = $this->leagueC1415->addClub($this->pradenc);
         $manager->persist($this->leagueC1415);
+
+        $this->leagueFake = $this->leagueFake->addClub($this->castellnou);
+        $this->leagueFake = $this->leagueFake->addClub($this->avinyo);
+        $this->leagueFake = $this->leagueFake->addClub($this->monistrol);
+        $this->leagueFake = $this->leagueFake->addClub($this->navas);
+        $this->leagueFake = $this->leagueFake->addClub($this->navarcles);
+        $this->leagueFake = $this->leagueFake->addClub($this->udbalsareny);
+        $this->leagueFake = $this->leagueFake->addClub($this->atgironella);
+        $this->leagueFake = $this->leagueFake->addClub($this->atcastellbell);
+        $this->leagueFake = $this->leagueFake->addClub($this->america);
+        $this->leagueFake = $this->leagueFake->addClub($this->guardiolenca);
+        $this->leagueFake = $this->leagueFake->addClub($this->pirinaica);
+        $this->leagueFake = $this->leagueFake->addClub($this->solsona);
+        $manager->persist($this->leagueFake);
 
   }
 
