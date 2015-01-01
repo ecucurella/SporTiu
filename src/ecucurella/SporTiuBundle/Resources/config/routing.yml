@@ -42,6 +42,10 @@ ecucurella_SporTiu_games_id:
     pattern:  /games/game/{id}
     defaults: { _controller: ecucurellaSporTiuBundle:Games:game }
 
+ecucurella_SporTiu_games_id_edit:
+    pattern:  /games/game/{gameid}/edit
+    defaults: { _controller: ecucurellaSporTiuBundle:Games:edit }
+
 ecucurella_SporTiu_games_add:
     pattern:  /games/add/{leagueid}
     defaults: { _controller: ecucurellaSporTiuBundle:Games:add }

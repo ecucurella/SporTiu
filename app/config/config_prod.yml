@@ -50,3 +50,4 @@ security:
 
     access_control:
         - { path: ^/install, roles: ROLE_ADMIN }
+        - { path: ^/games/add/*, roles: ROLE_ADMIN }

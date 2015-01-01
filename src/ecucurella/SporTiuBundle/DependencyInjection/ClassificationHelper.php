@@ -26,6 +26,64 @@ class ClassificationHelper
             if ((!is_null($localstanding)) and (!is_null($visitorstanding))) { break; }
         }
 
+        //Deal with case that there are not standings yet
+        if ($round->getOrdernum() == 1) {
+            //First round, new standings
+            if (is_null($localstanding)) {
+                $localstanding = new Standing();
+                $localstanding->setClassification($classification);
+                $localstanding->setClub($game->getLocalclub());
+            }
+            if (is_null($visitorstanding)) {
+                $visitorstanding = new Standing();
+                $visitorstanding->setClassification($classification);
+                $visitorstanding->setClub($game->getVisitorclub());
+            }            
+        } else {
+            //Other round than firts, copy standing for previous round
+            $previousRound = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+                ->findOneBy(array('ordernum' =>  $round->getOrdernum() - 1,
+                                  'league' => $round->getLeague()));
+            if (is_null($localstanding)) {
+                $localstanding = new Standing();
+                $localstanding->setClassification($classification);
+                $localstanding->setClub($game->getLocalclub());
+                if ($previousRound->getClassification()) {
+                    $previousLocalStanding = $manager->getRepository('ecucurellaSporTiuBundle:Standing')
+                        ->findStandingByClassificationAndClub($previousRound->getClassification(),$game->getLocalclub());
+                    if ($previousLocalStanding) {
+                        $localstanding->setGamesplayed($previousLocalStanding[0]->getGamesplayed());
+                        $localstanding->setGameswin($previousLocalStanding[0]->getGameswin());
+                        $localstanding->setGamesdefeat($previousLocalStanding[0]->getGamesdefeat());
+                        $localstanding->setGamesdraw($previousLocalStanding[0]->getGamesdraw());
+                        $localstanding->setGoalsfavorables($previousLocalStanding[0]->getGoalsfavorables());
+                        $localstanding->setGoalsagainst($previousLocalStanding[0]->getGoalsagainst());
+                        $localstanding->setGoalsdifference($previousLocalStanding[0]->getGoalsdifference());
+                        $localstanding->setPoints($previousLocalStanding[0]->getPoints());
+                    }
+                }
+            }
+            if (is_null($visitorstanding)) {
+                $visitorstanding = new Standing();
+                $visitorstanding->setClassification($classification);
+                $visitorstanding->setClub($game->getVisitorclub());            
+                if ($previousRound->getClassification()) {
+                    $previousVisitorStanding = $manager->getRepository('ecucurellaSporTiuBundle:Standing')
+                        ->findStandingByClassificationAndClub($previousRound->getClassification(),$game->getVisitorclub());
+                    if ($previousVisitorStanding) {
+                        $visitorstanding->setGamesplayed($previousVisitorStanding[0]->getGamesplayed());
+                        $visitorstanding->setGameswin($previousVisitorStanding[0]->getGameswin());
+                        $visitorstanding->setGamesdefeat($previousVisitorStanding[0]->getGamesdefeat());
+                        $visitorstanding->setGamesdraw($previousVisitorStanding[0]->getGamesdraw());
+                        $visitorstanding->setGoalsfavorables($previousVisitorStanding[0]->getGoalsfavorables());
+                        $visitorstanding->setGoalsagainst($previousVisitorStanding[0]->getGoalsagainst());
+                        $visitorstanding->setGoalsdifference($previousVisitorStanding[0]->getGoalsdifference());
+                        $visitorstanding->setPoints($previousVisitorStanding[0]->getPoints());
+                    }
+                }
+            }
+        }
+
         if ((!is_null($localstanding)) and (!is_null($visitorstanding))) { 
             
              //Hem d'afegir les dades
@@ -64,9 +122,11 @@ class ClassificationHelper
             $manager->persist($localstanding);
             $manager->persist($visitorstanding);
             $manager->persist($game);
-
             $manager->flush();
 
+            //Reorder classification if necessary
+            self::orderClassification($manager, $classification); 
+            
         }
 
     }
@@ -102,8 +162,8 @@ class ClassificationHelper
                     //this games needs to be counted in this classification and next ones
                     $roundsToCount = $manager->getRepository('ecucurellaSporTiuBundle:Round')
                        ->findAllRoundsPlayedAfterOneRoundByLeague($round);
-                    foreach ($roundsToCount as $rounToCount) {
-                        self::addGameToStandings($manager, $rounToCount, $game);   
+                    foreach ($roundsToCount as $roundToCount) {
+                        self::addGameToStandings($manager, $roundToCount, $game);   
                     }
                 }
             }

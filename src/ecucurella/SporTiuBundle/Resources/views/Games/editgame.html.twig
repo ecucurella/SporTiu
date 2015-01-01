@@ -1,0 +1,81 @@
+{% extends '::base.html.twig' %}
+{% block title %}Edit Game{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ form_stylesheet(form) }}
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="page-header">
+	    <h1>Edit Game</h1>
+	</div>
+	{{ form_start(form) }}
+	<div class="row">
+		<div class="col-md-6" id="div_alert">
+		{% if form.vars.errors|length or form.localpoints.vars.errors|length or form.visitorpoints.vars.errors|length  %}
+			<div class="alert alert-danger" role="alert">
+			{% if form.vars.errors|length %}
+				{% for error in form.vars.errors %}
+					{{ error.message }}<br>
+				{% endfor %}
+			{% endif %}
+			{% if form.localpoints.vars.errors|length %}
+				{% for error in form.localpoints.vars.errors %}
+					<strong>{{ form.localpoints.vars.label }}:</strong> {{ error.message }}<br>
+				{% endfor %}
+			{% endif %}
+			{% if form.visitorpoints.vars.errors|length %}
+				{% for error in form.visitorpoints.vars.errors %}
+					<strong>{{ form.visitorpoints.vars.label }}:</strong> {{ error.message }}<br>
+				{% endfor %}
+			{% endif %}
+			</div>
+		{% endif %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3"><h3>{{ form_label(form.localclub) }}</h3></div>
+		<div class="col-md-3"><h3>{{ form_label(form.visitorclub) }}</h3></div>
+	</div>
+	<div class="row">
+		<div class="col-md-2" id="div_localclub">
+	        {{ form_widget(form.localclub, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-1 {% if form.localpoints.vars.errors|length %}has-error{% endif %}">
+	        {{ form_widget(form.localpoints, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-2" id="div_visitorclub">
+			{{ form_widget(form.visitorclub, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-1 {% if form.visitorpoints.vars.errors|length %}has-error{% endif %}">
+	        {{ form_widget(form.visitorpoints, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="row"><div class="col-md-2">&nbsp;</div></div>
+	<div class="row">
+		<div class="col-md-2">
+			{{ form_widget(form.round, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-2">
+			{{ form_widget(form.gamedate, {'attr': {'class': 'form-control'}}) }}
+		</div>
+		<div class="col-md-2">
+			{{ form_widget(form.gamestate, {'attr': {'class': 'form-control'}}) }}
+		</div>
+	</div>
+	<div class="row"><div class="col-md-2">&nbsp;</div></div>
+	<div class="row">
+		<div class="col-md-1 col-md-offset-5">
+			<div class="form-group pull-right">
+        	{{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}}) }}
+        	</div>
+        </div>        
+    </div>
+	{{ form_end(form) }}			
+</div>
+{% endblock  %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ form_javascript(form) }}
+	<script src="{{ asset('bundles/ecucurellasportiu/js/addgame.js') }}" type="text/javascript"></script>
+{% endblock %}
