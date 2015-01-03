@@ -155,6 +155,7 @@ class GamesController extends Controller
         if ($form->isValid()) {
             $em->persist($game);
             $em->flush();
+            $this->deleteFutureStandingsAndClassification($em,$game);
             if ($form->get('saveAndAdd')->isClicked()) {
                 //TODO: Show message that the game has added correctly
                 return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_add', array('leagueid' => $leagueid)));
@@ -171,12 +172,8 @@ class GamesController extends Controller
     public function editAction($gameid, Request $request) 
     {
 
-        //em
         $em = $this->getDoctrine()->getManager();
         $game = $em->getRepository('ecucurellaSporTiuBundle:Game')->find($gameid);
-        //$league = $game->getRound()->getLeague();
-        //$clubs = $league->getClubs();
-        //$rounds = $em->getRepository('ecucurellaSporTiuBundle:Round')->findRoundsByLeague($league);
 
         $form = $this->createFormBuilder($game)
             ->add('localclub', 'text', array(
@@ -223,15 +220,10 @@ class GamesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            //TODO: Delete standings for this round and these clubs
             $game->setStandingcount("0");
             $em->persist($game);
             $em->flush();
-            $classification = $game->getRound()->getClassification();
-            $standingsDeleted = $em->getRepository('ecucurellaSporTiuBundle:Standing')
-                ->deleteStandingByClassificationAndClub($classification, $game->getLocalclub());
-            $standingsDeleted += $em->getRepository('ecucurellaSporTiuBundle:Standing')
-                ->deleteStandingByClassificationAndClub($classification, $game->getVisitorclub());
+            $this->deleteFutureStandingsAndClassification($em,$game);
             return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_id', array('id' => $game->getId())));
         } else {
             return $this->render('ecucurellaSporTiuBundle:Games:editgame.html.twig', array(
@@ -239,4 +231,19 @@ class GamesController extends Controller
         }
 
     }
+
+    private function deleteFutureStandingsAndClassification($em,Game $game) {
+        $rounds = $em->getRepository('ecucurellaSporTiuBundle:Round')
+           ->findAllRoundsPlayedAfterOneRoundByLeague($game->getRound());
+        foreach ($rounds as $round) {
+            $classification = $round->getClassification();
+            $standingsDeleted = $em->getRepository('ecucurellaSporTiuBundle:Standing')
+                ->deleteStandingByClassification($classification);
+            $roundsDeleted = $em->getRepository('ecucurellaSporTiuBundle:Classification')
+                ->deleteClassificationByRound($round);
+            $gamesUpdated = $em->getRepository('ecucurellaSporTiuBundle:Game')
+                ->updateGamesStandingCountByRound($round);
+        }
+    }
+
 }

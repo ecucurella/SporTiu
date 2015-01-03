@@ -57,4 +57,15 @@ class GameRepository extends EntityRepository
         return $query->execute();
     }
 
+    public function updateGamesStandingCountByRound($round)
+    {
+        $dql = "UPDATE ecucurellaSporTiuBundle:Game g
+                SET g.standingcount = false
+                WHERE g.round = :round";
+
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('round', $round);
+        return $query->execute();
+    }
+
 }

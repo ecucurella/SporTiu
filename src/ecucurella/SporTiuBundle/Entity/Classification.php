@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Classification
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="ecucurella\SporTiuBundle\Entity\ClassificationRepository")
  */
 class Classification
 {

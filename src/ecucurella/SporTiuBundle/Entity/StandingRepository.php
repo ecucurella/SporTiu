@@ -34,15 +34,13 @@ class StandingRepository extends EntityRepository
         return $query->execute();
     }
     
-    public function deleteStandingByClassificationAndClub($classification, $club)
+    public function deleteStandingByClassification($classification)
     {
         $dql = "DELETE FROM ecucurellaSporTiuBundle:Standing s
-                WHERE s.classification = :classification 
-                AND s.club = :club ";
+                WHERE s.classification = :classification ";
 
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('classification', $classification);
-        $query->setParameter('club', $club);
         //Returns number of rows deleted
         return $query->execute();
     }

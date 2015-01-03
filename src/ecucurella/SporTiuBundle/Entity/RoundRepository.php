@@ -28,7 +28,8 @@ class RoundRepository extends EntityRepository
         $dql = "SELECT r FROM ecucurellaSporTiuBundle:Round r
                 WHERE r.league = :league 
                 AND r.roundplayed = true
-                AND r.ordernum >= :ordernum";
+                AND r.ordernum >= :ordernum
+                ORDER BY r.ordernum DESC";
 
         $query = $this->getEntityManager()->createQuery($dql);
         $query->setParameter('league', $round->getLeague());
