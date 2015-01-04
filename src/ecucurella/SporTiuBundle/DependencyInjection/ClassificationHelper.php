@@ -34,6 +34,7 @@ class ClassificationHelper
         if (!$classification) {
             $classification = self::createClassification($manager, $round);
             if ($classification) { 
+                $classification = self::fillClassification($manager, $classification);                 
                 $classification = self::orderClassification($manager, $classification); 
             }
         } 
@@ -67,6 +68,7 @@ class ClassificationHelper
                 if (!$previousClassification) {
                     $previousClassification = self::createClassification($manager, $previousRound);
                     if ($previousClassification) { 
+                        $previousClassification = self::fillClassification($manager, $previousClassification);                 
                         $previousClassification = self::orderClassification($manager, $previousClassification); 
                     }
                 }
@@ -202,6 +204,47 @@ class ClassificationHelper
             $manager->persist($standing);
         }
         $manager->flush();
+        return $classification;
+    }
+
+    public function fillClassification(ObjectManager $manager, $classification) {
+        $clubs = $classification->getRound()->getLeague()->getClubs();
+        $standings = $classification->getStandings();
+        foreach ($clubs as $club) {
+            $clubExistOnStanding = false;
+            foreach ($standings as $standing) {
+                if ($club->getId() == $standing->getClub()->getId()) {
+                    $clubExistOnStanding = true;
+                    break;
+                }
+            }
+            if (!$clubExistOnStanding) {
+                $newStanding = new Standing();
+                $newStanding->setClassification($classification);
+                $newStanding->setClub($club);
+                if ($classification->getRound()->getOrdernum() > 1) {
+                    $previousRound = $manager->getRepository('ecucurellaSporTiuBundle:Round')
+                        ->findOneBy(array('ordernum' => $classification->getRound()->getOrdernum() - 1,
+                                          'league' => $classification->getRound()->getLeague()));
+                    if ($previousRound->getClassification()) {
+                        $previousStanding = $manager->getRepository('ecucurellaSporTiuBundle:Standing')
+                            ->findStandingByClassificationAndClub($previousRound->getClassification(),$club);
+                        if ($previousStanding) {
+                            $newStanding->setGamesplayed($previousStanding[0]->getGamesplayed());
+                            $newStanding->setGameswin($previousStanding[0]->getGameswin());
+                            $newStanding->setGamesdefeat($previousStanding[0]->getGamesdefeat());
+                            $newStanding->setGamesdraw($previousStanding[0]->getGamesdraw());
+                            $newStanding->setGoalsfavorables($previousStanding[0]->getGoalsfavorables());
+                            $newStanding->setGoalsagainst($previousStanding[0]->getGoalsagainst());
+                            $newStanding->setGoalsdifference($previousStanding[0]->getGoalsdifference());
+                            $newStanding->setPoints($previousStanding[0]->getPoints());
+                        }
+                    }
+                }
+                $manager->persist($newStanding);
+                $manager->flush();
+            }
+        }
         return $classification;
     }
 

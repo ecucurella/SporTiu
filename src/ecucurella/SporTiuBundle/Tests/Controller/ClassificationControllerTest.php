@@ -134,7 +134,9 @@ class ClassificationControllerTest extends WebTestCase
         }
 
         //PLAY GAME SUSPENDED
-        $fixture = new LoadFixturesClubsData();  
+        //TODO: Change this Test to use of Edit Game form
+        
+        /*$fixture = new LoadFixturesClubsData();  
         $fixture->playGamesSuspended($this->em); 
         $this->em->flush();
 
@@ -160,7 +162,7 @@ class ClassificationControllerTest extends WebTestCase
                 $actual = $fila->filter('td')->eq($i)->text();
                 $this->assertEquals($expected[$j][$i],$actual);
             }            
-        }
+        }*/
 
     }
 
