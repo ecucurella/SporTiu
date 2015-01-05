@@ -39,40 +39,40 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2" id="div_localclub">
-	        {{ form_widget(form.localclub, {'attr': {'class': 'form-control'}}) }}
+	        {{ form_widget(form.localclub, {'attr': {'class': 'form-control', 'tabindex': '1'}}) }}
 		</div>
 		<div class="col-md-1 {% if form.localpoints.vars.errors|length %}has-error{% endif %}">
-	        {{ form_widget(form.localpoints, {'attr': {'class': 'form-control'}}) }}
+	        {{ form_widget(form.localpoints, {'attr': {'class': 'form-control', 'tabindex': '2'}}) }}
 		</div>
 		<div class="col-md-2" id="div_visitorclub">
-			{{ form_widget(form.visitorclub, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.visitorclub, {'attr': {'class': 'form-control', 'tabindex': '3'}}) }}
 		</div>
 		<div class="col-md-1 {% if form.visitorpoints.vars.errors|length %}has-error{% endif %}">
-	        {{ form_widget(form.visitorpoints, {'attr': {'class': 'form-control'}}) }}
+	        {{ form_widget(form.visitorpoints, {'attr': {'class': 'form-control', 'tabindex': '4'}}) }}
 		</div>
 	</div>
 	<div class="row"><div class="col-md-2">&nbsp;</div></div>
 	<div class="row">
 		<div class="col-md-2">
-			{{ form_widget(form.round, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.round, {'attr': {'class': 'form-control', 'tabindex': '5'}}) }}
 		</div>
 		<div class="col-md-2">
-			{{ form_widget(form.gamedate, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.gamedate, {'attr': {'class': 'form-control', 'tabindex': '6'}}) }}
 		</div>
 		<div class="col-md-2">
-			{{ form_widget(form.gamestate, {'attr': {'class': 'form-control'}}) }}
+			{{ form_widget(form.gamestate, {'attr': {'class': 'form-control', 'tabindex': '7'}}) }}
 		</div>
 	</div>
 	<div class="row"><div class="col-md-2">&nbsp;</div></div>
 	<div class="row">
 		<div class="col-md-2 col-md-offset-3">
 			<div class="form-group pull-right">
-        	{{ form_widget(form.saveAndAdd, {'attr': {'class': 'btn btn-success btn-lg'}}) }}
+        	{{ form_widget(form.saveAndAdd, {'attr': {'class': 'btn btn-success btn-lg', 'tabindex': '8'}}) }}
         	</div>
         </div>
 		<div class="col-md-1">
 			<div class="form-group pull-right">
-        	{{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg'}}) }}
+        	{{ form_widget(form.save, {'attr': {'class': 'btn btn-success btn-lg', 'tabindex': '9'}}) }}
         	</div>
         </div>        
     </div>

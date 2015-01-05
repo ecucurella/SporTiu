@@ -4,9 +4,6 @@
 /app/logs/*
 /vendor/
 /app/config/parameters.yml
-bin/dbunit
-bin/doctrine
-bin/doctrine.php
-bin/phpunit
+bin/
 composer.phar
 composer.lock

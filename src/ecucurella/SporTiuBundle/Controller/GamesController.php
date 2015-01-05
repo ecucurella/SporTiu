@@ -114,7 +114,7 @@ class GamesController extends Controller
             ->add('localpoints', 'number', array('label' => 'Local points'))
             ->add('visitorpoints','number', array('label' => 'Visitor points'))
             ->add('gamedate', 'collot_datetime', array( 'pickerOptions' =>
-                array('format' => 'dd/mm/yyyy HH:ii',
+                array('format' => 'dd/mm/yyyy hh:ii',
                     'weekStart' => 1,
                     'daysOfWeekDisabled' => '1,2,3,4,5', 
                     'autoclose' => true,
@@ -185,7 +185,7 @@ class GamesController extends Controller
             ->add('localpoints', 'number', array('label' => 'Local points'))
             ->add('visitorpoints','number', array('label' => 'Visitor points'))
             ->add('gamedate', 'collot_datetime', array( 'pickerOptions' =>
-                array('format' => 'dd/mm/yyyy HH:ii',
+                array('format' => 'dd/mm/yyyy hh:ii',
                     'weekStart' => 1,
                     'daysOfWeekDisabled' => '1,2,3,4,5', 
                     'autoclose' => true,
