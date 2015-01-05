@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+{% block title %}Delete Game{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="page-header">
+	    <h1>Delete Game</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-6" id="div_alert">
+			<div class="alert alert-success" role="alert">
+				Game <strong>{{ gameid }}</strong> have been deleted succesfully !!
+			</div>
+		</div>
+	</div>
+{% endblock  %}

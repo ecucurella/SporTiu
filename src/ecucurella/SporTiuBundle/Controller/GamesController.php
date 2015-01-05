@@ -232,6 +232,18 @@ class GamesController extends Controller
 
     }
 
+    public function deleteAction($gameid) 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $game = $em->getRepository('ecucurellaSporTiuBundle:Game')->find($gameid);
+        $gameid = $game->getId();
+        $this->deleteFutureStandingsAndClassification($em,$game);
+        $em->remove($game);
+        $em->flush();
+        return $this->render('ecucurellaSporTiuBundle:Games:deletegame.html.twig',
+            array('gameid' => $gameid));
+    }
+
     private function deleteFutureStandingsAndClassification($em,Game $game) {
         $rounds = $em->getRepository('ecucurellaSporTiuBundle:Round')
            ->findAllRoundsPlayedAfterOneRoundByLeague($game->getRound());

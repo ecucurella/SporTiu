@@ -22,6 +22,10 @@
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 Edit
             </a>
+            <a class="btn btn-danger" href="{{ path("ecucurella_SporTiu_games_id_delete", {gameid: game.id}) }}" role="button">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                Remove
+            </a>
         {% endif %}
       </h3>
     </div>
