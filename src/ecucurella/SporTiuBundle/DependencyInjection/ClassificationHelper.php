@@ -17,13 +17,15 @@ class ClassificationHelper
         $rounds = $league->getRounds();
         foreach ($rounds as $round) {
             $games = $round->getGames();
+            $played = false;
             foreach ($games as $game) {
                 if ($game->getGamestate() == 'PLAYED') {
-                    $round->setRoundplayed(true);
-                    $manager->persist($round);
+                    $played = true;
                     break;
                 }
             }
+            $round->setRoundplayed($played);    
+            $manager->persist($round);
         }
         $manager->flush();
     }

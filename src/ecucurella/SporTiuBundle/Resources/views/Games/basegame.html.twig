@@ -18,11 +18,11 @@
           <span class="label label-warning">{{ game.gamedate|date('d-m-Y') }}</span> <span class="label label-warning">{{ game.gamedate|date('H:i') }}</span>
         {% endif %}
         {% if app.user %}
-            <a class="btn btn-default" href="{{ path("ecucurella_SporTiu_games_id_edit", {gameid: game.id}) }}" role="button">
+            <a class="btn btn-primary" href="{{ path("ecucurella_SporTiu_games_id_edit", {gameid: game.id}) }}" role="button">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 Edit
             </a>
-            <a class="btn btn-danger" href="{{ path("ecucurella_SporTiu_games_id_delete", {gameid: game.id}) }}" role="button">
+            <a class="btn btn-danger" href="{{ path("ecucurella_SporTiu_games_id_delete", {gameid: game.id}) }}" role="button" onclick="return confirm('Are you sure you want to delete this game ?')">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 Remove
             </a>
