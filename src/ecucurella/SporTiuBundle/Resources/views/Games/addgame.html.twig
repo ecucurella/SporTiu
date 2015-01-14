@@ -33,13 +33,26 @@
 		{% endif %}
 		</div>
 	</div>
-	{% if error is defined %}
+	{% if gameadded is defined %}
 	<div class="row">
 		<div class="col-md-6">
-			<div class="alert alert-warning" role="alert">Game <strong>{{ error.localclub.name }}</strong> versus <strong>{{ error.visitorclub.name }}</strong> was <strong>{{ error.gamestate|lower }}</strong> in round <strong>{{ error.round.name }}</strong> on <strong>{{ error.gamedate|date('d-m-Y') }}</strong>. You can't add it again !!</div>
+			<div class="alert alert-warning" role="alert">Game <strong>{{ gameadded.localclub.name }}</strong> versus <strong>{{ gameadded.visitorclub.name }}</strong> was <strong>{{ gameadded.gamestate|lower }}</strong> in round <strong>{{ gameadded.round.name }}</strong> on <strong>{{ gameadded.gamedate|date('d-m-Y') }}</strong>. You can't add it again !!</div>
 		</div>
 	</div>
 	{% endif %}
+	{% if clubadded is defined %}
+	<div class="row">
+		<div class="col-md-6">
+			{% if clubadded.localclub.name == form.vars.value.localclub.name or clubadded.localclub.name == form.vars.value.visitorclub.name %}
+			<div class="alert alert-warning" role="alert">Club <strong>{{ clubadded.localclub.name }}</strong> was <strong>{{ clubadded.gamestate|lower }}</strong> in round <strong>{{ clubadded.round.name }}</strong> against <strong>{{ clubadded.visitorclub.name }}</strong>. You can't add it again !!</div>
+			{% endif %}
+			{% if clubadded.visitorclub.name == form.vars.value.localclub.name or clubadded.visitorclub.name == form.vars.value.visitorclub.name %}
+			<div class="alert alert-warning" role="alert">Club <strong>{{ clubadded.visitorclub.name }}</strong> was <strong>{{ clubadded.gamestate|lower }}</strong> in round <strong>{{ clubadded.round.name }}</strong> against <strong>{{ clubadded.localclub.name }}</strong>. You can't add it again !!</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
+
 	{% if added is defined %}
 	<div class="row">
 		<div class="col-md-6">
