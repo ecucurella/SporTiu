@@ -82,7 +82,6 @@ class GamesController extends Controller
     public function addAction($leagueid, Request $request) 
     {
 
-        //em
         $em = $this->getDoctrine()->getManager();
         //League
         $league = $em->getRepository('ecucurellaSporTiuBundle:League')->find($leagueid);
@@ -153,20 +152,44 @@ class GamesController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em->persist($game);
-            $em->flush();
-            $this->deleteFutureStandingsAndClassification($em,$game);
-            if ($form->get('saveAndAdd')->isClicked()) {
-                //TODO: Show message that the game has added correctly
-                return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_add', array('leagueid' => $leagueid)));
+            $canAddThisGame = $this->canAddGame($game, $em);
+            if ($canAddThisGame === true) {
+                $em->persist($game);
+                $em->flush();
+                $this->deleteFutureStandingsAndClassification($em,$game);
+                if ($form->get('saveAndAdd')->isClicked()) {
+                    //TODO: Show message that the game has added correctly
+                    //return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_add', array('leagueid' => $leagueid)));
+                    return $this->render('ecucurellaSporTiuBundle:Games:addgame.html.twig', array(
+                        'form'  => $form->createView(), 'added' => $game ));
+                } else {
+                    return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_id', array('id' => $game->getId())));
+                }  
             } else {
-                return $this->redirect($this->generateUrl('ecucurella_SporTiu_games_id', array('id' => $game->getId())));
-            }        
+                return $this->render('ecucurellaSporTiuBundle:Games:addgame.html.twig', array(
+                    'form'  => $form->createView(), 'error' => $canAddThisGame ));
+            }
         } else {
             return $this->render('ecucurellaSporTiuBundle:Games:addgame.html.twig', array(
-                'form' => $form->createView()));
+                'form'  => $form->createView()));
         }
 
+    }
+
+    private function canAddGame($game, $em) {
+        //Check that this game:
+        //  * has not been played before in same league
+        $oldgame = $em->getRepository('ecucurellaSporTiuBundle:Game')
+            ->findGameByLeagueAndClubs($game->getRound()->getLeague(), 
+                $game->getLocalClub(), $game->getVisitorClub());
+        if (empty($oldgame)) {
+            return true;
+        } else {
+            return $oldgame[0];            
+        }
+
+        //Check that local and visitor club:
+        //  * has not been played in other game in same league and round
     }
 
     public function editAction($gameid, Request $request) 

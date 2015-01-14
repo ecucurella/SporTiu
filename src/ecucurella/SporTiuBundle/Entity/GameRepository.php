@@ -68,4 +68,22 @@ class GameRepository extends EntityRepository
         return $query->execute();
     }
 
+    //Check that this game:
+    //  * has not been played before in same league
+    public function findGameByLeagueAndClubs($league, $localclub, $visitorclub)
+    {
+        $dql = "SELECT g FROM ecucurellaSporTiuBundle:Game g,
+                ecucurellaSporTiuBundle:Round r 
+                WHERE r.league = :league  
+                AND g.localclub = :localclub
+                AND g.visitorclub = :visitorclub
+                AND g.round = r.id";
+
+        $query = $this->getEntityManager()->createQuery($dql);
+        $query->setParameter('league', $league);
+        $query->setParameter('localclub', $localclub);
+        $query->setParameter('visitorclub', $visitorclub);
+        return $query->execute();
+    }
+
 }

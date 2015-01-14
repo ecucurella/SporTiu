@@ -33,6 +33,20 @@
 		{% endif %}
 		</div>
 	</div>
+	{% if error is defined %}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="alert alert-warning" role="alert">Game <strong>{{ error.localclub.name }}</strong> versus <strong>{{ error.visitorclub.name }}</strong> was <strong>{{ error.gamestate|lower }}</strong> in round <strong>{{ error.round.name }}</strong> on <strong>{{ error.gamedate|date('d-m-Y') }}</strong>. You can't add it again !!</div>
+		</div>
+	</div>
+	{% endif %}
+	{% if added is defined %}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="alert alert-success" role="alert">Game <strong>{{ added.localclub.name }}</strong> versus <strong>{{ added.visitorclub.name }}</strong> is <strong>{{ added.gamestate|lower }}</strong> in round <strong>{{ added.round.name }}</strong> on <strong>{{ added.gamedate|date('d-m-Y H:i') }}</strong> correctly !!</div>
+		</div>
+	</div>
+	{% endif %}
 	<div class="row">
 		<div class="col-md-3"><h3>{{ form_label(form.localclub) }}</h3></div>
 		<div class="col-md-3"><h3>{{ form_label(form.visitorclub) }}</h3></div>
